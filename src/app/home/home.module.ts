@@ -8,6 +8,7 @@ import { HeroHeaderComponent } from './components/hero-header/hero-header.compon
 import { LatestWorksComponent } from './components/latest-works/latest-works.component';
 import { ProjectsComponent } from './components/projects/projects.component';
 import { AboutComponent } from './components/about/about.component';
+import { FooterComponent } from './components/footer/footer.component';
 
 
 @NgModule({
@@ -16,7 +17,8 @@ import { AboutComponent } from './components/about/about.component';
     HeroHeaderComponent,
     LatestWorksComponent,
     ProjectsComponent,
-    AboutComponent
+    AboutComponent,
+    FooterComponent
   ],
   imports: [
     CommonModule,
