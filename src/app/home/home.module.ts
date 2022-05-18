@@ -7,6 +7,7 @@ import { SharedModule } from '../shared/shared.module';
 import { HeroHeaderComponent } from './components/hero-header/hero-header.component';
 import { LatestWorksComponent } from './components/latest-works/latest-works.component';
 import { ProjectsComponent } from './components/projects/projects.component';
+import { AboutComponent } from './components/about/about.component';
 
 
 @NgModule({
@@ -14,7 +15,8 @@ import { ProjectsComponent } from './components/projects/projects.component';
     HomeComponent,
     HeroHeaderComponent,
     LatestWorksComponent,
-    ProjectsComponent
+    ProjectsComponent,
+    AboutComponent
   ],
   imports: [
     CommonModule,
