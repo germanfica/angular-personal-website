@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-hero-header',
@@ -8,6 +9,10 @@ import { Component, OnInit } from '@angular/core';
 export class HeroHeaderComponent implements OnInit {
 
   constructor() { }
+
+  ngAfterViewInit() {
+    particlesJS("particles-js", environment.particlesJSConfig);
+  }
 
   ngOnInit(): void {
   }
