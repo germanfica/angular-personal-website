@@ -1,1 +1,17 @@
 @import 'src/styles/headings';
+@import 'src/styles/variables';
+
+:host {
+    .box {
+        background-color: $blue-purple-color;
+        color: $white;
+    }
+
+    h2 {
+        padding-top: 40px;
+        font-weight: bold;
+        color: $white;
+        text-align: center !important;
+        padding-bottom: 40px;
+    }
+}
