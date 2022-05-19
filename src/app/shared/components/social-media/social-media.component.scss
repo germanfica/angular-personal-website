@@ -1,0 +1,29 @@
+@import 'src/styles/variables';
+
+:host {
+
+    /* DOTs */
+    .dot {
+        border-radius: 50%;
+        display: inline-block;
+        padding: 0.21em 0.35em;
+    }
+
+    .youtube {
+        background: #dd4b39;
+        color: $white;
+        padding-top: 6px;
+    }
+
+    .linkedin {
+        background: #007bb6;
+        color: $white;
+        padding-top: 6px;
+    }
+
+    .github {
+        background: #444444;
+        color: $white;
+        padding-top: 6px;
+    }
+}
