@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-rounded-button',
@@ -6,8 +6,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./rounded-button.component.scss']
 })
 export class RoundedButtonComponent implements OnInit {
+  @Input() text: String;
 
-  constructor() { }
+  constructor() {
+    this.text = "button";
+  }
 
   ngOnInit(): void {
   }

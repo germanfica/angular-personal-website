@@ -1,0 +1,33 @@
+.btn-solid,
+.btn-solid-dark {
+    letter-spacing: 1px;
+    display: inline-block;
+    background: #F61067;
+    color: #fff;
+    -webkit-transition: 0.2s;
+    -ms-transition: 0.2s;
+    -moz-transition: 0.2s;
+    -o-transition: 0.2s;
+    transition: 0.2s;
+    border: 1px solid #F61067;
+    font-weight: 600;
+    font-size: 0.75em;
+    text-align: center;
+    padding: 0.9375em 3.125em;
+}
+
+.btn-solid:focus,
+.btn-solid-dark:focus {
+    background: #F61067;
+}
+
+.btn-solid:hover,
+.btn-solid-dark:hover {
+    background: #e4095c;
+}
+
+.round {
+    border-radius: 35px;
+}
+
+button { cursor: pointer; }
