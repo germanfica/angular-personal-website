@@ -17,4 +17,17 @@ export class RoundedButtonComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  getColor(): string {
+    switch (this.color) {
+      case 'basic':
+        return 'btn-solid';
+      case 'primary':
+        return 'btn-solid';
+      case 'secondary':
+        return 'btn-solid-secondary';
+      default:
+        return 'btn-solid';
+    }
+  }
+
 }

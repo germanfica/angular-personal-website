@@ -1,33 +1,70 @@
-.btn-solid,
-.btn-solid-dark {
-    letter-spacing: 1px;
-    display: inline-block;
-    background: #F61067;
-    color: #fff;
-    -webkit-transition: 0.2s;
-    -ms-transition: 0.2s;
-    -moz-transition: 0.2s;
-    -o-transition: 0.2s;
-    transition: 0.2s;
-    border: 1px solid #F61067;
-    font-weight: 600;
-    font-size: 0.75em;
-    text-align: center;
-    padding: 0.9375em 3.125em;
-}
+@import 'src/styles/variables';
 
-.btn-solid:focus,
-.btn-solid-dark:focus {
-    background: #F61067;
-}
+:host {
+    // == primary-color ==
+    .btn-solid,
+    .btn-solid-dark {
+        letter-spacing: 1px;
+        display: inline-block;
+        background: $primary-color;
+        color: $white;
+        -webkit-transition: 0.2s;
+        -ms-transition: 0.2s;
+        -moz-transition: 0.2s;
+        -o-transition: 0.2s;
+        transition: 0.2s;
+        border: 1px solid $primary-color;
+        font-weight: 600;
+        font-size: 0.75em;
+        text-align: center;
+        padding: 0.9375em 3.125em;
+    }
 
-.btn-solid:hover,
-.btn-solid-dark:hover {
-    background: #e4095c;
-}
+    .btn-solid:focus,
+    .btn-solid-dark:focus {
+        background: $primary-color;
+    }
 
-.round {
-    border-radius: 35px;
-}
+    .btn-solid:hover,
+    .btn-solid-dark:hover {
+        background: $primary-dark-color;
+    }
 
-button { cursor: pointer; }
+    // == secondary-color ==
+    .btn-solid-secondary,
+    .btn-solid-secondary-dark {
+        letter-spacing: 1px;
+        display: inline-block;
+        background: $secondary-color;
+        color: $white;
+        -webkit-transition: 0.2s;
+        -ms-transition: 0.2s;
+        -moz-transition: 0.2s;
+        -o-transition: 0.2s;
+        transition: 0.2s;
+        border: 1px solid $secondary-color;
+        font-weight: 600;
+        font-size: 0.75em;
+        text-align: center;
+        padding: 0.9375em 3.125em;
+    }
+
+    .btn-solid-secondary:focus,
+    .btn-solid-secondary-dark:focus {
+        background: $secondary-color;
+    }
+
+    .btn-solid-secondary:hover,
+    .btn-solid-secondary-dark:hover {
+        background: $secondary-dark-color;
+    }
+
+    // == extras ==
+    .round {
+        border-radius: 35px;
+    }
+
+    button {
+        cursor: pointer;
+    }
+}
