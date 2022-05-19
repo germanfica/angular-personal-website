@@ -1,1 +1,22 @@
 @import 'src/styles/headings';
+@import 'src/styles/variables';
+
+:host {
+    .box {
+        background-color: $blue-purple-color;
+        color: $white;
+    }
+
+    h1 {
+        padding-top: 40px;
+    }
+
+    .inner-box {
+        background-color: $haiti-color;
+    }
+
+    .content {
+        padding-top: 40px;
+        padding-bottom: 40px;
+    }
+}
