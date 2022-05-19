@@ -3,6 +3,14 @@ import { CommonModule } from '@angular/common';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { RoundedButtonComponent } from './components/rounded-button/rounded-button.component';
 import { SocialMediaComponent } from './components/social-media/social-media.component';
+import { NgxBootstrapIconsModule } from 'ngx-bootstrap-icons';
+import { github, linkedin, youtube } from 'ngx-bootstrap-icons';
+// Select some icons (use an object, not an array)
+const icons = {
+  github,
+  linkedin,
+  youtube
+};
 
 
 
@@ -18,7 +26,8 @@ import { SocialMediaComponent } from './components/social-media/social-media.com
     SocialMediaComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    NgxBootstrapIconsModule.pick(icons)
   ]
 })
 export class SharedModule { }
