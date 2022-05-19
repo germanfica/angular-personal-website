@@ -1,3 +1,4 @@
+import { ViewportScroller } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { environment } from 'src/environments/environment';
 
@@ -8,13 +9,17 @@ import { environment } from 'src/environments/environment';
 })
 export class HeroHeaderComponent implements OnInit {
 
-  constructor() { }
+  constructor(private scroller: ViewportScroller) { }
 
   ngAfterViewInit() {
     particlesJS("particles-js", environment.particlesJSConfig);
   }
 
   ngOnInit(): void {
+  }
+
+  goLatestWorks() {
+    this.scroller.scrollToAnchor("latest-works");
   }
 
 }
