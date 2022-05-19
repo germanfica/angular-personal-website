@@ -6,9 +6,11 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./rounded-button.component.scss']
 })
 export class RoundedButtonComponent implements OnInit {
+  @Input() color: String;
   @Input() text: String;
 
   constructor() {
+    this.color = "basic";
     this.text = "button";
   }
 
