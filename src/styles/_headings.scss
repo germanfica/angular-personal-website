@@ -1,0 +1,21 @@
+.title {
+    position: relative;
+    padding: 0 0 0px;
+    font-weight: bold;
+}
+
+.title:before {
+    width: 75px;
+    height: 6px;
+    content: "";
+    position: absolute;
+    //bottom: 0;
+    bottom: -10px;
+    left: 50%;
+    background-color: #F61067;
+    transform: translateX(-50%);
+}
+
+.text-center {
+    text-align: center !important
+}
