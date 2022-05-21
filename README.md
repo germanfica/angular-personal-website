@@ -1,5 +1,7 @@
 # Personal
 
+![preview](https://user-images.githubusercontent.com/15948693/169632902-e37919f8-4ced-47f2-aa61-03e918edf289.png)
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.3.2.
 
 ## Development server
