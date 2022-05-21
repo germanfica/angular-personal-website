@@ -6,6 +6,7 @@ import { SocialMediaComponent } from './components/social-media/social-media.com
 import { NgxBootstrapIconsModule } from 'ngx-bootstrap-icons';
 import { github, linkedin, youtube } from 'ngx-bootstrap-icons';
 import { PreviewCardComponent } from './components/preview-card/preview-card.component';
+import { ContactFormComponent } from './components/contact-form/contact-form.component';
 // Select some icons (use an object, not an array)
 const icons = {
   github,
@@ -20,13 +21,15 @@ const icons = {
     NavbarComponent,
     RoundedButtonComponent,
     SocialMediaComponent,
-    PreviewCardComponent
+    PreviewCardComponent,
+    ContactFormComponent
   ],
   exports: [
     NavbarComponent,
     RoundedButtonComponent,
     SocialMediaComponent,
-    PreviewCardComponent
+    PreviewCardComponent,
+    ContactFormComponent
   ],
   imports: [
     CommonModule,
