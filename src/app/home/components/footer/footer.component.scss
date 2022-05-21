@@ -5,6 +5,7 @@
     .box {
         background-color: $blue-purple-color;
         color: $white;
+        padding-bottom: 60px;
     }
 
     h2 {
@@ -13,5 +14,79 @@
         color: $white;
         text-align: center !important;
         padding-bottom: 40px;
+    }
+
+    .flex-footer {
+        /*Flexbox for containers*/
+        display: flex;
+        //justify-content: center;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+    }
+
+    .flex-footer {
+        /*Flexbox for containers*/
+        display: flex;
+        //justify-content: center;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+    }
+
+    .flex-social {
+        /*Flexbox for containers*/
+        display: flex;
+        //justify-content: center;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        flex-direction: column;
+    }
+
+    .computer {
+        padding-right: 5%;
+    }
+
+    .keyboard {
+        padding-left: 5%;
+    }
+
+    .contact-button {
+        padding-bottom: 50px;
+    }
+
+    .social-media {
+
+    }
+
+    /*Shrinking for mobile*/
+    @media (max-width: 768px) {
+        .flex-footer {
+
+            //display: inline;
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        .flex-social {
+            /*Flexbox for containers*/
+            display: flex;
+            //justify-content: center;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            flex-direction: column;
+        }
+
+        .computer {
+            //padding-bottom: 20px;
+            display: none;
+        }
+
+        .keyboard {
+            display: none;
+        }
     }
 }
