@@ -16,11 +16,11 @@ export class PreviewCardComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  getAlignImageLeft(): string {
-    return this.alignImage == "left" ? 'show' : 'hide';
+  isAlignImageLeft(): boolean {
+    return this.alignImage == "left" ? true : false;
   }
 
-  getAlignImageRight(): string {
-    return this.alignImage == "right" ? 'show' : 'hide';
+  isAlignImageRight(): boolean {
+    return this.alignImage == "right" ? true : false;
   }
 }

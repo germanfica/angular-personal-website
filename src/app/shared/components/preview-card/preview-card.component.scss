@@ -8,7 +8,7 @@
 
     .card-img-left {
         margin-right: 2rem;
-        display: none;
+        //display: none;
     }
 
     .card-img-right {
@@ -34,13 +34,5 @@
         padding: 2rem;
         //width: 25rem;
         box-shadow: 0 0 16px 0 rgba(0, 0, 0, 0.2) !important;
-    }
-
-    .hide {
-        display: none;
-    }
-
-    .show {
-        display: inline-block;
     }
 }

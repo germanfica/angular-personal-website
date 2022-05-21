@@ -1,5 +1,5 @@
 <div class="card project-card">
-    <img class="card-img-left" [ngClass]="getAlignImageLeft()" src="assets/svg/example2.svg" alt="" width="200px" height="200px">
+    <img *ngIf="isAlignImageLeft()" class="card-img-left" src="assets/svg/example2.svg" alt="" width="200px" height="200px">
     <div>
         <h2>Project name</h2>
         <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quas vel provident explicabo ullam temporibus quos
@@ -8,5 +8,5 @@
             impedit odit laudantium blanditiis!</p>
         <app-rounded-button text="View project" color="secondary"></app-rounded-button>
     </div>
-    <img class="card-img-right" [ngClass]="getAlignImageRight()" src="assets/svg/example2.svg" alt="" width="200px" height="200px">
+    <img *ngIf="isAlignImageRight()" class="card-img-right" src="assets/svg/example2.svg" alt="" width="200px" height="200px">
 </div>
