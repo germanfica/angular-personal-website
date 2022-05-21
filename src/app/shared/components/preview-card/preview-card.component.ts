@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-preview-card',
@@ -7,9 +7,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PreviewCardComponent implements OnInit {
 
-  constructor() { }
+  @Input() alignImage: string;
+
+  constructor() {
+    this.alignImage = "right";
+  }
 
   ngOnInit(): void {
   }
 
+  getAlignImageLeft(): string {
+    return this.alignImage == "left" ? 'show' : 'hide';
+  }
+
+  getAlignImageRight(): string {
+    return this.alignImage == "right" ? 'show' : 'hide';
+  }
 }
