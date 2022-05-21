@@ -5,6 +5,7 @@ import { RoundedButtonComponent } from './components/rounded-button/rounded-butt
 import { SocialMediaComponent } from './components/social-media/social-media.component';
 import { NgxBootstrapIconsModule } from 'ngx-bootstrap-icons';
 import { github, linkedin, youtube } from 'ngx-bootstrap-icons';
+import { PreviewCardComponent } from './components/preview-card/preview-card.component';
 // Select some icons (use an object, not an array)
 const icons = {
   github,
@@ -18,12 +19,14 @@ const icons = {
   declarations: [
     NavbarComponent,
     RoundedButtonComponent,
-    SocialMediaComponent
+    SocialMediaComponent,
+    PreviewCardComponent
   ],
   exports: [
     NavbarComponent,
     RoundedButtonComponent,
-    SocialMediaComponent
+    SocialMediaComponent,
+    PreviewCardComponent
   ],
   imports: [
     CommonModule,
