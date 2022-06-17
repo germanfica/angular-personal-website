@@ -1,1 +1,37 @@
 <p>contact-form works!</p>
+
+<button>X</button>
+
+<h1>Let's Talk!</h1>
+
+<form [formGroup]="form" (ngSubmit)="save($event)">
+    <!-- Name -->
+    <div>
+        <label>Name</label>
+        <input formControlName="name" placeholder="Your name">
+    </div>
+
+    <!-- Email -->
+    <div>
+        <label>Email</label>
+        <input formControlName="email" placeholder="Your email address">
+    </div>
+
+    <!-- Subject -->
+    <div>
+        <label>Subject</label>
+        <input formControlName="subject" placeholder="Your subject">
+    </div>
+
+    <!-- Message -->
+    <div>
+        <label>Message</label>
+        <textarea formControlName="message" placeholder="Your message"></textarea>
+    </div>
+
+    <div>
+        <button [disabled]="form.invalid" type="submit">
+            Send request
+        </button>
+    </div>
+</form>
