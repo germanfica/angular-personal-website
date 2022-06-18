@@ -1,33 +1,48 @@
 <p>contact-form works!</p>
 
-<button>X</button>
+<!-- Trigger/Open The Modal -->
+<button id="myBtn" (click)="open()">Let's talk!</button>
 
-<h1>Let's Talk!</h1>
+<!-- The Modal -->
 
-<form action="https://formsubmit.co/f2db53c11d51bd3ebb880cd35dbf6006" method="POST">
-    <!-- Name -->
-    <div>
-        <label>Name</label>
-        <input placeholder="Your name" type="text" name="name" required>
+<ng-container *ngIf="isVisible">
+    <!-- [ngClass]="navClass" -->
+    <div id="myModal" class="modal">
+
+        <!-- Modal content -->
+        <div class="modal-content">
+            <span class="close" (click)="close()">&times;</span>
+            <button (click)="close()">X</button>
+
+            <h1>Let's Talk!</h1>
+
+            <form action="https://formsubmit.co/f2db53c11d51bd3ebb880cd35dbf6006" method="POST">
+                <!-- Name -->
+                <div>
+                    <label>Name</label>
+                    <input placeholder="Your name" type="text" name="name" required>
+                </div>
+
+                <!-- Email -->
+                <div>
+                    <label>Email</label>
+                    <input placeholder="Your email address" type="email" name="email" required>
+                </div>
+
+                <!-- Subject -->
+                <div>
+                    <label>Subject</label>
+                    <input placeholder="Your subject" type="text" name="subject" required>
+                </div>
+
+                <!-- Message -->
+                <div>
+                    <label>Message</label>
+                    <textarea placeholder="Your message" name="message" required></textarea>
+                </div>
+
+                <button type="submit">Send request</button>
+            </form>
+        </div>
     </div>
-
-    <!-- Email -->
-    <div>
-        <label>Email</label>
-        <input placeholder="Your email address" type="email" name="email" required>
-    </div>
-
-    <!-- Subject -->
-    <div>
-        <label>Subject</label>
-        <input placeholder="Your subject" type="text" name="subject" required>
-    </div>
-
-    <!-- Message -->
-    <div>
-        <label>Message</label>
-        <textarea placeholder="Your message" name="message" required></textarea>
-    </div>
-
-    <button type="submit">Send request</button>
-</form>
+</ng-container>
