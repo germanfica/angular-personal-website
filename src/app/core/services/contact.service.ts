@@ -20,11 +20,7 @@ export class ContactService {
   */
   sendContact(contact: Contact) {
     // Add parameters
-    let params: HttpParams = new HttpParams()
-      .set('name', contact.name)
-      .set('email', contact.email)
-      .set('subject', contact.subject)
-      .set('message', contact.message);
+    let params: HttpParams = new HttpParams();
 
     // Add options
     const options = { params: params };
