@@ -19,22 +19,22 @@
             <form [formGroup]="form" (ngSubmit)="save($event)">
                 <!-- Name -->
                 <div class="input">
-                    <input formControlName="name" type="text" class="input-field" required />
+                    <input formControlName="name" type="text" class="input-field" name="name" required />
                     <label placeholder="Your name" class="input-label">Name</label>
                 </div>
                 <!-- Email -->
                 <div class="input">
-                    <input formControlName="email" type="text" class="input-field" required />
+                    <input formControlName="email" type="text" class="input-field" name="email" required />
                     <label placeholder="Your email address" class="input-label">Email</label>
                 </div>
                 <!-- Subject -->
                 <div class="input">
-                    <input formControlName="subject" type="text" class="input-field" required />
+                    <input formControlName="subject" type="text" class="input-field" name="subject" required />
                     <label placeholder="Your subject" class="input-label">Subject</label>
                 </div>
                 <!-- Message -->
                 <div class="input">
-                    <textarea formControlName="message" type="text" class="input-field" required></textarea>
+                    <textarea formControlName="message" type="text" class="input-field" name="message" required></textarea>
                     <label placeholder="Your message" class="input-label">Message</label>
                 </div>
                 <!-- Send request -->
