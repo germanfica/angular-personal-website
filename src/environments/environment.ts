@@ -4,9 +4,6 @@
 
 export const environment = {
   production: false,
-  api: {
-    contact: 'https://formsubmit.co/f2db53c11d51bd3ebb880cd35dbf6006'
-  },
   particlesJSConfig: {
     "particles": {
       "number": {

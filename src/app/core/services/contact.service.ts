@@ -1,9 +1,9 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Contact } from '@core/models/contact';
-import { environment } from 'src/environments/environment';
+import { api } from 'src/environments/environment.api';
 
-const API_URL: string = `${environment.api.contact}`;
+const API_URL: string = `${api.contact}`;
 
 @Injectable({
   providedIn: 'root'
