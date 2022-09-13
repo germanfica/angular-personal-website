@@ -59,6 +59,36 @@
         background: $secondary-dark-color;
     }
 
+    // == disabled-color ==
+    .btn-disabled,
+    .btn-disabled-dark {
+        letter-spacing: 1px;
+        display: inline-block;
+        background: $disabled-color;
+        color: $white;
+        -webkit-transition: 0.2s;
+        -ms-transition: 0.2s;
+        -moz-transition: 0.2s;
+        -o-transition: 0.2s;
+        transition: 0.2s;
+        border: 1px solid $disabled-color;
+        font-weight: 600;
+        font-size: 0.75em;
+        text-align: center;
+        padding: 0.9375em 3.125em;
+        cursor: not-allowed;
+    }
+
+    .btn-disabled:focus,
+    .btn-disabled-dark:focus {
+        background: $disabled-color;
+    }
+
+    .btn-disabled:hover,
+    .btn-disabled-dark:hover {
+        background: $disabled-color;
+    }
+
     // == extras ==
     .round {
         border-radius: 35px;

@@ -8,6 +8,7 @@ import { Component, Input, OnInit } from '@angular/core';
 export class RoundedButtonComponent implements OnInit {
   @Input() color: String;
   @Input() text: String;
+  @Input() disabled: boolean = false;
 
   constructor() {
     this.color = "basic";
@@ -18,6 +19,7 @@ export class RoundedButtonComponent implements OnInit {
   }
 
   getColor(): string {
+    if(this.disabled) return 'btn-disabled';
     switch (this.color) {
       case 'basic':
         return 'btn-solid';
