@@ -8,6 +8,7 @@ import { github, linkedin, youtube } from 'ngx-bootstrap-icons';
 import { PreviewCardComponent } from './components/preview-card/preview-card.component';
 import { ContactFormComponent } from './components/contact-form/contact-form.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { ContactCardComponent } from './components/contact-card/contact-card.component';
 // Select some icons (use an object, not an array)
 const icons = {
   github,
@@ -23,7 +24,8 @@ const icons = {
     RoundedButtonComponent,
     SocialMediaComponent,
     PreviewCardComponent,
-    ContactFormComponent
+    ContactFormComponent,
+    ContactCardComponent
   ],
   exports: [
     NavbarComponent,

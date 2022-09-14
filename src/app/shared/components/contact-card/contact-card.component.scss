@@ -1,0 +1,28 @@
+:host {
+    .center {
+        display: flex;
+        justify-content: center;
+    }
+
+    .box {
+        //background-color: yellowgreen;
+        //height: 850px;
+        width: 700px;
+        flex-direction: column;
+        display: flex;
+        justify-content: flex-end;
+    }
+
+    .inner-box {
+        //background-color: gold;
+        color:black;
+        background-color: #fff;
+        //height: 850px;
+        //width: 700px;
+        padding: 90px;
+        // flex-direction: column;
+        // display: flex;
+        // justify-content: flex-end;
+    }
+
+}
