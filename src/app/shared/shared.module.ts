@@ -10,6 +10,7 @@ import { ContactFormComponent } from './components/contact-form/contact-form.com
 import { ReactiveFormsModule } from '@angular/forms';
 import { ContactCardComponent } from './components/contact-card/contact-card.component';
 import { InputFieldComponent } from './components/input-field/input-field.component';
+import { TextareaFieldComponent } from './components/textarea-field/textarea-field.component';
 // Select some icons (use an object, not an array)
 const icons = {
   github,
@@ -27,7 +28,8 @@ const icons = {
     PreviewCardComponent,
     ContactFormComponent,
     ContactCardComponent,
-    InputFieldComponent
+    InputFieldComponent,
+    TextareaFieldComponent
   ],
   exports: [
     NavbarComponent,
