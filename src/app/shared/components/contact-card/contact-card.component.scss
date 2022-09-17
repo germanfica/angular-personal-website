@@ -19,10 +19,15 @@
         background-color: #fff;
         //height: 850px;
         //width: 700px;
-        padding: 90px;
+        padding: 0px 90px 0px 90px;
         // flex-direction: column;
         // display: flex;
         // justify-content: flex-end;
     }
 
+    h1 {
+        position: relative;
+        padding: 0 0 0px;
+        font-weight: bold;
+    }
 }
