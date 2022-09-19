@@ -7,7 +7,7 @@ import { NgxBootstrapIconsModule } from 'ngx-bootstrap-icons';
 import { github, linkedin, youtube } from 'ngx-bootstrap-icons';
 import { PreviewCardComponent } from './components/preview-card/preview-card.component';
 import { ContactFormComponent } from './components/contact-form/contact-form.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ContactCardComponent } from './components/contact-card/contact-card.component';
 import { InputFieldComponent } from './components/input-field/input-field.component';
 import { TextareaFieldComponent } from './components/textarea-field/textarea-field.component';
@@ -41,7 +41,8 @@ const icons = {
   imports: [
     CommonModule,
     NgxBootstrapIconsModule.pick(icons),
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    FormsModule
   ]
 })
 export class SharedModule { }

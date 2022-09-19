@@ -1,4 +1,12 @@
+@import 'src/styles/variables';
+
 :host {
+
+    /* Custom textarea  style*/
+    textarea {
+        resize: vertical;
+        min-height: 62px;
+    }
 
     /* Custom input label  style*/
     .input-label {
@@ -9,6 +17,12 @@
         -o-transition: all 0.3s;
         -webkit-transition: all 0.3s;
         transition: all 0.3s;
+        padding-bottom: 10px;
+    }
+
+    input[type="text"]:disabled {
+        background: $disabled-color;
+        color: $disabled-color;
     }
 
     /* Custom input field style */
@@ -17,6 +31,8 @@
         flex-direction: column-reverse;
         position: relative;
         padding-top: 10px;
+        margin-top: 10px;
+        min-height: 32px;
     }
 
     .input+.input {

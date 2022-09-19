@@ -1,4 +1,5 @@
 <div class="input">
-    <input formControlName="name" type="text" class="input-field" name="name" required />
-    <label placeholder="Your name" class="input-label">Name</label>
+    <input [disabled]="disable" *ngIf="type=='input'" [(ngModel)]="value" type="text" class="input-field" name="name" required />
+    <textarea *ngIf="type=='textarea'" [(ngModel)]="value" type="text" class="input-field" name="message" required></textarea>
+    <label class="input-label">{{label}}</label>
 </div>

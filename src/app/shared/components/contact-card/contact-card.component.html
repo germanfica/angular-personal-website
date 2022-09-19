@@ -19,8 +19,15 @@
             <p>This is the content of the contact card.</p>
 
             <form>
-                <app-input-field></app-input-field>
-                <app-textarea-field></app-textarea-field>
+                <app-input-field [type]="'input'" [label]="'Name'"></app-input-field>
+                <app-input-field [type]="'input'" [label]="'Email'"></app-input-field>
+                <app-input-field [type]="'input'" [label]="'Subject'"></app-input-field>
+                <app-input-field [type]="'textarea'" [label]="'Message'"></app-input-field>
+                <!-- <app-input-field [type]="'textarea'"></app-input-field> -->
+                <!-- Send request -->
+                <div class="contact-button">
+                    <app-rounded-button type="submit" text="Send request"></app-rounded-button>
+                </div>
             </form>
         </div>
 
