@@ -1,4 +1,7 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ContactService } from '@core/services/contact.service';
+import { catchError } from 'rxjs';
 
 @Component({
   selector: 'app-contact-card',
@@ -6,12 +9,13 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
   styleUrls: ['./contact-card.component.scss']
 })
 export class ContactCardComponent implements OnInit {
-
+  form: FormGroup = {} as FormGroup;
   @Output() onClose: EventEmitter<any> = new EventEmitter();
 
-  constructor() { }
+  constructor(private formBuilder: FormBuilder, private contactService: ContactService) { }
 
   ngOnInit(): void {
+    this.buildForm();
   }
 
   close(): void {
@@ -19,4 +23,40 @@ export class ContactCardComponent implements OnInit {
     console.log("CLOSE.");
   }
 
+  save(event: Event) {
+    console.log("Hi");
+    console.log(this.form.value['name']);
+    event.preventDefault();
+    if (this.form.invalid) return;
+
+    this.contactService.sendContact(
+      {
+        name: this.form.value['name'],
+        email: this.form.value['email'],
+        subject: this.form.value['subject'],
+        message: this.form.value['message']
+      }
+    )
+      //Let's use a pipe to catch the error.
+      .pipe(
+        catchError((err, caught) => {
+          throw err;
+          return caught; // loop -> don't use it
+        })
+      )
+      .subscribe(contact => {
+        console.log(contact);
+        console.log("Contact sended!");
+      });
+    console.log("Hii!!");
+  }
+
+  private buildForm() {
+    this.form = this.formBuilder.group({
+      name: ['', [Validators.required]],
+      email: ['', [Validators.required]],
+      subject: ['', [Validators.required]],
+      message: ['', [Validators.required]]
+    });
+  }
 }

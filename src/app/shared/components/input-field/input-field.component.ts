@@ -59,4 +59,8 @@ export class InputFieldComponent implements OnInit, ControlValueAccessor {
 
   ngOnInit(): void {
   }
+
+  change(value: any): void {
+    this.onChange(value);
+  }
 }
