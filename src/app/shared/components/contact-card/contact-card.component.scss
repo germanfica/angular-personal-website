@@ -15,7 +15,7 @@
 
     .inner-box {
         //background-color: gold;
-        color:black;
+        color: black;
         background-color: #fff;
         //height: 850px;
         //width: 700px;
@@ -33,5 +33,20 @@
 
     .contact-button {
         margin-top: 10px;
+    }
+
+    /* The Close Button */
+    .close {
+        color: #aaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+    }
+
+    .close:hover,
+    .close:focus {
+        color: black;
+        text-decoration: none;
+        cursor: pointer;
     }
 }
