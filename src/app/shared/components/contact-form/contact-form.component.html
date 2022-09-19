@@ -1,47 +1,11 @@
-<p>contact-form works!</p>
-
 <!-- Trigger/Open The Modal -->
 <button id="myBtn" (click)="open()">Let's talk!</button>
 
 <!-- The Modal -->
-
 <ng-container *ngIf="isVisible">
     <!-- [ngClass]="navClass" -->
     <div id="myModal" class="modal">
-
         <!-- Modal content -->
-        <div class="modal-content">
-            <span class="close" (click)="close()">&times;</span>
-            <button (click)="close()">X</button>
-
-            <h1>Let's Talk!</h1>
-
-            <form [formGroup]="form" (ngSubmit)="save($event)">
-                <!-- Name -->
-                <div class="input">
-                    <input formControlName="name" type="text" class="input-field" name="name" required />
-                    <label placeholder="Your name" class="input-label">Name</label>
-                </div>
-                <!-- Email -->
-                <div class="input">
-                    <input formControlName="email" type="text" class="input-field" name="email" required />
-                    <label placeholder="Your email address" class="input-label">Email</label>
-                </div>
-                <!-- Subject -->
-                <div class="input">
-                    <input formControlName="subject" type="text" class="input-field" name="subject" required />
-                    <label placeholder="Your subject" class="input-label">Subject</label>
-                </div>
-                <!-- Message -->
-                <div class="input">
-                    <textarea formControlName="message" type="text" class="input-field" name="message" required></textarea>
-                    <label placeholder="Your message" class="input-label">Message</label>
-                </div>
-                <!-- Send request -->
-                <app-rounded-button [disabled]="form.invalid" type="submit" class="contact-button" text="Send request"></app-rounded-button>
-            </form>
-        </div>
+        <app-contact-card (onClose)="close()"></app-contact-card>
     </div>
 </ng-container>
-
-<app-contact-card></app-contact-card>
