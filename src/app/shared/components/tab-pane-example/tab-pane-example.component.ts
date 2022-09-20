@@ -17,7 +17,7 @@ export class Pane implements OnInit {
     // console.table(this.el.nativeElement.textContent);
     // console.table(this.el.nativeElement.outerHTML);
     console.log(this.el.nativeElement.textContent); // Return the text content of an element:
-    this.textContent = this.el.nativeElement.textContent
+    this.textContent = this.el.nativeElement.textContent;
   }
 }
 
