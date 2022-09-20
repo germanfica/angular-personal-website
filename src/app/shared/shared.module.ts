@@ -10,6 +10,7 @@ import { ContactFormComponent } from './components/contact-form/contact-form.com
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ContactCardComponent } from './components/contact-card/contact-card.component';
 import { InputFieldComponent } from './components/input-field/input-field.component';
+import { ContentChildrenComp, Pane, Tab } from './components/tab-pane-example/tab-pane-example.component';
 // Select some icons (use an object, not an array)
 const icons = {
   github,
@@ -28,6 +29,9 @@ const icons = {
     ContactFormComponent,
     ContactCardComponent,
     InputFieldComponent,
+    Pane,
+    Tab,
+    ContentChildrenComp
   ],
   exports: [
     NavbarComponent,
