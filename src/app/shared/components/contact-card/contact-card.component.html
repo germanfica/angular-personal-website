@@ -23,7 +23,9 @@
                 <app-input-field formControlName="name" [type]="'input'" [label]="'Name'">
                     <label appHint>Name is required</label>
                 </app-input-field>
-                <app-input-field formControlName="email" [type]="'input'" [label]="'Email'"></app-input-field>
+                <app-input-field formControlName="email" [type]="'input'" [label]="'Email'">
+                    <label appError>Email is required</label>
+                </app-input-field>
                 <app-input-field formControlName="subject" [type]="'input'" [label]="'Subject'"></app-input-field>
                 <app-input-field formControlName="message" [type]="'textarea'" [label]="'Message'"></app-input-field>
                 <!-- <app-input-field [type]="'textarea'"></app-input-field> -->

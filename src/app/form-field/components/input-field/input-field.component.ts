@@ -1,5 +1,6 @@
 import { Component, ContentChildren, ElementRef, forwardRef, Input, OnInit, QueryList, Renderer2 } from '@angular/core';
 import { ControlValueAccessor, FormBuilder, FormGroup, NG_VALUE_ACCESSOR, Validators } from '@angular/forms';
+import { ErrorDirective } from '@app/form-field/directives/error.directive';
 import { HintDirective } from '@app/form-field/directives/hint.directive';
 
 /** Possible types for the input field. */
@@ -26,6 +27,7 @@ export class InputFieldComponent implements OnInit, ControlValueAccessor {
   @Input() type: InputFieldType = 'input';
   @Input() label: string = 'Default Label';
   @ContentChildren(HintDirective, { descendants: true }) private arbitraryNestedHintDirectives!: QueryList<HintDirective>;
+  @ContentChildren(ErrorDirective, { descendants: true }) private arbitraryNestedErrorDirectives!: QueryList<ErrorDirective>;
 
   constructor(
     private _elementRef: ElementRef,
@@ -66,7 +68,10 @@ export class InputFieldComponent implements OnInit, ControlValueAccessor {
     this.onChange(value);
   }
 
-  get serializedNestedTextContent(): string {
+  get serializedNestedHintTextContent(): string {
     return this.arbitraryNestedHintDirectives ? this.arbitraryNestedHintDirectives.map(p => p.textContent).join(', ') : '';
+  }
+  get serializedNestedErrorTextContent(): string {
+    return this.arbitraryNestedErrorDirectives ? this.arbitraryNestedErrorDirectives.map(p => p.textContent).join(', ') : '';
   }
 }
