@@ -65,4 +65,23 @@
         -webkit-transform: translateY(-25px);
         transform: translateY(-25px);
     }
+
+    /* message section */
+    .message-section {
+        display: flex;
+        flex-direction: column;
+    }
+
+    /* Hint */
+    .hint {
+        font-size: .75rem;
+        padding-top: 3px;
+    }
+
+    /* Error */
+    .error {
+        font-size: .75rem;
+        color: #f44336;
+        padding-top: 3px;
+    }
 }

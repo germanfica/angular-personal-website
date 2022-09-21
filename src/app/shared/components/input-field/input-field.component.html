@@ -3,3 +3,7 @@
     <textarea *ngIf="type=='textarea'" [(ngModel)]="value" (input)="change(value)" type="text" class="input-field" name="message" required></textarea>
     <label class="input-label">{{label}}</label>
 </div>
+<div class="message-section">
+    <label class="hint">Email is required</label>
+    <label class="error">Email is required</label>
+</div>
