@@ -20,7 +20,9 @@
             <p>This is the content of the contact card.</p>
 
             <form [formGroup]="form" (ngSubmit)="save($event)">
-                <app-input-field formControlName="name" [type]="'input'" [label]="'Name'"></app-input-field>
+                <app-input-field formControlName="name" [type]="'input'" [label]="'Name'">
+                    <label appHint>Name is required</label>
+                </app-input-field>
                 <app-input-field formControlName="email" [type]="'input'" [label]="'Email'"></app-input-field>
                 <app-input-field formControlName="subject" [type]="'input'" [label]="'Subject'"></app-input-field>
                 <app-input-field formControlName="message" [type]="'textarea'" [label]="'Message'"></app-input-field>

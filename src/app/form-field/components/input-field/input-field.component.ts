@@ -1,5 +1,6 @@
-import { Component, ElementRef, forwardRef, Input, OnInit, Renderer2 } from '@angular/core';
+import { Component, ContentChildren, ElementRef, forwardRef, Input, OnInit, QueryList, Renderer2 } from '@angular/core';
 import { ControlValueAccessor, FormBuilder, FormGroup, NG_VALUE_ACCESSOR, Validators } from '@angular/forms';
+import { HintDirective } from '@app/form-field/directives/hint.directive';
 
 /** Possible types for the input field. */
 export declare type InputFieldType = 'input' | 'textarea';
@@ -24,6 +25,7 @@ export class InputFieldComponent implements OnInit, ControlValueAccessor {
   disable: boolean = false;
   @Input() type: InputFieldType = 'input';
   @Input() label: string = 'Default Label';
+  @ContentChildren(HintDirective, { descendants: true }) private arbitraryNestedHintDirectives!: QueryList<HintDirective>;
 
   constructor(
     private _elementRef: ElementRef,
@@ -62,5 +64,9 @@ export class InputFieldComponent implements OnInit, ControlValueAccessor {
 
   change(value: any): void {
     this.onChange(value);
+  }
+
+  get serializedNestedTextContent(): string {
+    return this.arbitraryNestedHintDirectives ? this.arbitraryNestedHintDirectives.map(p => p.textContent).join(', ') : '';
   }
 }

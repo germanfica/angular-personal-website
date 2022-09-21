@@ -12,7 +12,9 @@ import { ErrorDirective } from './directives/error.directive';
     ErrorDirective,
   ],
   exports: [
-    InputFieldComponent
+    InputFieldComponent,
+    HintDirective,
+    ErrorDirective,
   ],
   imports: [
     CommonModule,
