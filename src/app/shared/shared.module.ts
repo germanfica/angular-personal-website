@@ -9,7 +9,7 @@ import { PreviewCardComponent } from './components/preview-card/preview-card.com
 import { ContactFormComponent } from './components/contact-form/contact-form.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ContactCardComponent } from './components/contact-card/contact-card.component';
-import { InputFieldComponent } from './components/input-field/input-field.component';
+import { FormFieldModule } from '@app/form-field/form-field.module';
 import { ContentChildrenComp, Pane, Tab } from './components/tab-pane-example/tab-pane-example.component';
 // Select some icons (use an object, not an array)
 const icons = {
@@ -28,23 +28,23 @@ const icons = {
     PreviewCardComponent,
     ContactFormComponent,
     ContactCardComponent,
-    InputFieldComponent,
     Pane,
     Tab,
-    ContentChildrenComp
+    ContentChildrenComp,
   ],
   exports: [
     NavbarComponent,
     RoundedButtonComponent,
     SocialMediaComponent,
     PreviewCardComponent,
-    ContactFormComponent
+    ContactFormComponent,
   ],
   imports: [
     CommonModule,
     NgxBootstrapIconsModule.pick(icons),
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    FormFieldModule,
   ]
 })
 export class SharedModule { }
