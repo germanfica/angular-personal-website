@@ -51,6 +51,15 @@ export class ContactCardComponent implements OnInit {
     console.log("Hii!!");
   }
 
+  get name() { return this.form.get('name'); }
+  get email() { return this.form.get('email'); }
+  get subject() { return this.form.get('subject'); }
+  get message() { return this.form.get('message'); }
+
+  isNameRequired(): boolean {
+    return this.name?.errors ? this.name?.errors?.['required'] : false;
+  }
+
   private buildForm() {
     this.form = this.formBuilder.group({
       name: ['', [Validators.required]],
