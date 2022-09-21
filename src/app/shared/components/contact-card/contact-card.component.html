@@ -21,13 +21,20 @@
 
             <form [formGroup]="form" (ngSubmit)="save($event)">
                 <app-input-field formControlName="name" [type]="'input'" [label]="'Name'">
-                    <label appHint>Name is required</label>
+                    <label appError *ngIf="this.name?.errors?.['required']">Name is required</label>
                 </app-input-field>
                 <app-input-field formControlName="email" [type]="'input'" [label]="'Email'">
-                    <label appError>Email is required</label>
+                    <label appError *ngIf="this.email?.errors?.['email'] && !this.email?.errors?.['required']">
+                        Please enter a valid email address
+                    </label>
+                    <label appError *ngIf="this.email?.errors?.['required']">Email is required</label>
                 </app-input-field>
-                <app-input-field formControlName="subject" [type]="'input'" [label]="'Subject'"></app-input-field>
-                <app-input-field formControlName="message" [type]="'textarea'" [label]="'Message'"></app-input-field>
+                <app-input-field formControlName="subject" [type]="'input'" [label]="'Subject'">
+                    <label appError *ngIf="this.subject?.errors?.['required']">Subject is required</label>
+                </app-input-field>
+                <app-input-field formControlName="message" [type]="'textarea'" [label]="'Message'">
+                    <label appError *ngIf="this.message?.errors?.['required']">Message is required</label>
+                </app-input-field>
                 <!-- <app-input-field [type]="'textarea'"></app-input-field> -->
                 <!-- Send request -->
                 <div class="contact-button">
