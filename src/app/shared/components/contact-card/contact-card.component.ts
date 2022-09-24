@@ -1,5 +1,5 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { ContactService } from '@core/services/contact.service';
 import { catchError } from 'rxjs';
 
@@ -9,10 +9,10 @@ import { catchError } from 'rxjs';
   styleUrls: ['./contact-card.component.scss']
 })
 export class ContactCardComponent implements OnInit {
-  form: FormGroup = {} as FormGroup;
+  form: UntypedFormGroup = {} as UntypedFormGroup;
   @Output() onClose: EventEmitter<any> = new EventEmitter();
 
-  constructor(private formBuilder: FormBuilder, private contactService: ContactService) { }
+  constructor(private formBuilder: UntypedFormBuilder, private contactService: ContactService) { }
 
   ngOnInit(): void {
     this.buildForm();
