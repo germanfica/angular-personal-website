@@ -1,5 +1,5 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ContactService } from '@core/services/contact.service';
 import { catchError } from 'rxjs';
 
@@ -9,10 +9,10 @@ import { catchError } from 'rxjs';
   styleUrls: ['./contact-card.component.scss']
 })
 export class ContactCardComponent implements OnInit {
-  form: UntypedFormGroup = {} as UntypedFormGroup;
+  form: FormGroup = {} as FormGroup;
   @Output() onClose: EventEmitter<any> = new EventEmitter();
 
-  constructor(private formBuilder: UntypedFormBuilder, private contactService: ContactService) { }
+  constructor(private formBuilder: FormBuilder, private contactService: ContactService) { }
 
   ngOnInit(): void {
     this.buildForm();
@@ -34,7 +34,8 @@ export class ContactCardComponent implements OnInit {
         name: this.form.value['name'],
         email: this.form.value['email'],
         subject: this.form.value['subject'],
-        message: this.form.value['message']
+        message: this.form.value['message'],
+        "g-recaptcha-response": this.form.value['recaptcha']
       }
     )
       //Let's use a pipe to catch the error.
@@ -65,7 +66,8 @@ export class ContactCardComponent implements OnInit {
       name: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
       subject: ['', [Validators.required]],
-      message: ['', [Validators.required]]
+      message: ['', [Validators.required]],
+      recaptcha: ['', [Validators.required]],
     });
   }
 }

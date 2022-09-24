@@ -1,4 +1,8 @@
 :host {
+    .ptb10 {
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
 
     /*For mobile*/
     @media (min-width: 500px) {}
@@ -20,11 +24,6 @@
         h1 {
             font-weight: bold;
             //padding-top: 20px;
-        }
-
-        .contact-button {
-            margin-top: 10px;
-            margin-bottom: 10px;
         }
 
         /* The Close Button */
@@ -72,10 +71,7 @@
             margin-bottom: 70px;
         }
 
-        .contact-button {
-            margin-top: 10px;
-            margin-bottom: 10px;
-        }
+
 
         /* Top and bottom of the card */
         .top-bg {

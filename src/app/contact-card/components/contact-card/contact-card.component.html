@@ -24,8 +24,12 @@
                     <label appHint *ngIf="this.message?.errors?.['required']">Message is required</label>
                 </app-input-field>
                 <!-- <app-input-field [type]="'textarea'"></app-input-field> -->
+                <!-- Angular reCAPTCHA v2 -->
+                <div class="ptb10">
+                    <re-captcha formControlName="recaptcha"></re-captcha>
+                </div>
                 <!-- Send request -->
-                <div class="contact-button">
+                <div class="ptb10">
                     <app-rounded-button [disabled]="form.invalid" type="submit" text="Send request">
                     </app-rounded-button>
                 </div>
