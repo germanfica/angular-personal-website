@@ -27,3 +27,37 @@ Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To u
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+
+## Angular basic settings
+
+Open `src/environments/environment.api.ts`
+
+```typescript
+export const api = {
+  production: true,
+  contact: 'https://submit-form.com/your-form-id',
+  recaptcha: {
+    siteKey: 'your-google-site-key',
+  }
+};
+```
+
+Open `src/environments/environment.api.prod.ts`
+
+```typescript
+export const api = {
+  production: true,
+  contact: 'https://submit-form.com/your-form-id',
+  recaptcha: {
+    siteKey: 'your-google-site-key',
+  }
+};
+```
+
+### Google reCAPTCHA v2
+
+You should configure Google reCAPTCHA v2: https://www.google.com/recaptcha.
+
+### Formspark reCAPTCHA
+
+You should create an account in formspark. Check the oficial documentation here: https://documentation.formspark.io/setup/spam-protection.html#recaptcha
