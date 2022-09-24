@@ -7,7 +7,6 @@ import { NgxBootstrapIconsModule } from 'ngx-bootstrap-icons';
 import { github, linkedin, youtube } from 'ngx-bootstrap-icons';
 import { PreviewCardComponent } from './components/preview-card/preview-card.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { ContactCardComponent } from './components/contact-card/contact-card.component';
 import { FormFieldModule } from '@app/form-field/form-field.module';
 import { ContentChildrenComp, Pane, Tab } from './components/tab-pane-example/tab-pane-example.component';
 // Select some icons (use an object, not an array)
@@ -25,7 +24,6 @@ const icons = {
     RoundedButtonComponent,
     SocialMediaComponent,
     PreviewCardComponent,
-    ContactCardComponent,
     Pane,
     Tab,
     ContentChildrenComp,
@@ -35,7 +33,6 @@ const icons = {
     RoundedButtonComponent,
     SocialMediaComponent,
     PreviewCardComponent,
-    ContactCardComponent,
     Pane,
     Tab,
     ContentChildrenComp,
