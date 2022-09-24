@@ -10,6 +10,7 @@ import { ProjectsComponent } from './components/projects/projects.component';
 import { AboutComponent } from './components/about/about.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { DialogModule } from '@app/dialog/dialog.module';
+import { ButtonModule } from '@app/button/button.module';
 
 
 @NgModule({
@@ -25,7 +26,8 @@ import { DialogModule } from '@app/dialog/dialog.module';
     CommonModule,
     HomeRoutingModule,
     SharedModule,
-    DialogModule
+    DialogModule,
+    ButtonModule
   ]
 })
 export class HomeModule { }

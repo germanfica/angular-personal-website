@@ -4,6 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FormFieldModule } from '@app/form-field/form-field.module';
 import { ContactCardComponent } from './components/contact-card/contact-card.component';
 import { SharedModule } from '@shared/shared.module';
+import { ButtonModule } from '@app/button/button.module';
 
 
 
@@ -19,7 +20,7 @@ import { SharedModule } from '@shared/shared.module';
     ReactiveFormsModule,
     FormsModule,
     FormFieldModule,
-    SharedModule
+    ButtonModule
   ]
 })
 export class ContactCardModule { }

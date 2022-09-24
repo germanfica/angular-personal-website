@@ -15,8 +15,8 @@ import { ContactCardModule } from '@app/contact-card/contact-card.module';
   ],
   imports: [
     CommonModule,
+    ContactCardModule,
     SharedModule,
-    ContactCardModule
   ]
 })
 export class DialogModule { }
