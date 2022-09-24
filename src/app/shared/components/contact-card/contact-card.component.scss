@@ -1,56 +1,135 @@
 :host {
-    .center {
-        display: flex;
-        justify-content: center;
+
+    /*For mobile*/
+    @media (min-width: 500px) {}
+
+    /*For mobile*/
+    @media (max-width: 768px) {
+        .center {
+            width: 100%;
+            height: 100%;
+            //background-color: yellowgreen;
+            background-color: #fff;
+        }
+
+        .inner-box {
+            color: black;
+            padding: 30px 30px 0px 30px;
+        }
+
+        h1 {
+            font-weight: bold;
+            //padding-top: 20px;
+        }
+
+        .contact-button {
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+
+        /* The Close Button */
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
     }
 
-    .box {
-        //background-color: yellowgreen;
-        //height: 850px;
-        width: 600px;
-        flex-direction: column;
-        display: flex;
-        justify-content: flex-end;
+    /*For desktop*/
+    @media (min-width: 769px) {
+        .center {
+            display: flex;
+            justify-content: center;
+        }
+
+        .box {
+            width: 600px;
+            flex-direction: column;
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .inner-box {
+            color: black;
+            background-color: #fff;
+            padding: 0px 70px 0px 70px;
+        }
+
+        h1 {
+            padding: 0 0 0px;
+            font-weight: bold;
+        }
+
+        .close-container {
+            margin-bottom: 70px;
+        }
+
+        .contact-button {
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+
+        /* Top and bottom of the card */
+        .top-bg {
+            height: 75px;
+
+            // object-fit: contain ;
+            // width: 100%;
+            // height: 250px;
+
+
+            display: block;
+            //background-color: #808;
+            background-image: url("data:image/svg+xml, %3Csvg xmlns='http://www.w3.org/2000/svg' preserveAspectRatio='none' viewBox='0 0 666 80' fill='none'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M0 80.243C0 61.7846 12.3437 45.5441 30.2237 40.9595C146.494 11.1467 240.169 0.0832615 333.5 0.000466476C427.154 -0.082615 520.463 10.9224 635.911 40.8912C653.726 45.5157 666 61.725 666 80.1306V121.5H0V80.243Z' fill='white' /%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            // background-size: cover;
+            background-position: bottom center, 50%, 50%;
+        }
+
+        .bottom-bg {
+            height: 110px;
+            //height: 100%;
+            display: block;
+            //background-color: #808;
+            background-image: url("data:image/svg+xml, %3Csvg xmlns='http://www.w3.org/2000/svg' preserveAspectRatio='none' viewBox='0 0 666 121' fill='none'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M0 0.0400699V66.8455C0 88.3599 16.6196 106.204 38.0869 107.627C108.221 112.276 257.588 121.541 334 121.541C410.31 121.541 558.263 112.3 627.95 107.646C649.406 106.213 666 88.3737 666 66.869V0.0400699H0Z' fill='white' /%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            // background-size: cover;
+            background-position: bottom center, 50%, 50%;
+        }
+
+        /* The Close Button */
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
     }
 
-    .inner-box {
-        //background-color: gold;
-        color: black;
-        background-color: #fff;
-        //height: 850px;
-        //width: 700px;
-        padding: 0px 70px 0px 70px;
-        // flex-direction: column;
-        // display: flex;
-        // justify-content: flex-end;
-    }
+    @media (max-width: 1024px) {}
 
-    h1 {
-        padding: 0 0 0px;
-        font-weight: bold;
-    }
+    @media (min-width: 1024px) {}
 
-    .close-container {
-        margin-bottom: 70px;
-    }
+    @media (max-width: 1200px) {}
 
-    .contact-button {
-        margin-top: 10px;
-        margin-bottom: 10px;
-    }
+    @media (min-width: 1200px) {}
 
-    /* The Close Button */
-    .close {
-        color: #aaa;
-        float: right;
-        font-size: 28px;
-        font-weight: bold;
-    }
+    @media (max-width: 1500px) {}
 
-    .close:hover,
-    .close:focus {
-        color: black;
-        text-decoration: none;
-        cursor: pointer;
-    }
+    @media (min-width: 1500px) {}
 }
