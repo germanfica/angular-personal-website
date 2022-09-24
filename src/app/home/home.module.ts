@@ -9,6 +9,7 @@ import { LatestWorksComponent } from './components/latest-works/latest-works.com
 import { ProjectsComponent } from './components/projects/projects.component';
 import { AboutComponent } from './components/about/about.component';
 import { FooterComponent } from './components/footer/footer.component';
+import { DialogModule } from '@app/dialog/dialog.module';
 
 
 @NgModule({
@@ -23,7 +24,8 @@ import { FooterComponent } from './components/footer/footer.component';
   imports: [
     CommonModule,
     HomeRoutingModule,
-    SharedModule
+    SharedModule,
+    DialogModule
   ]
 })
 export class HomeModule { }

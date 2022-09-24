@@ -6,7 +6,6 @@ import { SocialMediaComponent } from './components/social-media/social-media.com
 import { NgxBootstrapIconsModule } from 'ngx-bootstrap-icons';
 import { github, linkedin, youtube } from 'ngx-bootstrap-icons';
 import { PreviewCardComponent } from './components/preview-card/preview-card.component';
-import { ContactFormComponent } from './components/contact-form/contact-form.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ContactCardComponent } from './components/contact-card/contact-card.component';
 import { FormFieldModule } from '@app/form-field/form-field.module';
@@ -26,7 +25,6 @@ const icons = {
     RoundedButtonComponent,
     SocialMediaComponent,
     PreviewCardComponent,
-    ContactFormComponent,
     ContactCardComponent,
     Pane,
     Tab,
@@ -37,7 +35,10 @@ const icons = {
     RoundedButtonComponent,
     SocialMediaComponent,
     PreviewCardComponent,
-    ContactFormComponent,
+    ContactCardComponent,
+    Pane,
+    Tab,
+    ContentChildrenComp,
   ],
   imports: [
     CommonModule,
