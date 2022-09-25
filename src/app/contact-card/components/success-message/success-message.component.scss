@@ -1,0 +1,18 @@
+@import 'src/styles/variables';
+
+:host {
+    .box {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+    }
+
+    .mb25 {
+        margin-bottom: 25px;
+    }
+
+    .success {
+        color: $success-color;
+    }
+}
