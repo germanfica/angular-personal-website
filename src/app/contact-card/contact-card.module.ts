@@ -8,12 +8,15 @@ import { RecaptchaFormsModule, RecaptchaModule, RecaptchaSettings, RECAPTCHA_SET
 import { api } from 'src/environments/environment.api';
 import { MatDialogModule } from '@angular/material/dialog';
 import { SuccessMessageComponent } from './components/success-message/success-message.component';
+import { LoadingMessageComponent } from './components/loading-message/loading-message.component';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 
 @NgModule({
   declarations: [
     ContactCardComponent,
-    SuccessMessageComponent
+    SuccessMessageComponent,
+    LoadingMessageComponent
   ],
   exports: [
     ContactCardComponent
@@ -28,6 +31,7 @@ import { SuccessMessageComponent } from './components/success-message/success-me
     RecaptchaModule,
     RecaptchaFormsModule,
     MatDialogModule,
+    MatProgressSpinnerModule,
   ],
   providers: [
     {

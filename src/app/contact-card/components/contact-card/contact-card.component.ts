@@ -11,6 +11,7 @@ import { catchError } from 'rxjs';
 export class ContactCardComponent implements OnInit {
   form: FormGroup = {} as FormGroup;
   @Output() onClose: EventEmitter<any> = new EventEmitter();
+  loading: boolean = false;
   success: boolean = false;
   error: boolean = false;
 
@@ -30,6 +31,8 @@ export class ContactCardComponent implements OnInit {
     console.log(this.form.value['name']);
     event.preventDefault();
     if (this.form.invalid) return;
+    this.loading = true;
+    this.error = false;
 
     this.contactService.sendContact(
       {
@@ -43,6 +46,7 @@ export class ContactCardComponent implements OnInit {
       //Let's use a pipe to catch the error.
       .pipe(
         catchError((err, caught) => {
+          this.loading = false; //Let's remove the loading in error case
           this.error = true;
           throw err;
           return caught; // loop -> don't use it
@@ -51,6 +55,7 @@ export class ContactCardComponent implements OnInit {
       .subscribe(contact => {
         console.log(contact);
         console.log("Contact sended!");
+        this.loading = false; //Let's remove the loading in success case
         this.success = true;
       });
     console.log("Hii!!");

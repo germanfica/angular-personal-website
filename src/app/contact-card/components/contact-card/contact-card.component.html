@@ -11,8 +11,13 @@
                 <app-success-message></app-success-message>
             </ng-container>
 
+            <!-- Loading spinner -->
+            <div *ngIf="loading">
+                <app-loading-message></app-loading-message>
+            </div>
+
             <!-- Form -->
-            <ng-container *ngIf="!success">
+            <ng-container *ngIf="!success && !loading">
                 <h1>Let's Talk!</h1>
                 <p>This is the content of the contact card.</p>
 
