@@ -11,6 +11,7 @@ import { AboutComponent } from './components/about/about.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { DialogModule } from '@app/dialog/dialog.module';
 import { ButtonModule } from '@app/button/button.module';
+import { MatDialogModule } from '@angular/material/dialog';
 
 
 @NgModule({
@@ -27,7 +28,8 @@ import { ButtonModule } from '@app/button/button.module';
     HomeRoutingModule,
     SharedModule,
     DialogModule,
-    ButtonModule
+    ButtonModule,
+    MatDialogModule
   ]
 })
 export class HomeModule { }

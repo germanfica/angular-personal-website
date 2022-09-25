@@ -1,13 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { FormFieldModule } from '@app/form-field/form-field.module';
 import { ContactCardComponent } from './components/contact-card/contact-card.component';
 import { ButtonModule } from '@app/button/button.module';
-import { BrowserModule } from '@angular/platform-browser';
 import { RecaptchaFormsModule, RecaptchaModule, RecaptchaSettings, RECAPTCHA_SETTINGS } from 'ng-recaptcha';
 import { api } from 'src/environments/environment.api';
-
 
 
 @NgModule({
