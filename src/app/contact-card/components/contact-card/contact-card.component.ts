@@ -11,6 +11,8 @@ import { catchError } from 'rxjs';
 export class ContactCardComponent implements OnInit {
   form: FormGroup = {} as FormGroup;
   @Output() onClose: EventEmitter<any> = new EventEmitter();
+  success: boolean = false;
+  error: boolean = false;
 
   constructor(private formBuilder: FormBuilder, private contactService: ContactService) { }
 
@@ -41,6 +43,7 @@ export class ContactCardComponent implements OnInit {
       //Let's use a pipe to catch the error.
       .pipe(
         catchError((err, caught) => {
+          this.error = true;
           throw err;
           return caught; // loop -> don't use it
         })
@@ -48,6 +51,7 @@ export class ContactCardComponent implements OnInit {
       .subscribe(contact => {
         console.log(contact);
         console.log("Contact sended!");
+        this.success = true;
       });
     console.log("Hii!!");
   }

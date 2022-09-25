@@ -1,15 +1,21 @@
-
 <div class="center">
-    
+
     <div class="box">
-        
-            <div class="top-bg"></div>
-            <div class="inner-box">
-                <div class="close-container"><span mat-dialog-close class="close" (click)="close()">&times;</span></div>
-    
+
+        <div class="top-bg"></div>
+        <div class="inner-box">
+            <div class="close-container"><span mat-dialog-close class="close" (click)="close()">&times;</span></div>
+
+            <!-- Success message -->
+            <ng-container *ngIf="success && !error">
+                <app-success-message></app-success-message>
+            </ng-container>
+
+            <!-- Form -->
+            <ng-container *ngIf="!success">
                 <h1>Let's Talk!</h1>
                 <p>This is the content of the contact card.</p>
-    
+
                 <form [formGroup]="form" (ngSubmit)="save($event)">
                     <app-input-field formControlName="name" [type]="'input'" [label]="'Name'">
                         <label appHint *ngIf="this.name?.errors?.['required']">Name is required</label>
@@ -37,8 +43,8 @@
                         </app-rounded-button>
                     </div>
                 </form>
-            </div>
-            <div class="bottom-bg"></div>
+            </ng-container>
+        </div>
+        <div class="bottom-bg"></div>
     </div>
-
 </div>
