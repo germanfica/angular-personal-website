@@ -28,6 +28,33 @@ Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To u
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
 
+
+## Basic project dependencies
+
+- [@angular/material](https://material.angular.io/guide/getting-started)
+  - [docs](https://material.angular.io/components/categories)
+```bash
+ng add @angular/material
+```
+
+- [ngx-bootstrap-icons](https://www.npmjs.com/package/ngx-bootstrap-icons)
+  - [docs](https://avmaisak.github.io/ngx-bootstrap-icons/icons)
+```bash
+npm i ngx-bootstrap-icons
+```
+
+- [particles.js](https://www.npmjs.com/package/particles.js)
+  - [docs](https://github.com/VincentGarreau/particles.js)
+```bash
+npm i particles.js
+```
+
+- [ng-recaptcha](https://www.npmjs.com/package/ng-recaptcha)
+  - [docs](https://dethariel.github.io/ng-recaptcha/basic)
+```bash
+npm i ng-recaptcha
+```
+
 ## Basic project configuration
 
 Open `src/environments/environment.api.ts`
