@@ -28,6 +28,34 @@ Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To u
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
 
+## Shorten relative paths 🛣️
+
+Open `tsconfig.json`
+
+```JSON
+{
+   "compilerOptions":{
+      "baseUrl":"./",
+      "paths":{
+         "@shared/*":["src/app/shared/*"],
+         "@core/*":["src/app/core/*"],
+         "@util/*":["src/app/util/*"],
+         "@app/*":["src/app/*"]
+      }
+   }
+}
+```
+
+Example of use:
+
+```typescript
+import { CoreModule } from '@core/core.module';
+```
+
+```typescript
+import { SharedModule } from '@shared/shared.module';
+```
+
 ## Basic project dependencies
 
 - [@angular/material](https://material.angular.io/guide/getting-started)
