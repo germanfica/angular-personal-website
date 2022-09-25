@@ -64,25 +64,27 @@ Open `angular.json`
       "personal":{
          "architect":{
             "build":{
-               "styles":[
-                  "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
-                  "src/styles.scss"
-               ],
-               "scripts":[
-                  "node_modules/particles.js/particles.js"
-               ]
-            },
-            "configurations":{
-               "fileReplacements":[
-                  {
-                     "replace":"src/environments/environment.ts",
-                     "with":"src/environments/environment.prod.ts"
-                  },
-                  {
-                     "replace":"src/environments/environment.api.ts",
-                     "with":"src/environments/environment.api.prod.ts"
-                  }
-               ]
+               "options":{
+                  "styles":[
+                     "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
+                     "src/styles.scss"
+                  ],
+                  "scripts":[
+                     "node_modules/particles.js/particles.js"
+                  ]
+               },
+               "configurations":{
+                  "fileReplacements":[
+                     {
+                        "replace":"src/environments/environment.ts",
+                        "with":"src/environments/environment.prod.ts"
+                     },
+                     {
+                        "replace":"src/environments/environment.api.ts",
+                        "with":"src/environments/environment.api.prod.ts"
+                     }
+                  ]
+               }
             }
          }
       }
