@@ -6,6 +6,7 @@ import { ContactCardComponent } from './components/contact-card/contact-card.com
 import { ButtonModule } from '@app/button/button.module';
 import { RecaptchaFormsModule, RecaptchaModule, RecaptchaSettings, RECAPTCHA_SETTINGS } from 'ng-recaptcha';
 import { api } from 'src/environments/environment.api';
+import { MatDialogModule } from '@angular/material/dialog';
 
 
 @NgModule({
@@ -24,6 +25,7 @@ import { api } from 'src/environments/environment.api';
     // FormsModule,
     RecaptchaModule,
     RecaptchaFormsModule,
+    MatDialogModule,
   ],
   providers: [
     {
