@@ -10,13 +10,15 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { SuccessMessageComponent } from './components/success-message/success-message.component';
 import { LoadingMessageComponent } from './components/loading-message/loading-message.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { ErrorMessageComponent } from './components/error-message/error-message.component';
 
 
 @NgModule({
   declarations: [
     ContactCardComponent,
     SuccessMessageComponent,
-    LoadingMessageComponent
+    LoadingMessageComponent,
+    ErrorMessageComponent
   ],
   exports: [
     ContactCardComponent
