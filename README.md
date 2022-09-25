@@ -28,7 +28,6 @@ Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To u
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
 
-
 ## Basic project dependencies
 
 - [@angular/material](https://material.angular.io/guide/getting-started)
@@ -54,6 +53,44 @@ npm i particles.js
 ```bash
 npm i ng-recaptcha
 ```
+
+## Angular.json
+
+Open `angular.json`
+
+```JSON
+{
+   "projects":{
+      "personal":{
+         "architect":{
+            "build":{
+               "styles":[
+                  "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
+                  "src/styles.scss"
+               ],
+               "scripts":[
+                  "node_modules/particles.js/particles.js"
+               ]
+            },
+            "configurations":{
+               "fileReplacements":[
+                  {
+                     "replace":"src/environments/environment.ts",
+                     "with":"src/environments/environment.prod.ts"
+                  },
+                  {
+                     "replace":"src/environments/environment.api.ts",
+                     "with":"src/environments/environment.api.prod.ts"
+                  }
+               ]
+            }
+         }
+      }
+   }
+}
+```
+
+Note: Keep in mind that this project uses the `Angular Material Dialog`, so you need to add the *Angular material prebuilt-themes* `"./node_modules/@angular/material/prebuilt-themes/indigo-pink.css"` line. If you are not going to use Angular material you can remove it and easily replace it with your own custom `Dialog`.
 
 ## Basic project configuration
 
