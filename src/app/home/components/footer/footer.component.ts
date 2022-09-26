@@ -16,7 +16,7 @@ export class FooterComponent implements OnInit {
 
   openDialog() {
     const dialogRef = this.dialog.open(ContactCardComponent, {
-      height: '890px',
+      height: '100%',
       width: '654px',
     });
 
