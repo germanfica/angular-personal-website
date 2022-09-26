@@ -24,7 +24,8 @@
             <!-- Form -->
             <ng-container *ngIf="!success && !loading">
                 <h1>Let's Talk!</h1>
-                <p>This is the content of the contact card.</p>
+                <p>I will get back to you within one to two days through email. Also, please don't forget to check your
+                    spam account, just in case!</p>
 
                 <form [formGroup]="form" (ngSubmit)="save($event)">
                     <app-input-field formControlName="name" [type]="'input'" [label]="'Name'">
