@@ -28,19 +28,23 @@
                     spam account, just in case!</p>
 
                 <form [formGroup]="form" (ngSubmit)="save($event)">
-                    <app-input-field formControlName="name" [type]="'input'" [label]="'Name'">
+                    <app-input-field formControlName="name" [type]="'input'"
+                        [label]="this.name?.errors?.['required'] ? 'Name*' : 'Name'">
                         <label appHint *ngIf="this.name?.errors?.['required']">Name is required</label>
                     </app-input-field>
-                    <app-input-field formControlName="email" [type]="'input'" [label]="'Email'">
+                    <app-input-field formControlName="email" [type]="'input'"
+                        [label]="(this.email?.errors?.['email'] && !this.email?.errors?.['required']) || this.email?.errors?.['required'] ? 'Email*' : 'Email'">
                         <label appError *ngIf="this.email?.errors?.['email'] && !this.email?.errors?.['required']">
                             Please enter a valid email address
                         </label>
                         <label appHint *ngIf="this.email?.errors?.['required']">Email is required</label>
                     </app-input-field>
-                    <app-input-field formControlName="subject" [type]="'input'" [label]="'Subject'">
+                    <app-input-field formControlName="subject" [type]="'input'"
+                        [label]="this.subject?.errors?.['required'] ? 'Subject*' : 'Subject'">
                         <label appHint *ngIf="this.subject?.errors?.['required']">Subject is required</label>
                     </app-input-field>
-                    <app-input-field formControlName="message" [type]="'textarea'" [label]="'Message'">
+                    <app-input-field formControlName="message" [type]="'textarea'"
+                        [label]="this.message?.errors?.['required'] ? 'Message*' : 'Message'">
                         <label appHint *ngIf="this.message?.errors?.['required']">Message is required</label>
                     </app-input-field>
                     <!-- <app-input-field [type]="'textarea'"></app-input-field> -->
