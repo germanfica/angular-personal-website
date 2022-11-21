@@ -5,7 +5,7 @@ import { HomeRoutingModule } from './home-routing.module';
 import { HomeComponent } from './components/home/home.component';
 import { SharedModule } from '../shared/shared.module';
 import { HeroHeaderComponent } from './components/hero-header/hero-header.component';
-import { LatestWorksComponent } from './components/latest-works/latest-works.component';
+import { LatestProjectsComponent } from './components/latest-projects/latest-projects.component';
 import { ProjectsComponent } from './components/projects/projects.component';
 import { AboutComponent } from './components/about/about.component';
 import { FooterComponent } from './components/footer/footer.component';
@@ -18,7 +18,7 @@ import { MatDialogModule } from '@angular/material/dialog';
   declarations: [
     HomeComponent,
     HeroHeaderComponent,
-    LatestWorksComponent,
+    LatestProjectsComponent,
     ProjectsComponent,
     AboutComponent,
     FooterComponent
