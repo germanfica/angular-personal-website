@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { NavbarComponent } from './components/navbar/navbar.component';
 import { SocialMediaComponent } from './components/social-media/social-media.component';
 import { NgxBootstrapIconsModule } from 'ngx-bootstrap-icons';
 import { github, linkedin, youtube } from 'ngx-bootstrap-icons';
@@ -20,7 +19,6 @@ const icons = {
 
 @NgModule({
   declarations: [
-    NavbarComponent,
     SocialMediaComponent,
     PreviewCardComponent,
     Pane,
@@ -28,7 +26,6 @@ const icons = {
     ContentChildrenComp,
   ],
   exports: [
-    NavbarComponent,
     SocialMediaComponent,
     PreviewCardComponent,
     Pane,
