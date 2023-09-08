@@ -5,6 +5,10 @@ src/environments/environment.api.ts
 src/environments/environment.api.prod.ts
 projects.json
 
+# Utils
+CombineStagedGitDiffToOutput.ps1
+output.txt
+
 # Compiled output
 /dist
 /tmp
