@@ -3,7 +3,12 @@ import { CommonModule } from '@angular/common';
 import { LayoutComponent } from './components/layout/layout.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { RouterModule } from '@angular/router';
-
+import { NgxBootstrapIconsModule } from 'ngx-bootstrap-icons';
+import { list } from 'ngx-bootstrap-icons';
+// Select some icons (use an object, not an array)
+const icons = {
+  list
+};
 
 
 @NgModule({
@@ -13,7 +18,8 @@ import { RouterModule } from '@angular/router';
   ],
   imports: [
     CommonModule,
-    RouterModule
+    RouterModule,
+    NgxBootstrapIconsModule.pick(icons),
   ]
 })
 export class LayoutModule { }

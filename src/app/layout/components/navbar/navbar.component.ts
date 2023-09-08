@@ -6,10 +6,17 @@ import { Component, OnInit, Input } from '@angular/core';
   styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent implements OnInit {
-  @Input() isSticky: boolean = false;  // Open/Closed Principle
+  @Input() isSticky: boolean = true;
+
+  menuActive: boolean = false;
 
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  toggleMenu(): void {
+    console.log("toggleMenu!");
+    this.menuActive = !this.menuActive;
   }
 }
