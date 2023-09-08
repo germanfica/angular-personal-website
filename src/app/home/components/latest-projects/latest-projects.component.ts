@@ -34,10 +34,10 @@ export class LatestProjectsComponent implements OnInit {
    */
   private getLatestProjects(projects: Project[]): Project[] {
     // Sort by date, most recent first
-    const sortedProjects = projects.sort((a, b) => 
+    const sortedProjects = projects.sort((a, b) =>
       new Date(b.date).getTime() - new Date(a.date).getTime()
     );
-    
+
     // Take the first 3 items
     return sortedProjects.slice(0, 3);
   }
