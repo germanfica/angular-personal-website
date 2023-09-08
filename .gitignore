@@ -3,6 +3,7 @@
 # Sensitive data
 src/environments/environment.api.ts
 src/environments/environment.api.prod.ts
+projects.json
 
 # Compiled output
 /dist

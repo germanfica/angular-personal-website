@@ -1,7 +1,17 @@
 <h1>Projects</h1>
 
-<div class="items">
-    <app-preview-card></app-preview-card>
-    <app-preview-card></app-preview-card>
-    <app-preview-card></app-preview-card>
+<div *ngIf="projects.length > 0; else noProjects">
+  <div class="items">
+    <app-preview-card *ngFor="let project of projects"
+                      [title]="project.name"
+                      [content]="project.content"
+                      (buttonClicked)="doSomething(project.id)">
+    </app-preview-card>
+  </div>
 </div>
+
+<ng-template #noProjects>
+  <div class="no-projects">
+    <p>No hay proyectos cargados.</p>
+  </div>
+</ng-template>

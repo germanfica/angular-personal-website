@@ -122,6 +122,76 @@ Open `angular.json`
 
 Note: Keep in mind that this project uses the `Angular Material Dialog`, so you need to add the *Angular material prebuilt-themes* `"./node_modules/@angular/material/prebuilt-themes/indigo-pink.css"` line. If you are not going to use Angular material you can remove it and easily replace it with your own custom `Dialog`.
 
+## projects.json
+
+The `projects.json` file is crucial for displaying projects on your application. If this file is not present or is improperly configured, no projects will appear. Make sure to place this JSON file in the `assets/json/` directory.
+
+#### Important note
+
+By default, the `projects.json` file is ignored in the `.gitignore` file. This is a recommended practice for several reasons:
+
+1. **Prevent Accidental Exposure**: Although `projects.json` should not contain sensitive information, it is ignored by default to ensure that if sensitive data is mistakenly added, it won't be saved in the Git history.
+  
+2. **Environment Specific**: Sometimes, you may have a different set of projects for development, staging, and production environments. Keeping this file out of version control allows you to maintain different versions of the file for each environment.
+
+3. **Flexibility**: Ignoring the file allows developers to have their own local versions for testing and development, without conflicting with others.
+
+⚠️ **Caution**: Since `projects.json` will be publicly accessible, make sure not to include any sensitive or confidential information in it.
+
+If you wish to include `projects.json` in your version control system, make sure to remove it from `.gitignore`.
+
+#### File structure
+
+The `projects.json` file should contain an array of project objects. Each object should have the following fields:
+
+- `id`: A unique identifier for each project.
+- `author`: The name of the author of the project.
+- `name`: The name of the project.
+- `content`: A description or any other details about the project.
+- `date`: The date when the project was created, formatted as a string in ISO 8601 date format.
+- `modified`: The date when the project was last modified, also in ISO 8601 date format.
+
+#### Example `projects.json`
+
+Here is an example `projects.json` file:
+
+```json
+[
+    {
+        "id": 1,
+        "author": "John Doe",
+        "name": "Project 1",
+        "content": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quas vel provident explicabo ullam temporibus quos suscipit distinctio laboriosam, dignissimos placeat voluptatem repellendus quo. Repudiandae consectetur soluta, impedit odit laudantium blanditiis!",
+        "date": "2023-01-10T12:00:00.000Z",
+        "modified": "2023-01-15T12:00:00.000Z"
+    },
+    {
+        "id": 2,
+        "author": "Jane Doe",
+        "name": "Project 2",
+        "content": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quas vel provident explicabo ullam temporibus quos suscipit distinctio laboriosam, dignissimos placeat voluptatem repellendus quo. Repudiandae consectetur soluta, impedit odit laudantium blanditiis!",
+        "date": "2023-02-20T12:00:00.000Z",
+        "modified": "2023-02-22T12:00:00.000Z"
+    },
+    {
+        "id": 3,
+        "author": "Bob Smith",
+        "name": "Project 3",
+        "content": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quas vel provident explicabo ullam temporibus quos suscipit distinctio laboriosam, dignissimos placeat voluptatem repellendus quo. Repudiandae consectetur soluta, impedit odit laudantium blanditiis!",
+        "date": "2023-04-01T12:00:00.000Z",
+        "modified": "2023-04-03T12:00:00.000Z"
+    },
+    {
+        "id": 4,
+        "author": "Alice Johnson",
+        "name": "Project 4",
+        "content": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quas vel provident explicabo ullam temporibus quos suscipit distinctio laboriosam, dignissimos placeat voluptatem repellendus quo. Repudiandae consectetur soluta, impedit odit laudantium blanditiis!",
+        "date": "2023-06-15T12:00:00.000Z",
+        "modified": "2023-06-18T12:00:00.000Z"
+    }
+]
+```
+
 ## Basic project configuration
 
 Open `src/environments/environment.api.ts`

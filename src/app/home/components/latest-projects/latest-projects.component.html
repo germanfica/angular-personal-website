@@ -1,7 +1,17 @@
 <h1>Latest projects</h1>
+
 <!-- It is recommended to add only 3 cards here -->
-<div class="items">
-    <app-preview-card></app-preview-card>
-    <app-preview-card alignImage="left"></app-preview-card>
-    <app-preview-card></app-preview-card>
+<div class="items" *ngIf="latestProjects.length > 0; else noProjects">
+  <app-preview-card 
+    *ngFor="let project of latestProjects; let i = index"
+    [title]="project.name"
+    [content]="project.content"
+    [alignImage]="i % 2 === 0 ? 'right' : 'left'">
+  </app-preview-card>
 </div>
+
+<ng-template #noProjects>
+  <div class="no-projects">
+    <p>No hay proyectos recientes.</p>
+  </div>
+</ng-template>

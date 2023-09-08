@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-preview-card',
@@ -7,20 +7,25 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class PreviewCardComponent implements OnInit {
 
-  @Input() alignImage: string;
+  @Input() alignImage: string = 'right';
+  @Input() title: string = '';
+  @Input() content: string = '';
+  @Output() buttonClicked = new EventEmitter<void>();
 
-  constructor() {
-    this.alignImage = "right";
-  }
+  constructor() { }
 
   ngOnInit(): void {
   }
 
   isAlignImageLeft(): boolean {
-    return this.alignImage == "left" ? true : false;
+    return this.alignImage === 'left';
   }
 
   isAlignImageRight(): boolean {
-    return this.alignImage == "right" ? true : false;
+    return this.alignImage === 'right';
+  }
+
+  onButtonClick(): void {
+    this.buttonClicked.emit();
   }
 }
