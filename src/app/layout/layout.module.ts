@@ -5,6 +5,7 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { RouterModule } from '@angular/router';
 import { NgxBootstrapIconsModule } from 'ngx-bootstrap-icons';
 import { list } from 'ngx-bootstrap-icons';
+import { ContactCardModule } from '@app/contact-card/contact-card.module';
 // Select some icons (use an object, not an array)
 const icons = {
   list
@@ -20,6 +21,7 @@ const icons = {
     CommonModule,
     RouterModule,
     NgxBootstrapIconsModule.pick(icons),
+    ContactCardModule,
   ]
 })
 export class LayoutModule { }
