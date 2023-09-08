@@ -8,6 +8,7 @@ import { Component, OnInit, Input, HostListener } from '@angular/core';
 })
 export class NavbarComponent implements OnInit {
   @Input() isSticky: boolean = true;
+  @Input() navbarStyle: 'transparent' | 'colored' = 'transparent';
 
   menuActive: boolean = false;
 

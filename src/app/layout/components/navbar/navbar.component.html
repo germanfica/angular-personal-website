@@ -1,4 +1,5 @@
-<nav [ngClass]="{'sticky': isSticky, 'static': !isSticky}">
+<nav
+    [ngClass]="{'sticky': isSticky, 'static': !isSticky, 'transparent': navbarStyle === 'transparent', 'colored': navbarStyle === 'colored'}">
     <div class="container">
         <a href="#" class="logo">MyLogo</a>
         <button class="menu-toggle menu-button" (click)="toggleMenu()">
