@@ -13,7 +13,7 @@ import { Subscription } from 'rxjs';
 })
 export class NavbarComponent implements OnInit, OnDestroy {
   isSticky: boolean = true;
-  navbarStyle: 'transparent' | 'colored' = 'transparent';
+  navbarStyle: 'transparent' | 'colored-pos-abs' | 'colored' = 'transparent';
   menuActive: boolean = false;
 
   private sub!: Subscription;

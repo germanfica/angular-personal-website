@@ -5,7 +5,7 @@ import { BehaviorSubject } from 'rxjs';
   providedIn: 'root'
 })
 export class NavbarService {
-  private _navbarState = new BehaviorSubject<{ isSticky: boolean, navbarStyle: 'transparent' | 'colored' }>({
+  private _navbarState = new BehaviorSubject<{ isSticky: boolean, navbarStyle: 'transparent' | 'colored-pos-abs' | 'colored' }>({
     isSticky: true,
     navbarStyle: 'transparent'
   });
@@ -14,7 +14,7 @@ export class NavbarService {
 
   constructor() { }
 
-  updateNavbarState(state: { isSticky: boolean, navbarStyle: 'transparent' | 'colored' }) {
+  updateNavbarState(state: { isSticky: boolean, navbarStyle: 'transparent' | 'colored-pos-abs' | 'colored' }) {
     this._navbarState.next(state);
   }
 }

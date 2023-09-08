@@ -1,5 +1,5 @@
 <nav
-    [ngClass]="{'sticky': isSticky, 'static': !isSticky, 'transparent': navbarStyle === 'transparent', 'colored': navbarStyle === 'colored'}">
+    [ngClass]="{'sticky': isSticky, 'static': !isSticky, 'transparent': navbarStyle === 'transparent', 'colored': navbarStyle === 'colored', 'colored-pos-abs': navbarStyle === 'colored-pos-abs'}">
     <div class="container">
         <a routerLink="/home" class="logo">MyLogo</a>
         <button class="menu-toggle menu-button" (click)="toggleMenu()">

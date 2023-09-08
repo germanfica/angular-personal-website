@@ -12,7 +12,7 @@ export class PageNotFoundComponent implements OnInit {
   constructor(private router: Router, private navbarService: NavbarService) { }
 
   ngOnInit(): void {
-    this.navbarService.updateNavbarState({ isSticky: false, navbarStyle: 'colored' });
+    this.navbarService.updateNavbarState({ isSticky: false, navbarStyle: 'colored-pos-abs' });
   }
 
   back(): void {
