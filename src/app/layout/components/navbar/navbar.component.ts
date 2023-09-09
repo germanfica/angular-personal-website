@@ -69,8 +69,10 @@ export class NavbarComponent implements OnInit, OnDestroy {
       width: '654px',
     });
 
-    dialogRef.afterClosed().subscribe(result => {
+    const dialogRefSub = dialogRef.afterClosed().subscribe(result => {
       console.log(`Dialog result: ${result}`);
     });
+
+    this.sub.add(dialogRefSub);
   }
 }

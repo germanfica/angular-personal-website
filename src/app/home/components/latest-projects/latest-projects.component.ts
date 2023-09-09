@@ -1,13 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ProjectsService } from '@core/services/projects.service';
 import { Project } from '@core/models/project';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-latest-projects',
   templateUrl: './latest-projects.component.html',
   styleUrls: ['./latest-projects.component.scss']
 })
-export class LatestProjectsComponent implements OnInit {
+export class LatestProjectsComponent implements OnInit, OnDestroy {
+  private subscription: Subscription = new Subscription(); // Mantener un registro de las suscripciones para evitar efectos secundarios
   latestProjects: Project[] = [];
 
   constructor(private projectsService: ProjectsService) { }
@@ -16,13 +18,19 @@ export class LatestProjectsComponent implements OnInit {
     this.fetchAndSetLatestProjects();
   }
 
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();  // Desuscribe todas las suscripciones
+  }
+
   /**
    * Fetch all projects, sort them by date, and set the latest three
    */
   private fetchAndSetLatestProjects(): void {
-    this.projectsService.getAllProjects().subscribe(projects => {
+    const projectsServiceSubscription = this.projectsService.getAllProjects().subscribe(projects => {
       this.latestProjects = this.getLatestProjects(projects);
     });
+
+    this.subscription.add(projectsServiceSubscription);  // Agrega esta suscripción para desuscribirse luego
   }
 
   /**

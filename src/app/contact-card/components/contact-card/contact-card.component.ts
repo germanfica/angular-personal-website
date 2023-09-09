@@ -1,14 +1,15 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ContactService } from '@core/services/contact.service';
-import { catchError } from 'rxjs';
+import { Subscription, catchError } from 'rxjs';
 
 @Component({
   selector: 'app-contact-card',
   templateUrl: './contact-card.component.html',
   styleUrls: ['./contact-card.component.scss']
 })
-export class ContactCardComponent implements OnInit {
+export class ContactCardComponent implements OnInit, OnDestroy {
+  private subscription: Subscription = new Subscription(); // Mantener un registro de las suscripciones
   form: FormGroup = {} as FormGroup;
   @Output() onClose: EventEmitter<any> = new EventEmitter();
   loading: boolean = false;
@@ -19,6 +20,10 @@ export class ContactCardComponent implements OnInit {
 
   ngOnInit(): void {
     this.buildForm();
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();  // Desuscribe todas las suscripciones
   }
 
   close(): void {
@@ -34,7 +39,7 @@ export class ContactCardComponent implements OnInit {
     this.loading = true;
     this.error = false;
 
-    this.contactService.sendContact(
+    const contactSubscription = this.contactService.sendContact(
       {
         name: this.form.value['name'],
         email: this.form.value['email'],
@@ -59,6 +64,8 @@ export class ContactCardComponent implements OnInit {
         this.success = true;
       });
     console.log("Hii!!");
+    this.subscription.add(contactSubscription);  // Agrega esta suscripción para desuscribirse luego
+
   }
 
   get name() { return this.form.get('name'); }
