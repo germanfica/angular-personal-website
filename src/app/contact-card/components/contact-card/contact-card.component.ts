@@ -1,5 +1,6 @@
 import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatDialogRef } from '@angular/material/dialog';
 import { ContactService } from '@core/services/contact.service';
 import { Subscription, catchError } from 'rxjs';
 
@@ -16,10 +17,25 @@ export class ContactCardComponent implements OnInit, OnDestroy {
   success: boolean = false;
   error: boolean = false;
 
-  constructor(private formBuilder: FormBuilder, private contactService: ContactService) { }
+  constructor(private formBuilder: FormBuilder, private contactService: ContactService, public dialogRef: MatDialogRef<ContactCardComponent>) {
+    dialogRef.backdropClick().subscribe(() => {
+      console.log('Haz clickeado fuera del dialogo');
+      // Aquí puedes hacer algo si el usuario hace clic fuera del diálogo
+      sessionStorage.setItem("contactForm", JSON.stringify(this.form.value));
+    });
+
+    dialogRef.keydownEvents().subscribe(event => {
+      if (event.key === 'Escape') {
+        console.log('Presionaste la tecla Escape');
+        // Aquí puedes hacer algo si el usuario presiona la tecla Escape
+        sessionStorage.setItem("contactForm", JSON.stringify(this.form.value));
+      }
+    });
+  }
 
   ngOnInit(): void {
     this.buildForm();
+    this.populateFormFromSession();
   }
 
   ngOnDestroy(): void {
@@ -27,7 +43,9 @@ export class ContactCardComponent implements OnInit, OnDestroy {
   }
 
   close(): void {
-    this.onClose.emit();
+    sessionStorage.setItem("contactForm", JSON.stringify(this.form.value));
+    console.table(this.form.value);
+    //this.onClose.emit();
     console.log("CLOSE.");
   }
 
@@ -38,6 +56,8 @@ export class ContactCardComponent implements OnInit, OnDestroy {
     if (this.form.invalid) return;
     this.loading = true;
     this.error = false;
+
+    sessionStorage.setItem("contactForm", JSON.stringify(this.form.value));
 
     const contactSubscription = this.contactService.sendContact(
       {
@@ -85,5 +105,13 @@ export class ContactCardComponent implements OnInit, OnDestroy {
       message: ['', [Validators.required]],
       recaptcha: ['', [Validators.required]],
     });
+  }
+
+  private populateFormFromSession() {
+    const sessionData = JSON.parse(sessionStorage.getItem("contactForm") || "{}");
+    console.table(sessionData);
+    if (sessionData) {
+      this.form.setValue(sessionData);
+    }
   }
 }
