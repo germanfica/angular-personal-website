@@ -79,7 +79,7 @@ export class ContactCardComponent implements OnInit, OnDestroy {
       email: ['', [Validators.required, Validators.email]],
       subject: ['', [Validators.required]],
       message: ['', [Validators.required]],
-      //recaptcha: ['', [Validators.required]], // Not required since the form control is added dynamically in enableRecaptcha()
+      //recaptcha: ['', [Validators.required]], // Not required since the recaptcha control is added dynamically in enableRecaptcha()
     });
   }
 
