@@ -1,8 +1,7 @@
 // Import HostListener to listen for DOM events
 import { ViewportScroller } from '@angular/common';
 import { Component, OnInit, OnDestroy, HostListener } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
-import { ContactCardComponent } from '@app/contact-card/components/contact-card/contact-card.component';
+import { ContactCardDialogService } from '@app/contact-card/services/contact-card-dialog.service';
 import { NavbarService } from '@app/layout/services/navbar.service';
 import { Subscription } from 'rxjs';
 
@@ -18,7 +17,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
 
   private sub!: Subscription;
 
-  constructor(private navbarService: NavbarService, private scroller: ViewportScroller, private dialog: MatDialog) { }
+  constructor(private navbarService: NavbarService, private scroller: ViewportScroller, private contactCardDialog: ContactCardDialogService) { }
 
   ngOnInit(): void {
     this.sub = this.navbarService.navbarState$.subscribe(state => {
@@ -64,15 +63,6 @@ export class NavbarComponent implements OnInit, OnDestroy {
   }
 
   openDialog() {
-    const dialogRef = this.dialog.open(ContactCardComponent, {
-      height: '100%',
-      width: '654px',
-    });
-
-    const dialogRefSub = dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
-    });
-
-    this.sub.add(dialogRefSub);
+    this.contactCardDialog.openDialog();
   }
 }

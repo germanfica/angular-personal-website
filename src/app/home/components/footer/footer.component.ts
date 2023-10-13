@@ -1,6 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
-import { ContactCardComponent } from '@app/contact-card/components/contact-card/contact-card.component';
+import { ContactCardDialogService } from '@app/contact-card/services/contact-card-dialog.service';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -8,28 +7,14 @@ import { Subscription } from 'rxjs';
   templateUrl: './footer.component.html',
   styleUrls: ['./footer.component.scss']
 })
-export class FooterComponent implements OnInit, OnDestroy {
-  private subscription: Subscription = new Subscription(); // Mantener un registro de las suscripciones para evitar efectos secundarios
+export class FooterComponent implements OnInit {
 
-  constructor(private dialog: MatDialog) { }
+  constructor(private contactCardDialog: ContactCardDialogService) { }
 
   ngOnInit(): void {
   }
 
-  ngOnDestroy(): void {
-    this.subscription.unsubscribe();  // Desuscribe todas las suscripciones
-  }
-
   openDialog() {
-    const dialogRef = this.dialog.open(ContactCardComponent, {
-      height: '100%',
-      width: '654px',
-    });
-
-    const dialogRefSub = dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
-    });
-
-    this.subscription.add(dialogRefSub);  // Agrega esta suscripción para desuscribirse luego
+    this.contactCardDialog.openDialog();
   }
 }

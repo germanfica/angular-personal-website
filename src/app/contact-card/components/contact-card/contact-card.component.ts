@@ -11,7 +11,6 @@ import { Subscription, catchError } from 'rxjs';
 export class ContactCardComponent implements OnInit, OnDestroy {
   private subscription: Subscription = new Subscription(); // Mantener un registro de las suscripciones
   form: FormGroup = {} as FormGroup;
-  @Output() onClose: EventEmitter<any> = new EventEmitter();
   loading: boolean = false;
   success: boolean = false;
   error: boolean = false;
@@ -24,11 +23,6 @@ export class ContactCardComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.subscription.unsubscribe();  // Desuscribe todas las suscripciones
-  }
-
-  close(): void {
-    this.onClose.emit();
-    console.log("CLOSE.");
   }
 
   save(event: Event) {
