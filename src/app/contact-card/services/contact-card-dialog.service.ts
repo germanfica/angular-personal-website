@@ -18,6 +18,7 @@ export class ContactCardDialogService implements OnDestroy {
       data: data,
       height: '100%',
       width: '654px',
+      disableClose: true,  // Esto evitará que se cierre al presionar 'Escape' o al hacer clic fuera
     });
 
     this.dialogRef.backdropClick().pipe(takeUntil(this.destroy$)).subscribe(() => {
