@@ -49,7 +49,7 @@
                     </app-input-field>
                     <!-- <app-input-field [type]="'textarea'"></app-input-field> -->
                     <!-- Angular reCAPTCHA v2 -->
-                    <div class="ptb10">
+                    <div class="ptb10" *ngIf="showRecaptcha">
                         <re-captcha formControlName="recaptcha"></re-captcha>
                     </div>
                     <!-- Send request -->

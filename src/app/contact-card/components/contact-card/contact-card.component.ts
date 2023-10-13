@@ -1,5 +1,5 @@
 import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ContactService } from '@core/services/contact.service';
 import { Subscription, catchError } from 'rxjs';
 
@@ -14,6 +14,7 @@ export class ContactCardComponent implements OnInit, OnDestroy {
   loading: boolean = false;
   success: boolean = false;
   error: boolean = false;
+  showRecaptcha: boolean = false;
 
   constructor(private formBuilder: FormBuilder, private contactService: ContactService) { }
 
@@ -26,6 +27,7 @@ export class ContactCardComponent implements OnInit, OnDestroy {
   }
 
   save(event: Event) {
+    this.enableRecaptcha(); // Enable recaptcha
     console.log("Hi");
     console.log(this.form.value['name']);
     event.preventDefault();
@@ -77,7 +79,17 @@ export class ContactCardComponent implements OnInit, OnDestroy {
       email: ['', [Validators.required, Validators.email]],
       subject: ['', [Validators.required]],
       message: ['', [Validators.required]],
-      recaptcha: ['', [Validators.required]],
+      //recaptcha: ['', [Validators.required]], // Not required since the form control is added dynamically in enableRecaptcha()
     });
+  }
+
+  private enableRecaptcha() {
+    this.showRecaptcha = true;
+    if (this.form.contains('recaptcha')) console.log("El control 'recaptcha' YA EXISTE!!!");
+    // Verificar si el control 'recaptcha' ya existe
+    if (!this.form.contains('recaptcha')) {
+      console.log("El control 'recaptcha', no existe, se procede a agregarlo.");
+      this.form.addControl('recaptcha', new FormControl('', Validators.required));
+    }
   }
 }
