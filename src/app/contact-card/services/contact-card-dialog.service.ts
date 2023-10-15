@@ -1,6 +1,6 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { Subject } from 'rxjs';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { ContactCardComponent } from '@app/contact-card/components/contact-card/contact-card.component';
 
@@ -10,8 +10,19 @@ import { ContactCardComponent } from '@app/contact-card/components/contact-card/
 export class ContactCardDialogService implements OnDestroy {
   private dialogRef: MatDialogRef<ContactCardComponent> | null = null;
   private destroy$ = new Subject<void>();
+  private _hasUnsavedChanges = new BehaviorSubject<boolean>(false);
 
   constructor(private dialog: MatDialog) { }
+
+  // Getter para hasUnsavedChanges
+  get hasUnsavedChanges(): Observable<boolean> {
+    return this._hasUnsavedChanges.asObservable();
+  }
+
+  // Setter para hasUnsavedChanges
+  setHasUnsavedChanges(value: boolean) {
+    this._hasUnsavedChanges.next(value);
+  }
 
   openDialog(data?: any): MatDialogRef<ContactCardComponent> {
     this.dialogRef = this.dialog.open(ContactCardComponent, {
