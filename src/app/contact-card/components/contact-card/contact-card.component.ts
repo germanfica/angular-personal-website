@@ -1,5 +1,6 @@
 import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { ContactCardDialogManagerService } from '@app/contact-card/services/contact-card-dialog-manager.service';
 import { ContactService } from '@core/services/contact.service';
 import { Subscription, catchError } from 'rxjs';
 
@@ -16,7 +17,7 @@ export class ContactCardComponent implements OnInit, OnDestroy {
   error: boolean = false;
   showRecaptcha: boolean = false;
 
-  constructor(private formBuilder: FormBuilder, private contactService: ContactService) { }
+  constructor(private formBuilder: FormBuilder, private contactService: ContactService, private contactCardDialog: ContactCardDialogManagerService) { }
 
   ngOnInit(): void {
     this.buildForm();
@@ -73,6 +74,10 @@ export class ContactCardComponent implements OnInit, OnDestroy {
     return this.name?.errors ? this.name?.errors?.['required'] : false;
   }
 
+  close(): void {
+    this.contactCardDialog.close();
+  }
+
   private buildForm() {
     this.form = this.formBuilder.group({
       name: ['', [Validators.required]],
@@ -91,5 +96,10 @@ export class ContactCardComponent implements OnInit, OnDestroy {
       console.log("El control 'recaptcha', no existe, se procede a agregarlo.");
       this.form.addControl('recaptcha', new FormControl('', Validators.required));
     }
+  }
+
+  private formIsIncomplete(): boolean {
+    // Determinar si el formulario está incompleto
+    return this.name?.valid || this.email?.valid || this.subject?.valid || this.message?.valid || false;
   }
 }

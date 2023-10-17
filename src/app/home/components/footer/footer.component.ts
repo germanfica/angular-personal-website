@@ -1,6 +1,5 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ContactCardDialogService } from '@app/contact-card/services/contact-card-dialog.service';
-import { Subscription } from 'rxjs';
+import { Component, OnInit } from '@angular/core';
+import { ContactCardDialogManagerService } from '@app/contact-card/services/contact-card-dialog-manager.service';
 
 @Component({
   selector: 'app-footer',
@@ -9,12 +8,12 @@ import { Subscription } from 'rxjs';
 })
 export class FooterComponent implements OnInit {
 
-  constructor(private contactCardDialog: ContactCardDialogService) { }
+  constructor(private contactCardDialog: ContactCardDialogManagerService) { }
 
   ngOnInit(): void {
   }
 
   openDialog() {
-    this.contactCardDialog.openDialog();
+    this.contactCardDialog.open();
   }
 }

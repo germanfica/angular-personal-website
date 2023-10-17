@@ -2,34 +2,34 @@ import { Injectable, OnDestroy } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { first, takeUntil } from 'rxjs/operators';
-import { ContactCardComponent } from '@app/contact-card/components/contact-card/contact-card.component';
+import { ConfirmationDialogComponent } from '@app/contact-card/components/confirmation-dialog/confirmation-dialog.component';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ContactCardDialogService implements OnDestroy {
-  private dialogRef: MatDialogRef<ContactCardComponent> | null = null;
+export class ConfirmationDialogService implements OnDestroy {
+  private dialogRef: MatDialogRef<ConfirmationDialogComponent> | null = null;
   private destroy$ = new Subject<void>();
-  private _hasUnsavedChanges = new BehaviorSubject<boolean>(false);
+  private _hasConfirmed = new BehaviorSubject<boolean>(false);
 
   constructor(private dialog: MatDialog) { }
 
-  // Getter para hasUnsavedChanges
-  get hasUnsavedChanges(): Observable<boolean> {
-    // return this._hasUnsavedChanges.asObservable(); // Si se utiliza este no olvidar de desuscribirse
-    return this._hasUnsavedChanges.asObservable().pipe(first());
+  // Getter para hasConfirmed
+  get hasConfirmed(): Observable<boolean> {
+    // return this._hasConfirmed.asObservable(); // Si se utiliza este no olvidar de desuscribirse
+    return this._hasConfirmed.asObservable().pipe(first());
   }
 
-  // Setter para hasUnsavedChanges
-  setHasUnsavedChanges(value: boolean) {
-    this._hasUnsavedChanges.next(value);
+  // Setter para hasConfirmed
+  setHasConfirmed(value: boolean) {
+    this._hasConfirmed.next(value);
   }
 
-  openDialog(data?: any): MatDialogRef<ContactCardComponent> {
-    this.dialogRef = this.dialog.open(ContactCardComponent, {
+  openDialog(data?: any): MatDialogRef<ConfirmationDialogComponent> {
+    this.dialogRef = this.dialog.open(ConfirmationDialogComponent, {
       data: data,
-      height: '100%',
-      width: '654px',
+      //height: '100%',
+      //width: '654px',
       disableClose: true,  // Esto evitará que se cierre al presionar 'Escape' o al hacer clic fuera
     });
 
@@ -55,18 +55,11 @@ export class ContactCardDialogService implements OnDestroy {
 
   closeDialog(): void {
     console.log("Clicked in the closeDialog() method.");
-    if (this._hasUnsavedChanges.getValue()) {
-      // don't close (prevent close)
-      console.log(`hasUnsavedChanges: ${this._hasUnsavedChanges.getValue()}`);
-    } else {
-      // close
-      console.log(`hasUnsavedChanges: ${this._hasUnsavedChanges.getValue()}`);
-      this.reset();
-      this.dialogRef?.close();
-      this.dialogRef = null;
-      this.destroy$.next();
-      this.destroy$.complete();
-    }
+    this.reset();
+    this.dialogRef?.close();
+    this.dialogRef = null;
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 
   ngOnDestroy(): void {
@@ -76,6 +69,6 @@ export class ContactCardDialogService implements OnDestroy {
 
   // ensure to reset to default values when closing the dialog
   private reset(): void {
-    this.setHasUnsavedChanges(false); // reset to default
+    this.setHasConfirmed(false); // reset to default
   }
 }
