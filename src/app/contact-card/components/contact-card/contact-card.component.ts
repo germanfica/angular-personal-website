@@ -21,6 +21,17 @@ export class ContactCardComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.buildForm();
+
+    // Suscribirse a los cambios del formulario
+    this.form.valueChanges.subscribe(() => {
+      // Si el formulario ha cambiado y tiene algún valor, establecer hasUnsavedChanges a true
+      // Si no tiene valores, establecer hasUnsavedChanges a false
+      if (Object.values(this.form.value).some(field => field !== '')) {
+        this.contactCardDialog.setHasUnsavedChanges(true);
+      } else {
+        this.contactCardDialog.setHasUnsavedChanges(false);
+      }
+    });
   }
 
   ngOnDestroy(): void {
@@ -59,6 +70,8 @@ export class ContactCardComponent implements OnInit, OnDestroy {
         console.log("Contact sended!");
         this.loading = false; //Let's remove the loading in success case
         this.success = true;
+        // Establecer hasUnsavedChanges a false ya que los cambios se han guardado
+        this.contactCardDialog.setHasUnsavedChanges(false);
       });
     console.log("Hii!!");
     this.subscription.add(contactSubscription);  // Agrega esta suscripción para desuscribirse luego

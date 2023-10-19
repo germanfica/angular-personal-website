@@ -22,7 +22,8 @@ export class ConfirmationDialogComponent {
   onYesClick(event: MouseEvent): void {
     event.preventDefault();
     // Aquí puedes implementar la lógica para el botón de confirmación que se mantiene presionado durante 2 segundos.
+    console.log("Seteando en confirm!!");
     this.dialog.setHasConfirmed(true);
-    console.log(`setHasConfirmed: ${true}`);
+    //console.log(`setHasConfirmed: ${true}`);
   }
 }

@@ -11,13 +11,23 @@ export class ContactCardDialogService implements OnDestroy {
   private dialogRef: MatDialogRef<ContactCardComponent> | null = null;
   private destroy$ = new Subject<void>();
   private _hasUnsavedChanges = new BehaviorSubject<boolean>(false);
+  private _clickedOutside = new BehaviorSubject<boolean>(false);
+  private _pressedEscape = new BehaviorSubject<boolean>(false);
 
   constructor(private dialog: MatDialog) { }
 
   // Getter para hasUnsavedChanges
   get hasUnsavedChanges(): Observable<boolean> {
-    // return this._hasUnsavedChanges.asObservable(); // Si se utiliza este no olvidar de desuscribirse
-    return this._hasUnsavedChanges.asObservable().pipe(first());
+    return this._hasUnsavedChanges.asObservable(); // Si se utiliza este no olvidar de desuscribirse
+    //return this._hasUnsavedChanges.asObservable().pipe(first());
+  }
+
+  get clickedOutside(): Observable<boolean> {
+    return this._clickedOutside.asObservable();
+  }
+
+  get pressedEscape(): Observable<boolean> {
+    return this._pressedEscape.asObservable();
   }
 
   // Setter para hasUnsavedChanges
@@ -35,13 +45,15 @@ export class ContactCardDialogService implements OnDestroy {
 
     this.dialogRef.backdropClick().pipe(takeUntil(this.destroy$)).subscribe(() => {
       console.log('Clicked outside of the dialog');
-      this.closeDialog();
+      this._clickedOutside.next(true);
+      //this.closeDialog();
     });
 
     this.dialogRef.keydownEvents().pipe(takeUntil(this.destroy$)).subscribe(event => {
       if (event.key === "Escape") {
         console.log('Escape key pressed');
-        this.closeDialog();
+        this._pressedEscape.next(true);
+        //this.closeDialog();
       }
     });
 
@@ -77,5 +89,7 @@ export class ContactCardDialogService implements OnDestroy {
   // ensure to reset to default values when closing the dialog
   private reset(): void {
     this.setHasUnsavedChanges(false); // reset to default
+    //this._clickedOutside.next(false); // reset to default, don't use it (recursive overflow, maximum call stack size exceeded)
+    //this._pressedEscape.next(false); // reset to default, don't use it (recursive overflow, maximum call stack size exceeded)
   }
 }

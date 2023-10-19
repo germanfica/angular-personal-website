@@ -16,8 +16,8 @@ export class ConfirmationDialogService implements OnDestroy {
 
   // Getter para hasConfirmed
   get hasConfirmed(): Observable<boolean> {
-    // return this._hasConfirmed.asObservable(); // Si se utiliza este no olvidar de desuscribirse
-    return this._hasConfirmed.asObservable().pipe(first());
+    return this._hasConfirmed.asObservable(); // Si se utiliza este no olvidar de desuscribirse
+    //return this._hasConfirmed.asObservable().pipe(first());
   }
 
   // Setter para hasConfirmed
