@@ -7,6 +7,8 @@ projects.json
 app.germanfica.com.crt
 app.germanfica.csr
 app.germanfica.key
+localhost.crt
+localhost.key
 
 # Utils
 CombineStagedGitDiffToOutput.ps1
