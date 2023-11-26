@@ -4,6 +4,9 @@
 src/environments/environment.api.ts
 src/environments/environment.api.prod.ts
 projects.json
+app.germanfica.com.crt
+app.germanfica.csr
+app.germanfica.key
 
 # Utils
 CombineStagedGitDiffToOutput.ps1

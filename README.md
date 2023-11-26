@@ -28,6 +28,18 @@ Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To u
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
 
+## Build docker
+
+```bash
+docker compose up -d
+```
+
+or
+
+```bash
+docker run -d -p 80:80 angular-personal-website-web
+```
+
 ## Shorten relative paths 🛣️
 
 Open `tsconfig.json`
