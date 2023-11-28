@@ -47,6 +47,11 @@
             margin-right: 5%;
             //background-color: yellow;
         }
+
+        .inner-box {
+            margin-right: 0px;
+            border-top-right-radius: 0px;
+        }
     }
 
     @media (min-width: 768px) {
