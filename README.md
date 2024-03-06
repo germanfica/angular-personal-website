@@ -40,6 +40,16 @@ or
 docker run -d -p 80:80 angular-personal-website-web
 ```
 
+## Docker compose image template 🎉
+
+```bash
+docker-compose -f docker-compose-image-template.yml up -d
+```
+
+Take a look at the `docker-compose-image-template.yml` file.
+
+Basically, `docker-compose-image-template.yml` is a template to use a pre-existing Docker image instead of building a new one each time. The `'build: .'` directive is removed and replaced with `'image: <your-image-hash>'`, allowing the use of a local or remote image specified by its hash. This change makes container deployment easier and faster, especially in environments where the image has already been built and is ready to be reused. Suitable for development and production environments that prioritize resource management efficiency.
+
 ## Shorten relative paths 🛣️
 
 Open `tsconfig.json`
