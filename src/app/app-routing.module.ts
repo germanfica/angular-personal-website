@@ -9,10 +9,9 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        redirectTo: 'home',
-        pathMatch: 'full',
+        loadChildren: () => import('./home/home.module').then(m => m.HomeModule),
+        pathMatch: 'full'
       },
-      { path: 'home', loadChildren: () => import('./home/home.module').then(m => m.HomeModule) },
       { path: 'projects', loadChildren: () => import('./projects/projects.module').then(m => m.ProjectsModule) },
       { path: '**', loadChildren: () => import('./page-not-found/page-not-found.module').then(m => m.PageNotFoundModule) }
     ]

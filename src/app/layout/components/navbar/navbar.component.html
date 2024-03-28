@@ -1,14 +1,14 @@
 <nav
     [ngClass]="{'sticky': isSticky, 'static': !isSticky, 'transparent': navbarStyle === 'transparent', 'colored': navbarStyle === 'colored', 'colored-pos-abs': navbarStyle === 'colored-pos-abs'}">
     <div class="container">
-        <a routerLink="/home" class="logo">MyLogo</a>
+        <a routerLink="/" class="logo">MyLogo</a>
         <button class="menu-toggle menu-button" (click)="toggleMenu()">
             <i i-bs name="list" height="2em" width="2em"></i>
         </button>
         <ul class="menu" [ngClass]="{'active': menuActive}">
             <button *ngIf="menuActive" class="close-button" (click)="toggleMenu()">Close</button>
 
-            <li><a routerLink="/home">Home</a></li>
+            <li><a routerLink="/">Home</a></li>
             <li><a routerLink="/about">About</a></li>
             <li><a routerLink="/projects">Projects</a></li>
             <li><a class="clickable" (click)="openDialog()">Contact</a></li>
