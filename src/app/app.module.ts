@@ -17,8 +17,7 @@ import { LayoutModule } from './layout/layout.module';
     AppRoutingModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    LayoutModule,
-    BrowserModule.withServerTransition({ appId: 'germanfica-dev-portfolio' }),
+    LayoutModule
   ],
   providers: [],
   bootstrap: [AppComponent]
