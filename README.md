@@ -78,6 +78,47 @@ import { CoreModule } from '@core/core.module';
 import { SharedModule } from '@shared/shared.module';
 ```
 
+## SCSS Path Aliasing 🎨
+
+Open `angular.json`:
+
+```json
+"architect": {
+   "build": {
+      "options": {
+         "stylePreprocessorOptions": {
+            "includePaths": [
+               "src/styles"
+            ]
+         }
+      }
+   }
+}
+```
+
+Example of use:
+
+```scss
+@import 'variables';
+```
+
+In `tsconfig.json` for TypeScript consistency (optional):
+
+```json
+"compilerOptions": {
+  "paths": {
+    "@styles/*": ["src/styles/*"]
+  }
+}
+```
+
+Use it like:
+
+```scss
+@import '@styles/variables';
+```
+
+
 ## Basic project dependencies
 
 - [@angular/material](https://material.angular.io/guide/getting-started)
