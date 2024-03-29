@@ -25,7 +25,7 @@ export class HomeComponent implements OnInit {
     // Open Graph Meta Tags
     this.metaService.updateTag({ property: 'og:title', content: 'German Fica' });
     this.metaService.updateTag({ property: 'og:description', content: 'Software Developer | Web Developer | Unity Developer' });
-    this.metaService.updateTag({ property: 'og:image', content: `${this.urlService.getBaseUrl()}/assets/images/home_preview_thumbnail.png` });
+    this.metaService.updateTag({ property: 'og:image', content: `${this.urlService.getBaseUrl()}/assets/images/preview_thumbnail.png` });
     this.metaService.updateTag({ property: 'og:url', content: this.urlService.getBaseUrl() + this.router.url });
     this.metaService.updateTag({ property: 'og:site_name', content: 'German Fica' });
     this.metaService.updateTag({ property: 'og:type', content: 'website' });
@@ -36,7 +36,7 @@ export class HomeComponent implements OnInit {
     this.metaService.updateTag({ name: 'twitter:site', content: '@germanfica' });
     this.metaService.updateTag({ name: 'twitter:title', content: 'German Fica' });
     this.metaService.updateTag({ name: 'twitter:description', content: 'Software Developer | Web Developer | Unity Developer' });
-    this.metaService.updateTag({ name: 'twitter:image', content: `${this.urlService.getBaseUrl()}/assets/images/home_preview_thumbnail.png` });
+    this.metaService.updateTag({ name: 'twitter:image', content: `${this.urlService.getBaseUrl()}/assets/images/preview_thumbnail.png` });
     this.metaService.updateTag({ name: 'twitter:creator', content: '@germanfica' });
 
     // Update navbar style
