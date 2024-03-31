@@ -257,11 +257,12 @@ Here is an example `projects.json` file:
 
 ## Basic project configuration
 
-Open `src/environments/environment.api.ts`
+Open `src/environments/environment.api.prod.ts`
 
 ```typescript
 export const api = {
   production: true,
+  baseUrl: 'your-production-endpoint',
   contact: 'https://submit-form.com/your-form-id',
   recaptcha: {
     siteKey: 'your-google-site-key',
@@ -269,11 +270,12 @@ export const api = {
 };
 ```
 
-Open `src/environments/environment.api.prod.ts`
+Open `src/environments/environment.api.ts`
 
 ```typescript
 export const api = {
-  production: true,
+  production: false,
+  baseUrl: 'http://localhost:4200',
   contact: 'https://submit-form.com/your-form-id',
   recaptcha: {
     siteKey: 'your-google-site-key',
