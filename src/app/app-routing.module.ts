@@ -13,9 +13,9 @@ const routes: Routes = [
         pathMatch: 'full'
       },
       { path: 'projects', loadChildren: () => import('./projects/projects.module').then(m => m.ProjectsModule) },
-      { path: '**', loadChildren: () => import('./page-not-found/page-not-found.module').then(m => m.PageNotFoundModule) }
     ]
-  }
+  },
+  { path: '**', loadChildren: () => import('./page-not-found/page-not-found.module').then(m => m.PageNotFoundModule) }
 ];
 
 @NgModule({
