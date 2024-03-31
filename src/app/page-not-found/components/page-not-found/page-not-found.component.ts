@@ -38,6 +38,7 @@ export class PageNotFoundComponent implements OnInit {
     this.metaService.removeTag("property='og:title'");
     this.metaService.removeTag("property='og:description'");
     this.metaService.removeTag("property='og:image'");
+    this.metaService.removeTag("property='og:image:secure_url'");
     this.metaService.removeTag("property='og:url'");
     this.metaService.removeTag("property='og:site_name'");
     this.metaService.removeTag("property='og:type'");
