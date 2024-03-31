@@ -1,25 +1,15 @@
 import { ViewportScroller } from '@angular/common';
-import { environment } from 'src/environments/environment';
-import { isPlatformBrowser } from '@angular/common';
-import { Component, OnInit, Inject, PLATFORM_ID, afterNextRender } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 
 @Component({
   selector: 'app-hero-header',
   templateUrl: './hero-header.component.html',
-  styleUrls: ['./hero-header.component.scss'],
-  host: { ngSkipHydration: 'true' },
+  styleUrls: ['./hero-header.component.scss']
 })
 export class HeroHeaderComponent implements OnInit {
 
-  constructor(private scroller: ViewportScroller, @Inject(PLATFORM_ID) private platformId: Object) {
-    afterNextRender(() => {
-      // Safe to check `scrollHeight` because this will only run in the browser, not the server.
-      if (isPlatformBrowser(this.platformId)) {
-        // Carga particlesJS solo en el lado del cliente
-        particlesJS("particles-js", environment.particlesJSConfig);
-      }
-    });
+  constructor(private scroller: ViewportScroller) {
   }
 
   ngOnInit(): void {

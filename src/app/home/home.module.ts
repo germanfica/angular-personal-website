@@ -12,6 +12,7 @@ import { FooterComponent } from './components/footer/footer.component';
 import { DialogModule } from '@app/dialog/dialog.module';
 import { ButtonModule } from '@app/button/button.module';
 import { MatDialogModule } from '@angular/material/dialog';
+import { ParticlesJsComponent } from './components/particles-js/particles-js.component';
 
 
 @NgModule({
@@ -21,7 +22,8 @@ import { MatDialogModule } from '@angular/material/dialog';
     LatestProjectsComponent,
     ProjectsComponent,
     AboutComponent,
-    FooterComponent
+    FooterComponent,
+    ParticlesJsComponent
   ],
   imports: [
     CommonModule,
