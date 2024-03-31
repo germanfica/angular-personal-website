@@ -1,5 +1,5 @@
-import { ViewportScroller } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { ViewportScroller, isPlatformServer } from '@angular/common';
+import { Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
 
 
 @Component({
@@ -8,8 +8,10 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./hero-header.component.scss']
 })
 export class HeroHeaderComponent implements OnInit {
+  isServer: boolean;
 
-  constructor(private scroller: ViewportScroller) {
+  constructor(private scroller: ViewportScroller, @Inject(PLATFORM_ID) private platformId: Object) {
+    this.isServer = isPlatformServer(this.platformId);
   }
 
   ngOnInit(): void {

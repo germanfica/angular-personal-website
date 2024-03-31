@@ -13,7 +13,9 @@
         </div>
         <div class="full-screen-bg gradient"></div>
         <!-- Particles by Vincent Garreau -->
-        <app-particles-js ngSkipHydration />
+        <ng-container *ngIf="!isServer">
+            <app-particles-js ngSkipHydration />
+        </ng-container>
     </div>
 
     <!--Waves Container-->

@@ -13,6 +13,7 @@ localhost.key
 # Utils
 CombineStagedGitDiffToOutput.ps1
 output.txt
+curl_output.html
 
 # Compiled output
 /dist
