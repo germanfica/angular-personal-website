@@ -2,7 +2,7 @@
 
 ![localhost_4200_preview](https://user-images.githubusercontent.com/15948693/169944540-30507173-b1ea-4db5-8d07-6662de9ad962.png)
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.3.2.
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.3.2.
 
 ## Development server
 

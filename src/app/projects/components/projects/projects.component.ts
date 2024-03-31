@@ -5,7 +5,9 @@ import { NavbarService } from '@app/layout/services/navbar.service';
 import { Subscription } from 'rxjs';
 import { Meta, Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
-import { UrlService } from '@core/services/url.service';
+import { api } from 'src/environments/environment.api';
+
+const BASE_URL: string = `${api.baseUrl}`;
 
 @Component({
   selector: 'app-projects',
@@ -22,7 +24,6 @@ export class ProjectsComponent implements OnInit, OnDestroy {
     private titleService: Title,
     private metaService: Meta,
     private router: Router,
-    private urlService: UrlService
   ) { }
 
   ngOnInit(): void {
@@ -32,7 +33,8 @@ export class ProjectsComponent implements OnInit, OnDestroy {
     this.metaService.updateTag({ property: 'og:title', content: 'Projects - German Fica' });
     this.metaService.updateTag({ property: 'og:description', content: 'See all my thinking process' });
     //this.metaService.updateTag({ property: 'og:image', content: 'Preview image URL' });
-    this.metaService.updateTag({ property: 'og:url', content: this.urlService.getBaseUrl() + this.router.url });
+    //this.metaService.updateTag({ property: 'og:image:secure_url', content: 'Preview image URL' });
+    this.metaService.updateTag({ property: 'og:url', content: `${BASE_URL}/${this.router.url}` });
     this.metaService.updateTag({ property: 'og:site_name', content: 'German Fica' });
     this.metaService.updateTag({ property: 'og:type', content: 'website' });
     this.metaService.updateTag({ property: 'og:locale', content: 'en_US' });

@@ -2,7 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { NavbarService } from '@app/layout/services/navbar.service';
-import { UrlService } from '@core/services/url.service';
+import { api } from 'src/environments/environment.api';
+
+const BASE_URL: string = `${api.baseUrl}`;
 
 @Component({
   selector: 'app-home',
@@ -15,7 +17,6 @@ export class HomeComponent implements OnInit {
     private navbarService: NavbarService,
     private titleService: Title,
     private metaService: Meta,
-    private urlService: UrlService,
     private router: Router
   ) { }
 
@@ -25,8 +26,9 @@ export class HomeComponent implements OnInit {
     // Open Graph Meta Tags
     this.metaService.updateTag({ property: 'og:title', content: 'German Fica' });
     this.metaService.updateTag({ property: 'og:description', content: 'Software Developer | Web Developer | Unity Developer' });
-    this.metaService.updateTag({ property: 'og:image', content: `${this.urlService.getBaseUrl()}/assets/images/preview_thumbnail.png` });
-    this.metaService.updateTag({ property: 'og:url', content: this.urlService.getBaseUrl() + this.router.url });
+    this.metaService.updateTag({ property: 'og:image', content: `${BASE_URL}/assets/images/preview_thumbnail.png` });
+    this.metaService.updateTag({ property: 'og:image:secure_url', content: `${BASE_URL}/assets/images/preview_thumbnail.png` });
+    this.metaService.updateTag({ property: 'og:url', content: `${BASE_URL}/${this.router.url}` });
     this.metaService.updateTag({ property: 'og:site_name', content: 'German Fica' });
     this.metaService.updateTag({ property: 'og:type', content: 'website' });
     this.metaService.updateTag({ property: 'og:locale', content: 'en_US' });
@@ -36,8 +38,11 @@ export class HomeComponent implements OnInit {
     this.metaService.updateTag({ name: 'twitter:site', content: '@germanfica' });
     this.metaService.updateTag({ name: 'twitter:title', content: 'German Fica' });
     this.metaService.updateTag({ name: 'twitter:description', content: 'Software Developer | Web Developer | Unity Developer' });
-    this.metaService.updateTag({ name: 'twitter:image', content: `${this.urlService.getBaseUrl()}/assets/images/preview_thumbnail.png` });
+    this.metaService.updateTag({ name: 'twitter:image', content: `${BASE_URL}/assets/images/preview_thumbnail.png` });
     this.metaService.updateTag({ name: 'twitter:creator', content: '@germanfica' });
+
+    // Robots Meta Tag
+    this.metaService.updateTag({ name: 'robots', content: 'max-image-preview:large' });
 
     // Update navbar style
     this.navbarService.updateNavbarState({ isSticky: false, navbarStyle: 'transparent' });
