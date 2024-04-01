@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { PageNotFoundRoutingModule } from './page-not-found-routing.module';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { ButtonModule } from '@app/button/button.module';
+import { LayoutModule } from '@app/layout/layout.module';
 
 
 @NgModule({
@@ -13,7 +14,8 @@ import { ButtonModule } from '@app/button/button.module';
   imports: [
     CommonModule,
     PageNotFoundRoutingModule,
-    ButtonModule
+    ButtonModule,
+    LayoutModule
   ]
 })
 export class PageNotFoundModule { }
