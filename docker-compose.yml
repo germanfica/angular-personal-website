@@ -1,21 +1,23 @@
 version: '3.8'
 services:
-  app:
-    build:
-      context: ./
-      dockerfile: app.Dockerfile
-    container_name: app
-    networks:
-      - net
-
   nginx:
     build:
       context: ./
-      dockerfile: nginx.Dockerfile
+      dockerfile: Dockerfile
+      target: nginx-server
     container_name: nginx
     ports:
       - "80:80"   # Para HTTP
       - "443:443" # Para HTTPS
+    networks:
+      - net
+
+  app:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+      target: ssr-server
+    container_name: app
     networks:
       - net
 
