@@ -8,7 +8,8 @@ RUN npm run build
 
 # Etapa de construcción para Nginx
 FROM nginx:latest as nginx-server
-COPY --from=build-step /app/dist/personal/* /usr/share/nginx/html
+# No seria necesario porque ssr-server se encarga de eso
+# COPY --from=build-step /app/dist/personal/* /usr/share/nginx/html
 COPY ./nginx-custom.conf /etc/nginx/conf.d/default.conf
 COPY app.germanfica.com.crt /etc/nginx/ssl/
 COPY app.germanfica.key /etc/nginx/ssl/
