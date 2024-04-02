@@ -1,7 +1,18 @@
-version: '3'
+version: '3.8'
 services:
-  web:
-    build: .
+  app:
+    build:
+      context: ./
+      dockerfile: app.Dockerfile
+    container_name: app
+    networks:
+      - net
+
+  nginx:
+    build:
+      context: ./
+      dockerfile: nginx.Dockerfile
+    container_name: nginx
     ports:
       - "80:80"   # Para HTTP
       - "443:443" # Para HTTPS
@@ -10,3 +21,4 @@ services:
 
 networks:
   net:
+    driver: bridge

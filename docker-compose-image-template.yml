@@ -1,7 +1,14 @@
-version: '3'
+version: '3.8'
 services:
-  web:
+  app:
     image: tu-imagen-hash
+    container_name: app
+    networks:
+      - net
+
+  nginx:
+    image: tu-imagen-hash
+    container_name: nginx
     ports:
       - "80:80"   # Para HTTP
       - "443:443" # Para HTTPS
@@ -10,3 +17,4 @@ services:
 
 networks:
   net:
+    driver: bridge
