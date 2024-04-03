@@ -24,6 +24,57 @@ a.clickable {
     //float: right;
 }
 
+/* Button style */
+
+button.clickable {
+    //color: #fff;
+    //background: 0 0;
+    //border: none;
+    cursor: pointer;
+    //float: right;
+}
+
+.btn-style {
+    // Reset styles
+    background: none;
+    border: none;
+    margin: 0;
+    padding: 0;
+    width: auto;
+    overflow: visible;
+    font: inherit;
+    line-height: normal;
+    -webkit-font-smoothing: inherit;
+    -moz-osx-font-smoothing: inherit;
+    -webkit-appearance: none;
+    /* Para estilos en iOS */
+    text-align: left;
+    /* Si quieres que el texto esté alineado a la izquierda */
+    text-transform: none;
+    /* Si no quieres transformaciones de texto */
+    text-decoration: none;
+    /* Para eliminar el subrayado */
+    box-shadow: none;
+    /* Si hay alguna sombra aplicada que quieres eliminar */
+
+    // Normal styles
+    font-family: "Raleway", sans-serif;
+    color: #fff;
+    //cursor: pointer;
+    //transition: color 0.3s ease; /* para efectos de transición suave */
+}
+
+.btn-style:hover,
+.btn-style:focus {
+    color: #fff;
+    /* o el color de hover que deseas */
+    text-decoration: none;
+    outline: none;
+    /* para eliminar el contorno que a veces agregan los navegadores en el focus */
+}
+
+/* Navbar */
+
 nav {
     width: 100%;
 
