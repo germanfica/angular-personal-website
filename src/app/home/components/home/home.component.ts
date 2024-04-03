@@ -23,6 +23,8 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
     this.titleService.setTitle('German Fica');
 
+    this.metaService.updateTag({ name: 'description', content: 'Software Developer | Web Developer | Unity Developer' });
+
     // Open Graph Meta Tags
     this.metaService.updateTag({ property: 'og:title', content: 'German Fica' });
     this.metaService.updateTag({ property: 'og:description', content: 'Software Developer | Web Developer | Unity Developer' });
