@@ -18,7 +18,7 @@ export class PageNotFoundComponent implements OnInit {
     private metaService: Meta,
     private pageNotFoundService: PageNotFoundService
   ) {
-    this.pageNotFoundService.setNotFoundStatus();
+    this.pageNotFoundService.setNotFoundStatusCode();
   }
 
   ngOnInit(): void {
