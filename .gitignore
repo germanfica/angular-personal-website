@@ -1,5 +1,8 @@
 # See http://help.github.com/ignore-files/ for more about ignoring files.
 
+# Builds
+.tar
+
 # Sensitive data
 src/environments/environment.api.ts
 src/environments/environment.api.prod.ts
