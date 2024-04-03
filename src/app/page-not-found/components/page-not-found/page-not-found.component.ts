@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { NavbarService } from '@app/layout/services/navbar.service';
+import { PageNotFoundService } from './page-not-found.service';
 
 @Component({
   selector: 'app-page-not-found',
@@ -14,8 +15,11 @@ export class PageNotFoundComponent implements OnInit {
     private router: Router,
     private navbarService: NavbarService,
     private titleService: Title,
-    private metaService: Meta
-  ) { }
+    private metaService: Meta,
+    private pageNotFoundService: PageNotFoundService
+  ) {
+    this.pageNotFoundService.setNotFoundStatus();
+  }
 
   ngOnInit(): void {
     this.titleService.setTitle('404 not found');
