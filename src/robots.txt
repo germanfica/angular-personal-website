@@ -2,3 +2,11 @@ User-Agent: *
 Disallow: /admin/
 Allow: /
 Allow: /projects
+
+User-agent: Googlebot
+Disallow: /nogooglebot/
+
+User-agent: *
+Allow: /
+
+Sitemap: https://app.germanfica.com/sitemap.xml
