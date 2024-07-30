@@ -3,44 +3,47 @@ pipeline {
 
     environment {
         SSH_CREDENTIALS_ID = 'APP_SSH' // Reemplaza con el ID de tus credenciales SSH de tipo Username with private key
+        GITHUB_SSH_CREDENTIALS_ID = 'github-ssh-key' // Reemplaza con el ID de tus credenciales SSH de tipo Username with private key
+        GIT_REPO_URL = 'git@github.com:germanfica/angular-personal-website.git'
     }
 
     stages {
-        stage('Create Hello World File') {
+        stage('Clone Repository') {
             agent { label 'built-in' } // Especifica el agente 'Built-In Node' para este stage
             steps {
-                withCredentials([
-                    // string(credentialsId: 'APP_SSH', variable: 'SSH_CREDENTIALS_ID'),
-                    // sshUserPrivateKey(credentialsId: 'APP_SSH', keyFileVariable: 'SSH_KEY', passphraseVariable: 'SSH_PASSPHRASE', usernameVariable: 'SSH_USERNAME'),
-                    // No te olvides de agregar estos IDs en tus credenciales de tipo Secret text
-                    string(credentialsId: 'SSH_PORT', variable: 'SSH_PORT'), // Secret text: puerto de tu servidor SSH
-                    string(credentialsId: 'SSH_USERNAME', variable: 'SSH_USERNAME'), // Secret text: usuario de tu servidor SSH
-                    string(credentialsId: 'SSH_HOST', variable: 'SSH_HOST') // Secret text: IP de tu servidor SSH
-                ]) {
-                    // Tiene que ir si o si tu SSH Username with private key
-                    sshagent (credentials: [env.SSH_CREDENTIALS_ID]) {
-
-
-                        withEnv(["SSH_PORT=${SSH_PORT}", "SSH_USERNAME=${SSH_USERNAME}", "SSH_HOST=${SSH_HOST}"]) {
-                            sh "ssh -o StrictHostKeyChecking=no -p ${SSH_PORT} ${SSH_USERNAME}@${SSH_HOST} 'echo hola mundo > hola_mundo.txt'"
-                        }
-
-                        //sh "ssh -o StrictHostKeyChecking=no -p ${env.SSH_PORT} ${env.SSH_USERNAME}@${env.SSH_HOST} 'echo hola mundo > hola_mundo.txt'"
-                    }
+                withCredentials([sshUserPrivateKey(credentialsId: 'github-ssh-key', keyFileVariable: 'SSH_KEY', passphraseVariable: 'SSH_PASSPHRASE')]) {
+                    sh '''
+                    [ -d ~/.ssh ] || mkdir ~/.ssh && chmod 0700 ~/.ssh
+                    ssh-keyscan -t rsa,dsa github.com >> ~/.ssh/known_hosts
+                    ssh-agent bash -c "ssh-add $SSH_KEY <<< $SSH_PASSPHRASE; git clone $GIT_REPO_URL"
+                    '''
                 }
             }
         }
 
-        stage('Run Docker Command on my-pc') {
-            agent {
-                label 'my-pc'
-            }
-            steps {
-                script {
-                    echo 'Running docker ps on my-pc...'
-                    bat 'docker ps'
-                }
-            }
-        }
+        // stage('Build on Built-In Node') {
+        //     agent { label 'built-in' } // Especifica el agente 'Built-In Node' para este stage
+        //     steps {
+        //         sh 'npm install'
+        //         sh 'npm run build'
+        //     }
+        // }
+
+        // stage('Clone Repository on my-pc') {
+        //     agent { label 'my-pc' } // Especifica el agente 'my-pc' de windows para este stage
+        //     steps {
+        //         sshagent (credentials: [env.GITHUB_SSH_CREDENTIALS_ID]) {
+        //             bat 'git clone $GIT_REPO_URL'
+        //         }
+        //     }
+        // }
+
+        // stage('Build on my-pc') {
+        //     agent { label 'my-pc' } // Especifica el agente 'my-pc' para este stage
+        //     steps {
+        //         bat 'npm install'
+        //         bat 'npm run build'
+        //     }
+        // }
     }
 }
