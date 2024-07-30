@@ -16,6 +16,24 @@ pipeline {
             }
         }
 
+        // stage('Clone or Pull Repository') {
+        //     agent { label 'built-in' } // Especifica el agente 'Built-In Node' para este stage
+        //     steps {
+        //         withCredentials([sshUserPrivateKey(credentialsId: 'github-ssh-key', keyFileVariable: 'SSH_KEY', passphraseVariable: 'SSH_PASSPHRASE')]) {
+        //             sh '''
+        //             [ -d ~/.ssh ] || mkdir ~/.ssh && chmod 0700 ~/.ssh
+        //             ssh-keyscan -t rsa,dsa github.com >> ~/.ssh/known_hosts
+        //             if [ ! -d "$REPO_DIR" ]; then
+        //                 ssh-agent bash -c "ssh-add $SSH_KEY <<< $SSH_PASSPHRASE; git clone $GIT_REPO_URL"
+        //             else
+        //                 cd $REPO_DIR
+        //                 ssh-agent bash -c "ssh-add $SSH_KEY <<< $SSH_PASSPHRASE; git pull"
+        //             fi
+        //             '''
+        //         }
+        //     }
+        // }
+
         // stage('Build on Built-In Node') {
         //     agent { label 'built-in' } // Especifica el agente 'Built-In Node' para este stage
         //     steps {
