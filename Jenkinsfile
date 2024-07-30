@@ -5,17 +5,23 @@ pipeline {
         SSH_CREDENTIALS_ID = 'APP_SSH' // Reemplaza con el ID de tus credenciales SSH de tipo Username with private key
         GITHUB_SSH_CREDENTIALS_ID = 'github-ssh-key' // Reemplaza con el ID de tus credenciales SSH de tipo Username with private key
         GIT_REPO_URL = 'git@github.com:germanfica/angular-personal-website.git'
+        REPO_DIR = 'angular-personal-website' // Directorio del repositorio clonado
     }
 
     stages {
-        stage('Clone Repository') {
+        stage('Clone or Pull Repository') {
             agent { label 'built-in' } // Especifica el agente 'Built-In Node' para este stage
             steps {
                 withCredentials([sshUserPrivateKey(credentialsId: 'github-ssh-key', keyFileVariable: 'SSH_KEY', passphraseVariable: 'SSH_PASSPHRASE')]) {
                     sh '''
                     [ -d ~/.ssh ] || mkdir ~/.ssh && chmod 0700 ~/.ssh
                     ssh-keyscan -t rsa,dsa github.com >> ~/.ssh/known_hosts
-                    ssh-agent bash -c "ssh-add $SSH_KEY <<< $SSH_PASSPHRASE; git clone $GIT_REPO_URL"
+                    if [ ! -d "$REPO_DIR" ]; then
+                        ssh-agent bash -c "ssh-add $SSH_KEY <<< $SSH_PASSPHRASE; git clone $GIT_REPO_URL"
+                    else
+                        cd $REPO_DIR
+                        ssh-agent bash -c "ssh-add $SSH_KEY <<< $SSH_PASSPHRASE; git pull"
+                    fi
                     '''
                 }
             }
