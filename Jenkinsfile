@@ -27,11 +27,14 @@ pipeline {
                     file(credentialsId: 'localhost.crt', variable: 'LOCALHOST_CRT'),
                     file(credentialsId: 'localhost.key', variable: 'LOCALHOST_KEY'),
                     file(credentialsId: 'environment.api.prod.ts', variable: 'ENV_API_PROD'),
-                    file(credentialsId: 'environment.api.ts', variable: 'ENV_API')
+                    file(credentialsId: 'environment.api.ts', variable: 'ENV_API'),
+                    file(credentialsId: 'projects.json', variable: 'PROJECTS')
                 ]) {
                     sh '''
+                    mkdir -p src/assets/json
                     cp -f $ENV_API_PROD src/environments/environment.api.prod.ts
                     cp -f $ENV_API src/environments/environment.api.ts
+                    cp -f $PROJECTS src/assets/json/projects.json
                     cp -f $APP_GERMANFICA_COM_CRT app.germanfica.com.crt
                     cp -f $APP_GERMANFICA_CSR app.germanfica.csr
                     cp -f $APP_GERMANFICA_KEY app.germanfica.key
@@ -45,7 +48,7 @@ pipeline {
         stage('Install dependencies') {
             // agent { label 'built-in' } // Especifica el agente 'Built-In Node' para este stage
             tools {
-                nodejs 'Nodejs 18.20.4'
+                nodejs 'Nodejs 20.16.0'
             }
             steps {
                 sh 'npm install'
@@ -55,7 +58,7 @@ pipeline {
         stage('Build') {
             // agent { label 'built-in' } // Especifica el agente 'Built-In Node' para este stage
             tools {
-                nodejs 'Nodejs 18.20.4'
+                nodejs 'Nodejs 20.16.0'
             }
             steps {
                 sh 'npm run build'

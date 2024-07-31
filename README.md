@@ -6,7 +6,7 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 ## Prerequisites
 
-- Node.js version 18.18.2
+- Node.js version 18.18.2 or 20.16.0
 - Angular CLI version 17.3.2
 
 ## Development server
