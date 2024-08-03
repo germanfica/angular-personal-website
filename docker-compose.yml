@@ -5,6 +5,7 @@ services:
       context: ./
       dockerfile: app.Dockerfile
     container_name: app
+    image: angular-personal-website-app:latest
     networks:
       - net
 
@@ -13,6 +14,7 @@ services:
       context: ./
       dockerfile: nginx.Dockerfile
     container_name: nginx
+    image: angular-personal-website-nginx:latest
     ports:
       - "80:80"   # Para HTTP
       - "443:443" # Para HTTPS
