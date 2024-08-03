@@ -7,10 +7,15 @@ pipeline {
         GIT_REPO_URL = 'git@github.com:germanfica/angular-personal-website.git'
         GIT_BRANCH = 'main';
         REPO_DIR = 'angular-personal-website' // Directorio del repositorio clonado
+
+        // Add the full path to the Git executable to PATH of my-pc agent
+        PATH = "C:\\Program Files\\Git\\bin;${env.PATH}"
     }
 
     stages {
         stage('Checkout') {
+            //agent { label 'built-in' } // Especifica el agente 'Built-In Node' para este stage
+            agent { label 'my-pc' }
             steps {
                 git branch: env.GIT_BRANCH, credentialsId: env.GITHUB_SSH_CREDENTIALS_ID, url: env.GIT_REPO_URL
                 echo 'Checkout completed. Proceeding to the next stage.'
@@ -18,7 +23,7 @@ pipeline {
         }
 
         stage('Copy secret files') {
-            // agent { label 'built-in' } // Especifica el agente 'Built-In Node' para este stage
+            agent { label 'built-in' } // Especifica el agente 'Built-In Node' para este stage
             steps {
                 withCredentials([
                     file(credentialsId: 'app.germanfica.com.crt', variable: 'APP_GERMANFICA_COM_CRT'),
@@ -45,23 +50,50 @@ pipeline {
             }
         }
 
-        stage('Install dependencies') {
-            // agent { label 'built-in' } // Especifica el agente 'Built-In Node' para este stage
-            tools {
-                nodejs 'Nodejs 20.16.0'
-            }
-            steps {
-                sh 'npm install'
-            }
-        }
+        // this stages are unnecesary because you are already building the project in the Dockerfile.
 
-        stage('Build') {
-            // agent { label 'built-in' } // Especifica el agente 'Built-In Node' para este stage
-            tools {
-                nodejs 'Nodejs 20.16.0'
+        // you only need to add the docker stage
+
+        // stage('Install dependencies') {
+        //     agent { label 'built-in' } // Especifica el agente 'Built-In Node' para este stage
+        //     tools {
+        //         nodejs 'Nodejs 20.16.0'
+        //     }
+        //     steps {
+        //         sh 'npm install'
+        //     }
+        // }
+
+        // stage('Build') {
+        //     agent { label 'built-in' } // Especifica el agente 'Built-In Node' para este stage
+        //     tools {
+        //         nodejs 'Nodejs 20.16.0'
+        //     }
+        //     steps {
+        //         sh 'npm run build'
+        //     }
+        // }
+
+        // stage('Copy Build to my-pc') {
+        //     agent {
+        //         label 'my-pc'
+        //     }
+        //     steps {
+        //         copyArtifacts projectName: env.JOB_NAME, selector: lastSuccessful()
+        //     }
+        // }
+
+        stage('Build Docker Image') {
+            agent {
+                label 'my-pc'
             }
             steps {
-                sh 'npm run build'
+                script {
+                    // Construye la imagen Docker localmente
+                    // def image = docker.build("mi-imagen:latest")
+                    // echo "Docker image ${image.id} created successfully"
+                    bat 'docker ps'
+                }
             }
         }
 
