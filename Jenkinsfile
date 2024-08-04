@@ -1,5 +1,6 @@
 pipeline {
-    agent any
+    //agent any
+    agent { label 'my-pc' }
 
     environment {
         SSH_CREDENTIALS_ID = 'APP_SSH' // Reemplaza con el ID de tus credenciales SSH de tipo Username with private key
@@ -7,6 +8,12 @@ pipeline {
         GIT_REPO_URL = 'git@github.com:germanfica/angular-personal-website.git'
         GIT_BRANCH = 'main';
         REPO_DIR = 'angular-personal-website' // Directorio del repositorio clonado
+        APP_IMAGE_NAME = 'personal-website-app'
+        APP_IMAGE_TAG = 'latest'
+        NGINX_IMAGE_NAME = 'personal-website-nginx'
+        NGINX_IMAGE_TAG = 'latest'
+
+        BUILD_TAG = "1.0.${BUILD_NUMBER}"
 
         // Add the full path to the Git executable to PATH of my-pc agent
         PATH = "C:\\Program Files\\Git\\bin;${env.PATH}"
@@ -22,8 +29,8 @@ pipeline {
             }
         }
 
-        stage('Copy secret files') {
-            agent { label 'built-in' } // Especifica el agente 'Built-In Node' para este stage
+        stage('Copy secret files in Windows') {
+            agent { label 'my-pc' }
             steps {
                 withCredentials([
                     file(credentialsId: 'app.germanfica.com.crt', variable: 'APP_GERMANFICA_COM_CRT'),
@@ -35,20 +42,49 @@ pipeline {
                     file(credentialsId: 'environment.api.ts', variable: 'ENV_API'),
                     file(credentialsId: 'projects.json', variable: 'PROJECTS')
                 ]) {
-                    sh '''
-                    mkdir -p src/assets/json
-                    cp -f $ENV_API_PROD src/environments/environment.api.prod.ts
-                    cp -f $ENV_API src/environments/environment.api.ts
-                    cp -f $PROJECTS src/assets/json/projects.json
-                    cp -f $APP_GERMANFICA_COM_CRT app.germanfica.com.crt
-                    cp -f $APP_GERMANFICA_CSR app.germanfica.csr
-                    cp -f $APP_GERMANFICA_KEY app.germanfica.key
-                    cp -f $LOCALHOST_CRT localhost.crt
-                    cp -f $LOCALHOST_KEY localhost.key
+                    bat '''
+                    if not exist src\\assets\\json mkdir src\\assets\\json
+                    copy /Y %ENV_API_PROD% src\\environments\\environment.api.prod.ts
+                    copy /Y %ENV_API% src\\environments\\environment.api.ts
+                    copy /Y %PROJECTS% src\\assets\\json\\projects.json
+                    copy /Y %APP_GERMANFICA_COM_CRT% app.germanfica.com.crt
+                    copy /Y %APP_GERMANFICA_CSR% app.germanfica.csr
+                    copy /Y %APP_GERMANFICA_KEY% app.germanfica.key
+                    copy /Y %LOCALHOST_CRT% localhost.crt
+                    copy /Y %LOCALHOST_KEY% localhost.key
                     '''
                 }
             }
         }
+
+        // stage('Copy secret files') {
+        //     agent { label 'built-in' } // Especifica el agente 'Built-In Node' para este stage
+        //     // agent { label 'my-pc' } // Especifica el agente 'Built-In Node' para este stage
+        //     steps {
+        //         withCredentials([
+        //             file(credentialsId: 'app.germanfica.com.crt', variable: 'APP_GERMANFICA_COM_CRT'),
+        //             file(credentialsId: 'app.germanfica.csr', variable: 'APP_GERMANFICA_CSR'),
+        //             file(credentialsId: 'app.germanfica.key', variable: 'APP_GERMANFICA_KEY'),
+        //             file(credentialsId: 'localhost.crt', variable: 'LOCALHOST_CRT'),
+        //             file(credentialsId: 'localhost.key', variable: 'LOCALHOST_KEY'),
+        //             file(credentialsId: 'environment.api.prod.ts', variable: 'ENV_API_PROD'),
+        //             file(credentialsId: 'environment.api.ts', variable: 'ENV_API'),
+        //             file(credentialsId: 'projects.json', variable: 'PROJECTS')
+        //         ]) {
+        //             sh '''
+        //             mkdir -p src/assets/json
+        //             cp -f $ENV_API_PROD src/environments/environment.api.prod.ts
+        //             cp -f $ENV_API src/environments/environment.api.ts
+        //             cp -f $PROJECTS src/assets/json/projects.json
+        //             cp -f $APP_GERMANFICA_COM_CRT app.germanfica.com.crt
+        //             cp -f $APP_GERMANFICA_CSR app.germanfica.csr
+        //             cp -f $APP_GERMANFICA_KEY app.germanfica.key
+        //             cp -f $LOCALHOST_CRT localhost.crt
+        //             cp -f $LOCALHOST_KEY localhost.key
+        //             '''
+        //         }
+        //     }
+        // }
 
         // this stages are unnecesary because you are already building the project in the Dockerfile.
 
@@ -83,7 +119,7 @@ pipeline {
         //     }
         // }
 
-        stage('Build Docker Image') {
+        stage('List containers') {
             agent {
                 label 'my-pc'
             }
@@ -93,6 +129,99 @@ pipeline {
                     // def image = docker.build("mi-imagen:latest")
                     // echo "Docker image ${image.id} created successfully"
                     bat 'docker ps'
+                }
+            }
+        }
+
+        stage('Build Docker Image') {
+            agent {
+                label 'my-pc'
+            }
+            steps {
+                script {
+                    // Construye la imagen Docker localmente con el número de build como etiqueta
+                    //bat "docker-compose build --no-cache"
+                    bat "docker-compose build"
+                    echo "Docker image created successfully"
+                }
+            }
+        }
+
+        stage('List images') {
+            agent {
+                label 'my-pc'
+            }
+            steps {
+                script {
+                    // Construye la imagen Docker localmente
+                    // def image = docker.build("mi-imagen:latest")
+                    // echo "Docker image ${image.id} created successfully"
+                    bat 'docker images'
+                }
+            }
+        }
+
+        stage('Save Docker Image with tag latest') {
+            agent {
+                label 'my-pc'
+            }
+            steps {
+                script {
+                    // Guardar la imagen Docker 'app'
+                    bat "docker save ${env.APP_IMAGE_NAME}:${APP_IMAGE_TAG} -o ${env.APP_IMAGE_NAME}-${APP_IMAGE_TAG}.tar"
+                    echo "Docker image ${env.APP_IMAGE_NAME}:${APP_IMAGE_TAG} saved as ${env.APP_IMAGE_NAME}-${APP_IMAGE_TAG}.tar"
+
+                    // Guardar la imagen Docker 'nginx'
+                    bat "docker save ${env.NGINX_IMAGE_NAME}:${NGINX_IMAGE_TAG} -o ${env.NGINX_IMAGE_NAME}-${NGINX_IMAGE_TAG}.tar"
+                    echo "Docker image '${env.NGINX_IMAGE_NAME}:${NGINX_IMAGE_TAG}' saved as ${env.NGINX_IMAGE_NAME}-${NGINX_IMAGE_TAG}.tar"
+                }
+            }
+        }
+
+        stage('Re-tag Docker Image') {
+            agent {
+                label 'my-pc'
+            }
+            steps {
+                script {
+                    // Guardar la imagen Docker 'app'
+                    bat "docker tag ${env.APP_IMAGE_NAME}:${APP_IMAGE_TAG} ${env.APP_IMAGE_NAME}:${BUILD_TAG}"
+                    echo "Docker image ${env.APP_IMAGE_NAME}:${APP_IMAGE_TAG} renamed as ${env.APP_IMAGE_NAME}:${BUILD_TAG}"
+
+                    // Guardar la imagen Docker 'nginx'
+                    bat "docker tag ${env.NGINX_IMAGE_NAME}:${NGINX_IMAGE_TAG} ${env.NGINX_IMAGE_NAME}:${BUILD_TAG}"
+                    echo "Docker image '${env.NGINX_IMAGE_NAME}:${NGINX_IMAGE_TAG}' renamed as ${env.NGINX_IMAGE_NAME}:${BUILD_TAG}"
+                }
+            }
+        }
+
+        stage('Save the renamed Docker Image with tag number') {
+            agent {
+                label 'my-pc'
+            }
+            steps {
+                script {
+                    // Guardar la imagen Docker 'app'
+                    bat "docker save ${env.APP_IMAGE_NAME}:${APP_IMAGE_TAG} -o ${env.APP_IMAGE_NAME}-${BUILD_TAG}.tar"
+                    echo "Docker image ${env.APP_IMAGE_NAME}:${APP_IMAGE_TAG} saved as ${env.APP_IMAGE_NAME}-${BUILD_TAG}.tar"
+
+                    // Guardar la imagen Docker 'nginx'
+                    bat "docker save ${env.NGINX_IMAGE_NAME}:${NGINX_IMAGE_TAG} -o ${env.NGINX_IMAGE_NAME}-${BUILD_TAG}.tar"
+                    echo "Docker image '${env.NGINX_IMAGE_NAME}:${NGINX_IMAGE_TAG}' saved as ${env.NGINX_IMAGE_NAME}-${BUILD_TAG}.tar"
+                }
+            }
+        }
+
+        stage('List images 2') {
+            agent {
+                label 'my-pc'
+            }
+            steps {
+                script {
+                    // Construye la imagen Docker localmente
+                    // def image = docker.build("mi-imagen:latest")
+                    // echo "Docker image ${image.id} created successfully"
+                    bat 'docker images'
                 }
             }
         }
