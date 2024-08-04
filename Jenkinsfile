@@ -286,6 +286,43 @@ pipeline {
             }
         }
 
+        stage('Modify docker-compose-image-template.yml') {
+            agent { label 'my-pc' }
+            steps {
+                script {
+                    // Lee el contenido del archivo docker-compose-image-template.yml
+                    def dockerComposeTemplate = readFile 'docker-compose-image-template.yml'
+
+                    // Reemplaza 'tu-imagen-hash' con '${env.APP_IMAGE_NAME}:${BUILD_TAG}'
+                    def dockerComposeContent = dockerComposeTemplate.replaceAll('tu-imagen-hash', "${env.APP_IMAGE_NAME}:${BUILD_TAG}")
+
+                    // Escribe el contenido modificado en un nuevo archivo
+                    writeFile file: 'docker-compose-image-template.yml', text: dockerComposeContent
+
+                    echo "Content successfully modified:\n${dockerComposeContent}"
+                }
+            }
+        }
+
+        stage('Upload docker-compose.yml to the server') {
+            agent { label 'my-pc' }
+            steps {
+
+                withCredentials([
+                    // string(credentialsId: 'APP_SSH', variable: 'SSH_CREDENTIALS_ID'),
+                    // sshUserPrivateKey(credentialsId: 'APP_SSH', keyFileVariable: 'SSH_KEY', passphraseVariable: 'SSH_PASSPHRASE', usernameVariable: 'SSH_USERNAME'),
+                    // No te olvides de agregar estos IDs en tus credenciales de tipo Secret text
+                    string(credentialsId: 'SSH_PORT', variable: 'SSH_PORT'), // Secret text: puerto de tu servidor SSH
+                    string(credentialsId: 'SSH_USERNAME', variable: 'SSH_USERNAME'), // Secret text: usuario de tu servidor SSH
+                    string(credentialsId: 'SSH_HOST', variable: 'SSH_HOST') // Secret text: IP de tu servidor SSH
+                ]) {
+                    bat """
+                        scp -P %SSH_PORT% docker-compose-image-template.yml %SSH_USERNAME%@%SSH_HOST%:~/docker-compose.yml
+                    """
+                }
+            }
+        }
+
         // stage('Clone or Pull Repository') {
         //     agent { label 'built-in' } // Especifica el agente 'Built-In Node' para este stage
         //     steps {
