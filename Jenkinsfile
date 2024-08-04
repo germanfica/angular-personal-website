@@ -202,12 +202,12 @@ pipeline {
             steps {
                 script {
                     // Guardar la imagen Docker 'app'
-                    bat "docker save ${env.APP_IMAGE_NAME}:${APP_IMAGE_TAG} -o ${env.APP_IMAGE_NAME}-${BUILD_TAG}.tar"
-                    echo "Docker image ${env.APP_IMAGE_NAME}:${APP_IMAGE_TAG} saved as ${env.APP_IMAGE_NAME}-${BUILD_TAG}.tar"
+                    bat "docker save ${env.APP_IMAGE_NAME}:${APP_IMAGE_TAG} -o ${env.APP_IMAGE_NAME}-v${BUILD_TAG}.tar"
+                    echo "Docker image ${env.APP_IMAGE_NAME}:${APP_IMAGE_TAG} saved as ${env.APP_IMAGE_NAME}-v${BUILD_TAG}.tar"
 
                     // Guardar la imagen Docker 'nginx'
-                    bat "docker save ${env.NGINX_IMAGE_NAME}:${NGINX_IMAGE_TAG} -o ${env.NGINX_IMAGE_NAME}-${BUILD_TAG}.tar"
-                    echo "Docker image '${env.NGINX_IMAGE_NAME}:${NGINX_IMAGE_TAG}' saved as ${env.NGINX_IMAGE_NAME}-${BUILD_TAG}.tar"
+                    bat "docker save ${env.NGINX_IMAGE_NAME}:${NGINX_IMAGE_TAG} -o ${env.NGINX_IMAGE_NAME}-v${BUILD_TAG}.tar"
+                    echo "Docker image '${env.NGINX_IMAGE_NAME}:${NGINX_IMAGE_TAG}' saved as ${env.NGINX_IMAGE_NAME}-v${BUILD_TAG}.tar"
                 }
             }
         }
@@ -222,6 +222,45 @@ pipeline {
                     // def image = docker.build("mi-imagen:latest")
                     // echo "Docker image ${image.id} created successfully"
                     bat 'docker images'
+                }
+            }
+        }
+
+        stage('Create Hello World File') {
+            agent { label 'my-pc' }
+            steps {
+
+                withCredentials([
+                    // string(credentialsId: 'APP_SSH', variable: 'SSH_CREDENTIALS_ID'),
+                    // sshUserPrivateKey(credentialsId: 'APP_SSH', keyFileVariable: 'SSH_KEY', passphraseVariable: 'SSH_PASSPHRASE', usernameVariable: 'SSH_USERNAME'),
+                    // No te olvides de agregar estos IDs en tus credenciales de tipo Secret text
+                    string(credentialsId: 'SSH_PORT', variable: 'SSH_PORT'), // Secret text: puerto de tu servidor SSH
+                    string(credentialsId: 'SSH_USERNAME', variable: 'SSH_USERNAME'), // Secret text: usuario de tu servidor SSH
+                    string(credentialsId: 'SSH_HOST', variable: 'SSH_HOST') // Secret text: IP de tu servidor SSH
+                ]) {
+                    bat """
+                        ssh -o StrictHostKeyChecking=no -p %SSH_PORT% %SSH_USERNAME%@%SSH_HOST% "echo hola mundo > hola_mundo.txt"
+                    """
+                }
+            }
+        }
+
+        stage('Upload docker images to the server') {
+            agent { label 'my-pc' }
+            steps {
+
+                withCredentials([
+                    // string(credentialsId: 'APP_SSH', variable: 'SSH_CREDENTIALS_ID'),
+                    // sshUserPrivateKey(credentialsId: 'APP_SSH', keyFileVariable: 'SSH_KEY', passphraseVariable: 'SSH_PASSPHRASE', usernameVariable: 'SSH_USERNAME'),
+                    // No te olvides de agregar estos IDs en tus credenciales de tipo Secret text
+                    string(credentialsId: 'SSH_PORT', variable: 'SSH_PORT'), // Secret text: puerto de tu servidor SSH
+                    string(credentialsId: 'SSH_USERNAME', variable: 'SSH_USERNAME'), // Secret text: usuario de tu servidor SSH
+                    string(credentialsId: 'SSH_HOST', variable: 'SSH_HOST') // Secret text: IP de tu servidor SSH
+                ]) {
+                    bat """
+                        scp -P %SSH_PORT% ${env.APP_IMAGE_NAME}-v${BUILD_TAG}.tar %SSH_USERNAME%@%SSH_HOST%:~/${env.APP_IMAGE_NAME}-v${BUILD_TAG}.tar
+                        scp -P %SSH_PORT% ${env.NGINX_IMAGE_NAME}-v${BUILD_TAG}.tar %SSH_USERNAME%@%SSH_HOST%:~/${env.NGINX_IMAGE_NAME}-v${BUILD_TAG}.tar
+                    """
                 }
             }
         }
