@@ -1,13 +1,13 @@
 version: '3.8'
 services:
   app:
-    image: tu-imagen-hash
+    image: app-image-name
     container_name: app
     networks:
       - net
 
   nginx:
-    image: tu-imagen-hash
+    image: nginx-image-name
     container_name: nginx
     ports:
       - "80:80"   # Para HTTP

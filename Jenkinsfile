@@ -294,7 +294,10 @@ pipeline {
                     def dockerComposeTemplate = readFile 'docker-compose-image-template.yml'
 
                     // Reemplaza 'tu-imagen-hash' con '${env.APP_IMAGE_NAME}:${BUILD_TAG}'
-                    def dockerComposeContent = dockerComposeTemplate.replaceAll('tu-imagen-hash', "${env.APP_IMAGE_NAME}:${BUILD_TAG}")
+                    def dockerComposeContent = dockerComposeTemplate.replaceAll('app-image-name', "${env.APP_IMAGE_NAME}:${BUILD_TAG}")
+
+                    // Reemplaza 'nginx-image-name' con '${env.NGINX_IMAGE_NAME}:${BUILD_TAG}'
+                    dockerComposeContent = dockerComposeContent.replaceAll('nginx-image-name', "${env.NGINX_IMAGE_NAME}:${BUILD_TAG}")
 
                     // Escribe el contenido modificado en un nuevo archivo
                     writeFile file: 'docker-compose-image-template.yml', text: dockerComposeContent
