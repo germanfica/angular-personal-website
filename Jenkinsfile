@@ -20,6 +20,27 @@ pipeline {
     }
 
     stages {
+        stage('Setup parameters') {
+            agent { label 'my-pc' }
+            steps {
+                script {
+                    properties([
+                        parameters([
+                            // choice(
+                            //     choices: [],
+                            //     name: 'GIT_TAG'
+                            // ),
+                            gitParameter (
+                                branch: env.GIT_BRANCH, branchFilter: '.*', defaultValue: 'origin/main',
+                                description: 'Select a git tag to use in this build. This parameter requires the git-parameter plugin.',
+                                name: 'GIT_TAG', quickFilterEnabled: false, selectedValue: 'NONE', sortMode: 'NONE', tagFilter: '*', type: 'PT_TAG'
+                            )
+                        ])
+                    ])
+                }
+            }
+        }
+
         stage('Checkout') {
             //agent { label 'built-in' } // Especifica el agente 'Built-In Node' para este stage
             agent { label 'my-pc' }
