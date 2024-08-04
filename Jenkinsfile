@@ -19,6 +19,10 @@ pipeline {
         PATH = "C:\\Program Files\\Git\\bin;${env.PATH}"
     }
 
+    options {
+        disableConcurrentBuilds()
+    }
+
     stages {
         stage('Setup parameters') {
             agent { label 'my-pc' }
@@ -37,6 +41,18 @@ pipeline {
                             )
                         ])
                     ])
+                }
+            }
+        }
+
+        stage('Check parameters') {
+            agent { label 'my-pc' }
+            steps {
+                script {
+                    if(params.GIT_TAG) {
+                        currentBuild.result = 'ABORTED';
+                        error("GIT_TAG is empty")
+                    }
                 }
             }
         }
