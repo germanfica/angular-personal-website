@@ -202,12 +202,12 @@ pipeline {
             steps {
                 script {
                     // Guardar la imagen Docker 'app'
-                    bat "docker save ${env.APP_IMAGE_NAME}:${APP_IMAGE_TAG} -o ${env.APP_IMAGE_NAME}-v${BUILD_TAG}.tar"
-                    echo "Docker image ${env.APP_IMAGE_NAME}:${APP_IMAGE_TAG} saved as ${env.APP_IMAGE_NAME}-v${BUILD_TAG}.tar"
+                    bat "docker save ${env.APP_IMAGE_NAME}:${BUILD_TAG} -o ${env.APP_IMAGE_NAME}-v${BUILD_TAG}.tar"
+                    echo "Docker image ${env.APP_IMAGE_NAME}:${BUILD_TAG} saved as ${env.APP_IMAGE_NAME}-v${BUILD_TAG}.tar"
 
                     // Guardar la imagen Docker 'nginx'
-                    bat "docker save ${env.NGINX_IMAGE_NAME}:${NGINX_IMAGE_TAG} -o ${env.NGINX_IMAGE_NAME}-v${BUILD_TAG}.tar"
-                    echo "Docker image '${env.NGINX_IMAGE_NAME}:${NGINX_IMAGE_TAG}' saved as ${env.NGINX_IMAGE_NAME}-v${BUILD_TAG}.tar"
+                    bat "docker save ${env.NGINX_IMAGE_NAME}:${BUILD_TAG} -o ${env.NGINX_IMAGE_NAME}-v${BUILD_TAG}.tar"
+                    echo "Docker image '${env.NGINX_IMAGE_NAME}:${BUILD_TAG}' saved as ${env.NGINX_IMAGE_NAME}-v${BUILD_TAG}.tar"
                 }
             }
         }
