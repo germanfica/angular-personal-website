@@ -1,3 +1,6 @@
+def buildTag = "1.0.${BUILD_NUMBER}"
+def buildBranch = 'main'
+
 pipeline {
     //agent any
     agent { label 'my-pc' }
@@ -6,14 +9,11 @@ pipeline {
         SSH_CREDENTIALS_ID = 'APP_SSH' // Reemplaza con el ID de tus credenciales SSH de tipo Username with private key
         GITHUB_SSH_CREDENTIALS_ID = 'github-ssh-key' // Reemplaza con el ID de tus credenciales SSH de tipo Username with private key
         GIT_REPO_URL = 'git@github.com:germanfica/angular-personal-website.git'
-        GIT_BRANCH = 'main';
         REPO_DIR = 'angular-personal-website' // Directorio del repositorio clonado
         APP_IMAGE_NAME = 'personal-website-app'
         APP_IMAGE_TAG = 'latest'
         NGINX_IMAGE_NAME = 'personal-website-nginx'
         NGINX_IMAGE_TAG = 'latest'
-
-        BUILD_TAG = "1.0.${BUILD_NUMBER}"
 
         // Add the full path to the Git executable to PATH of my-pc agent
         PATH = "C:\\Program Files\\Git\\bin;${env.PATH}"
@@ -34,8 +34,12 @@ pipeline {
                             //     choices: [],
                             //     name: 'GIT_TAG'
                             // ),
+                            choice(
+                                choices: ['tag', 'main'],
+                                name: 'GIT_BRANCH'
+                            ),
                             gitParameter (
-                                branch: env.GIT_BRANCH, branchFilter: '.*', defaultValue: 'origin/main',
+                                branch: buildBranch, branchFilter: '.*', defaultValue: '',
                                 description: 'Select a git tag to use in this build. This parameter requires the git-parameter plugin.',
                                 name: 'GIT_TAG', quickFilterEnabled: false, selectedValue: 'NONE', sortMode: 'NONE', tagFilter: '*', type: 'PT_TAG'
                             )
@@ -49,10 +53,20 @@ pipeline {
             agent { label 'my-pc' }
             steps {
                 script {
-                    if(params.GIT_TAG) {
-                        currentBuild.result = 'ABORTED';
-                        error("GIT_TAG is empty")
+                    if(params.GIT_BRANCH.toString().equals('tag')){
+                        if(params.GIT_TAG == null || params.GIT_TAG.toString().isEmpty()) {
+                            currentBuild.result = 'ABORTED';
+                            error("GIT_TAG is empty")
+                        }else {
+                            buildTag = params.GIT_TAG.toString()
+                            buildBranch = params.GIT_TAG.toString()
+                        }
                     }
+                    if(params.GIT_BRANCH == null || params.GIT_BRANCH.toString().isEmpty()) {
+                        currentBuild.result = 'ABORTED';
+                        error("GIT_BRANCH is empty")
+                    }
+                    echo "Build tag: ${buildTag}"
                 }
             }
         }
@@ -61,7 +75,13 @@ pipeline {
             //agent { label 'built-in' } // Especifica el agente 'Built-In Node' para este stage
             agent { label 'my-pc' }
             steps {
-                git branch: env.GIT_BRANCH, credentialsId: env.GITHUB_SSH_CREDENTIALS_ID, url: env.GIT_REPO_URL
+                checkout([$class: 'GitSCM', branches: [[name: buildBranch]],
+                          doGenerateSubmoduleConfigurations: false,
+                          extensions: [],
+                          gitTool: 'Default',
+                          userRemoteConfigs: [[url: env.GIT_REPO_URL, credentialsId: 'github-ssh-key']]])
+                // bat 'git status'
+                // bat 'git branch --show-current'
                 echo 'Checkout completed. Proceeding to the next stage.'
             }
         }
@@ -222,12 +242,12 @@ pipeline {
             steps {
                 script {
                     // Guardar la imagen Docker 'app'
-                    bat "docker tag ${env.APP_IMAGE_NAME}:${APP_IMAGE_TAG} ${env.APP_IMAGE_NAME}:${BUILD_TAG}"
-                    echo "Docker image ${env.APP_IMAGE_NAME}:${APP_IMAGE_TAG} renamed as ${env.APP_IMAGE_NAME}:${BUILD_TAG}"
+                    bat "docker tag ${env.APP_IMAGE_NAME}:${APP_IMAGE_TAG} ${env.APP_IMAGE_NAME}:${buildTag}"
+                    echo "Docker image ${env.APP_IMAGE_NAME}:${APP_IMAGE_TAG} renamed as ${env.APP_IMAGE_NAME}:${buildTag}"
 
                     // Guardar la imagen Docker 'nginx'
-                    bat "docker tag ${env.NGINX_IMAGE_NAME}:${NGINX_IMAGE_TAG} ${env.NGINX_IMAGE_NAME}:${BUILD_TAG}"
-                    echo "Docker image '${env.NGINX_IMAGE_NAME}:${NGINX_IMAGE_TAG}' renamed as ${env.NGINX_IMAGE_NAME}:${BUILD_TAG}"
+                    bat "docker tag ${env.NGINX_IMAGE_NAME}:${NGINX_IMAGE_TAG} ${env.NGINX_IMAGE_NAME}:${buildTag}"
+                    echo "Docker image '${env.NGINX_IMAGE_NAME}:${NGINX_IMAGE_TAG}' renamed as ${env.NGINX_IMAGE_NAME}:${buildTag}"
                 }
             }
         }
@@ -239,12 +259,12 @@ pipeline {
             steps {
                 script {
                     // Guardar la imagen Docker 'app'
-                    bat "docker save ${env.APP_IMAGE_NAME}:${BUILD_TAG} -o ${env.APP_IMAGE_NAME}-v${BUILD_TAG}.tar"
-                    echo "Docker image ${env.APP_IMAGE_NAME}:${BUILD_TAG} saved as ${env.APP_IMAGE_NAME}-v${BUILD_TAG}.tar"
+                    bat "docker save ${env.APP_IMAGE_NAME}:${buildTag} -o ${env.APP_IMAGE_NAME}-v${buildTag}.tar"
+                    echo "Docker image ${env.APP_IMAGE_NAME}:${buildTag} saved as ${env.APP_IMAGE_NAME}-v${buildTag}.tar"
 
                     // Guardar la imagen Docker 'nginx'
-                    bat "docker save ${env.NGINX_IMAGE_NAME}:${BUILD_TAG} -o ${env.NGINX_IMAGE_NAME}-v${BUILD_TAG}.tar"
-                    echo "Docker image '${env.NGINX_IMAGE_NAME}:${BUILD_TAG}' saved as ${env.NGINX_IMAGE_NAME}-v${BUILD_TAG}.tar"
+                    bat "docker save ${env.NGINX_IMAGE_NAME}:${buildTag} -o ${env.NGINX_IMAGE_NAME}-v${buildTag}.tar"
+                    echo "Docker image '${env.NGINX_IMAGE_NAME}:${buildTag}' saved as ${env.NGINX_IMAGE_NAME}-v${buildTag}.tar"
                 }
             }
         }
@@ -295,8 +315,8 @@ pipeline {
                     string(credentialsId: 'SSH_HOST', variable: 'SSH_HOST') // Secret text: IP de tu servidor SSH
                 ]) {
                     bat """
-                        scp -P %SSH_PORT% ${env.APP_IMAGE_NAME}-v${BUILD_TAG}.tar %SSH_USERNAME%@%SSH_HOST%:~/${env.APP_IMAGE_NAME}-v${BUILD_TAG}.tar
-                        scp -P %SSH_PORT% ${env.NGINX_IMAGE_NAME}-v${BUILD_TAG}.tar %SSH_USERNAME%@%SSH_HOST%:~/${env.NGINX_IMAGE_NAME}-v${BUILD_TAG}.tar
+                        scp -P %SSH_PORT% ${env.APP_IMAGE_NAME}-v${buildTag}.tar %SSH_USERNAME%@%SSH_HOST%:~/${env.APP_IMAGE_NAME}-v${buildTag}.tar
+                        scp -P %SSH_PORT% ${env.NGINX_IMAGE_NAME}-v${buildTag}.tar %SSH_USERNAME%@%SSH_HOST%:~/${env.NGINX_IMAGE_NAME}-v${buildTag}.tar
                     """
                 }
             }
@@ -315,8 +335,8 @@ pipeline {
                     string(credentialsId: 'SSH_HOST', variable: 'SSH_HOST') // Secret text: IP de tu servidor SSH
                 ]) {
                     bat """
-                        ssh -o StrictHostKeyChecking=no -p %SSH_PORT% %SSH_USERNAME%@%SSH_HOST% "docker load -i ${env.APP_IMAGE_NAME}-v${BUILD_TAG}.tar"
-                        ssh -o StrictHostKeyChecking=no -p %SSH_PORT% %SSH_USERNAME%@%SSH_HOST% "docker load -i ${env.NGINX_IMAGE_NAME}-v${BUILD_TAG}.tar"
+                        ssh -o StrictHostKeyChecking=no -p %SSH_PORT% %SSH_USERNAME%@%SSH_HOST% "docker load -i ${env.APP_IMAGE_NAME}-v${buildTag}.tar"
+                        ssh -o StrictHostKeyChecking=no -p %SSH_PORT% %SSH_USERNAME%@%SSH_HOST% "docker load -i ${env.NGINX_IMAGE_NAME}-v${buildTag}.tar"
                         ssh -o StrictHostKeyChecking=no -p %SSH_PORT% %SSH_USERNAME%@%SSH_HOST% "docker images"
                     """
                 }
@@ -330,11 +350,11 @@ pipeline {
                     // Lee el contenido del archivo docker-compose-image-template.yml
                     def dockerComposeTemplate = readFile 'docker-compose-image-template.yml'
 
-                    // Reemplaza 'tu-imagen-hash' con '${env.APP_IMAGE_NAME}:${BUILD_TAG}'
-                    def dockerComposeContent = dockerComposeTemplate.replaceAll('app-image-name', "${env.APP_IMAGE_NAME}:${BUILD_TAG}")
+                    // Reemplaza 'tu-imagen-hash' con '${env.APP_IMAGE_NAME}:${buildTag}'
+                    def dockerComposeContent = dockerComposeTemplate.replaceAll('app-image-name', "${env.APP_IMAGE_NAME}:${buildTag}")
 
-                    // Reemplaza 'nginx-image-name' con '${env.NGINX_IMAGE_NAME}:${BUILD_TAG}'
-                    dockerComposeContent = dockerComposeContent.replaceAll('nginx-image-name', "${env.NGINX_IMAGE_NAME}:${BUILD_TAG}")
+                    // Reemplaza 'nginx-image-name' con '${env.NGINX_IMAGE_NAME}:${buildTag}'
+                    dockerComposeContent = dockerComposeContent.replaceAll('nginx-image-name', "${env.NGINX_IMAGE_NAME}:${buildTag}")
 
                     // Escribe el contenido modificado en un nuevo archivo
                     writeFile file: 'docker-compose-image-template.yml', text: dockerComposeContent
