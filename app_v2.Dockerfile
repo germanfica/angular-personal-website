@@ -14,18 +14,26 @@ WORKDIR /app
 # Instala gettext para usar envsubst
 RUN apk add --no-cache gettext
 
-# Asegúrate de copiar la estructura completa del directorio dist/personal
-COPY --from=build-step /app/dist/personal/ ./
-
-# TODO: esto deberia hacerse aparte en otra etapa de construcción de imagen al igual
-
 # Sustituye la variable de entorno en el `index.html` usando envsubst
 ARG APP_BASE_PATH
 ENV APP_BASE_PATH=${APP_BASE_PATH}
-RUN envsubst '${APP_BASE_PATH}' < /app/server/index.server.html > /app/server/index.server.temp.html && \
-    mv /app/server/index.server.temp.html /app/server/index.server.html
-RUN envsubst '${APP_BASE_PATH}' < /app/browser/index.html > /app/browser/index.temp.html && \
-mv /app/browser/index.temp.html /app/browser/index.html
 
+# Asegúrate de copiar la estructura completa del directorio dist/personal
+COPY --from=build-step /app/dist/personal/ ./${APP_BASE_PATH}/
+
+# TODO: esto deberia hacerse aparte en otra etapa de construcción de imagen al igual
+
+RUN envsubst '${APP_BASE_PATH}' < /app/${APP_BASE_PATH}/server/index.server.html > /app/${APP_BASE_PATH}/server/index.server.temp.html && \
+    mv /app/${APP_BASE_PATH}/server/index.server.temp.html /app/${APP_BASE_PATH}/server/index.server.html
+RUN envsubst '${APP_BASE_PATH}' < /app/${APP_BASE_PATH}/browser/index.html > /app/${APP_BASE_PATH}/browser/index.temp.html && \
+    mv /app/${APP_BASE_PATH}/browser/index.temp.html /app/${APP_BASE_PATH}/browser/index.html
+
+# Crear un script de inicio para expandir APP_BASE_PATH en la ruta
+RUN echo -e "#!/bin/sh\nnode /app/\${APP_BASE_PATH}/server/server.mjs" > /app/start.sh
+RUN chmod +x /app/start.sh
+
+# Expone el puerto
 EXPOSE 3000
-CMD ["node", "server/server.mjs"]
+
+# Ejecuta el script de inicio
+CMD ["/app/start.sh"]

@@ -6,6 +6,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LayoutModule } from './layout/layout.module';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { APP_BASE_HREF } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
     ),
     provideAnimationsAsync(),
     provideHttpClient(withFetch()),  // Habilitar fetch para HttpClient,
+    {provide: APP_BASE_HREF, useValue: '/api/asdqw/23w/'}
   ],
   bootstrap: [AppComponent]
 })

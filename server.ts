@@ -6,28 +6,35 @@ import { dirname, join, resolve } from 'node:path';
 import AppServerModule from './src/main.server';
 import { RESPONSE } from './src/express.token';
 
+const BASE_PATH = process.env['APP_BASE_PATH'] || '/';
+
 // The Express app is exported so that it can be used by serverless Functions.
 export function app(): express.Express {
   const server = express();
   const serverDistFolder = dirname(fileURLToPath(import.meta.url));
-  const browserDistFolder = resolve(serverDistFolder, '../browser');
+  const browserDistFolder = resolve(serverDistFolder, `../browser`);
   const indexHtml = join(serverDistFolder, 'index.server.html');
+
+
+  // Imprimir las rutas configuradas
+  console.log('Ruta de serverDistFolder:', serverDistFolder);
+  console.log('Ruta de browserDistFolder:', browserDistFolder);
 
   const commonEngine = new CommonEngine();
 
   server.set('view engine', 'html');
   server.set('views', browserDistFolder);
 
-  // Example Express Rest API endpoints
-  // server.get('/api/**', (req, res) => { });
-  // Serve static files from /browser
-  server.get('*.*', express.static(browserDistFolder, {
+  // Serve static files from browserDistFolder with base path
+  server.use(`${BASE_PATH}`, express.static(browserDistFolder, {
     maxAge: '1y'
-  }));
+  }));  
 
-  // All regular routes use the Angular engine
-  server.get('*', (req, res, next) => {
-    const { protocol, originalUrl, baseUrl, headers } = req;
+  // Use Angular engine for routes starting with the base path
+  server.get(`${BASE_PATH}*`, (req, res, next) => {
+    const { protocol, originalUrl, headers } = req;
+
+    console.log(`${protocol}://${headers.host}${originalUrl}`);
 
     commonEngine
       .render({
@@ -35,10 +42,18 @@ export function app(): express.Express {
         documentFilePath: indexHtml,
         url: `${protocol}://${headers.host}${originalUrl}`,
         publicPath: browserDistFolder,
-        providers: [{ provide: APP_BASE_HREF, useValue: process.env['APP_BASE_PATH'] || baseUrl }, { provide: RESPONSE, useValue: res }],
+        providers: [
+          { provide: APP_BASE_HREF, useValue: BASE_PATH },
+          { provide: RESPONSE, useValue: res }
+        ],
       })
       .then((html) => res.send(html))
       .catch((err) => next(err));
+  });
+
+  // Handle any other route not starting with the base path
+  server.get('*', (req, res) => {
+    res.status(404).send('Not found');
   });
 
   return server;
