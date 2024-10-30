@@ -1,13 +1,37 @@
-version: '3.8'
 services:
   app:
     build:
       context: ./
       dockerfile: app.Dockerfile
     container_name: app
-    image: personal-website-app:latest
+    # image: personal-website-app:latest
+    environment:
+    #   SSR_PORT: ${SSR_PORT:-4000}
+    #   APP_BASE_PATH: ${APP_BASE_PATH:-/}
+      SSR_PORT: 4000
+      APP_BASE_PATH: /
+    ports:
+      - "4000:4000"
     networks:
       - net
+      - shared-net
+
+  app_v2:
+    build:
+      context: ./
+      dockerfile: app_v2.Dockerfile
+      args:
+        APP_BASE_PATH: ${APP_BASE_PATH:-/} # Aquí puedes referenciar la variable desde .env
+    container_name: app_v2
+    # image: personal-website-app:latest
+    environment:
+      SSR_PORT: ${SSR_PORT:-4000}
+      APP_BASE_PATH: ${APP_BASE_PATH:-/}
+    ports:
+      - "3000:3000"
+    networks:
+      - net
+      - shared-net
 
   nginx:
     build:
@@ -20,7 +44,10 @@ services:
       - "443:443" # Para HTTPS
     networks:
       - net
+      - shared-net
 
 networks:
   net:
     driver: bridge
+  shared-net:
+    external: true
