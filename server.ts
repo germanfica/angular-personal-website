@@ -6,7 +6,6 @@ import { dirname, join, resolve } from 'node:path';
 import AppServerModule from './src/main.server';
 import { RESPONSE } from './src/express.token';
 
-const BASE_PATH = process.env['APP_BASE_PATH'] || '/';
 
 // The Express app is exported so that it can be used by serverless Functions.
 export function app(): express.Express {
@@ -14,7 +13,7 @@ export function app(): express.Express {
   const serverDistFolder = dirname(fileURLToPath(import.meta.url));
   const browserDistFolder = resolve(serverDistFolder, `../browser`);
   const indexHtml = join(serverDistFolder, 'index.server.html');
-
+  const basePath = process.env['APP_BASE_PATH'] || '/';
 
   // Imprimir las rutas configuradas
   console.log('Ruta de serverDistFolder:', serverDistFolder);
@@ -26,12 +25,12 @@ export function app(): express.Express {
   server.set('views', browserDistFolder);
 
   // Serve static files from browserDistFolder with base path
-  server.use(`${BASE_PATH}`, express.static(browserDistFolder, {
+  server.use(`${basePath}`, express.static(browserDistFolder, {
     maxAge: '1y'
-  }));  
+  }));
 
   // Use Angular engine for routes starting with the base path
-  server.get(`${BASE_PATH}*`, (req, res, next) => {
+  server.get(`${basePath}*`, (req, res, next) => {
     const { protocol, originalUrl, headers } = req;
 
     console.log(`${protocol}://${headers.host}${originalUrl}`);
@@ -43,7 +42,7 @@ export function app(): express.Express {
         url: `${protocol}://${headers.host}${originalUrl}`,
         publicPath: browserDistFolder,
         providers: [
-          { provide: APP_BASE_HREF, useValue: BASE_PATH },
+          { provide: APP_BASE_HREF, useValue: basePath },
           { provide: RESPONSE, useValue: res }
         ],
       })
