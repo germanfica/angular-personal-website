@@ -14,7 +14,8 @@ export function app(): express.Express {
   const indexHtml = join(serverDistFolder, 'index.server.html');
   const basePath = process.env['APP_BASE_PATH'] || '/';
 
-  console.log(`carpeta: ${serverDistFolder}`);
+  console.log(`serverDistFolder: ${serverDistFolder}`);
+  console.log(`browserDistFolder: ${browserDistFolder}`);
 
   const commonEngine = new CommonEngine();
 
