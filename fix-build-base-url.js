@@ -7,11 +7,27 @@ const APP_BASE_PATH = process.env.APP_BASE_PATH;
 // Ruta del archivo de estado
 const migrationStatusFile = 'dist/personal/.migration_applied';
 
+// Función para realizar la sustitución de APP_BASE_PATH en un archivo
+const substituteEnvVariable = (filePath) => {
+    if (fs.existsSync(filePath)) {
+        const content = fs.readFileSync(filePath, 'utf-8');
+        const updatedContent = content.replace(/\${APP_BASE_PATH}/g, APP_BASE_PATH);
+        fs.writeFileSync(filePath, updatedContent);
+        console.log(`Environment variable substituted in ${filePath}`);
+    } else {
+        console.error(`File not found: ${filePath}`);
+    }
+};
+
 // Verificar si la migración ya fue aplicada
 if (fs.existsSync(migrationStatusFile)) {
     console.log('Migration has already been applied.');
 } else if (APP_BASE_PATH) {
     console.log(`APP_BASE_PATH has the value: ${APP_BASE_PATH}`);
+
+    // Realizar la sustitución de la variable en archivos HTML
+    substituteEnvVariable('dist/personal/server/index.server.html');
+    substituteEnvVariable('dist/personal/browser/index.html');
 
     // Crear carpetas /dist/personal/temp, /dist/personal/temp/browser y /dist/personal/temp/server si no existen
     const createDirectory = (dirPath) => {
