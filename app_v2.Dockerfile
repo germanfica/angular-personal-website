@@ -19,21 +19,32 @@ ARG APP_BASE_PATH
 ENV APP_BASE_PATH=${APP_BASE_PATH}
 
 # Asegúrate de copiar la estructura completa del directorio dist/personal
-COPY --from=build-step /app/dist/personal/ ./${APP_BASE_PATH}/
+COPY --from=build-step /app/dist/personal/ ./
 
 # TODO: esto deberia hacerse aparte en otra etapa de construcción de imagen al igual
 
-RUN envsubst '${APP_BASE_PATH}' < /app/${APP_BASE_PATH}/server/index.server.html > /app/${APP_BASE_PATH}/server/index.server.temp.html && \
-    mv /app/${APP_BASE_PATH}/server/index.server.temp.html /app/${APP_BASE_PATH}/server/index.server.html
-RUN envsubst '${APP_BASE_PATH}' < /app/${APP_BASE_PATH}/browser/index.html > /app/${APP_BASE_PATH}/browser/index.temp.html && \
-    mv /app/${APP_BASE_PATH}/browser/index.temp.html /app/${APP_BASE_PATH}/browser/index.html
+# TODO: esto deberia hacerse en el script javascript fix-build-base-url.js
 
-# Crear un script de inicio para expandir APP_BASE_PATH en la ruta
-RUN echo -e "#!/bin/sh\nnode /app/\${APP_BASE_PATH}/server/server.mjs" > /app/start.sh
-RUN chmod +x /app/start.sh
+RUN envsubst '${APP_BASE_PATH}' < /app/server/index.server.html > /app/server/index.server.temp.html && \
+    mv /app/server/index.server.temp.html /app/server/index.server.html
+RUN envsubst '${APP_BASE_PATH}' < /app/browser/index.html > /app/browser/index.temp.html && \
+    mv /app/browser/index.temp.html /app/browser/index.html
 
-# Expone el puerto
+# RUN mkdir -p /app/${APP_BASE_PATH} && \
+#     mkdir -p /app/${APP_BASE_PATH}
+
+# TODO: esto deberia hacerse en el script javascript fix-build-base-url.js
+
+# En el caso que ${APP_BASE_PATH} sea solo 1 directorio
+RUN mkdir /app/temp && \
+    mkdir /app/temp/browser && \
+    mkdir /app/temp/server
+
+RUN mv /app/browser /app/temp/browser/${APP_BASE_PATH} && \
+    mv /app/temp/browser /app/browser
+
+# En el caso que ${APP_BASE_PATH} tenga subdirectorios
+
+
 EXPOSE 3000
-
-# Ejecuta el script de inicio
-CMD ["/app/start.sh"]
+CMD ["node", "server/server.mjs"]

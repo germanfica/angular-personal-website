@@ -27,7 +27,7 @@ import { APP_BASE_HREF } from '@angular/common';
     ),
     provideAnimationsAsync(),
     provideHttpClient(withFetch()),  // Habilitar fetch para HttpClient,
-    {provide: APP_BASE_HREF, useValue: '/api/asdqw/23w/'}
+    // {provide: APP_BASE_HREF, useValue: '/api/asdqw/23w/'}
   ],
   bootstrap: [AppComponent]
 })

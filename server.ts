@@ -6,54 +6,51 @@ import { dirname, join, resolve } from 'node:path';
 import AppServerModule from './src/main.server';
 import { RESPONSE } from './src/express.token';
 
-
 // The Express app is exported so that it can be used by serverless Functions.
 export function app(): express.Express {
   const server = express();
   const serverDistFolder = dirname(fileURLToPath(import.meta.url));
-  const browserDistFolder = resolve(serverDistFolder, `../browser`);
+  const browserDistFolder = resolve(serverDistFolder, '../browser');
   const indexHtml = join(serverDistFolder, 'index.server.html');
   const basePath = process.env['APP_BASE_PATH'] || '/';
 
-  // Imprimir las rutas configuradas
-  console.log('Ruta de serverDistFolder:', serverDistFolder);
-  console.log('Ruta de browserDistFolder:', browserDistFolder);
+  console.log(`carpeta: ${serverDistFolder}`);
 
   const commonEngine = new CommonEngine();
 
   server.set('view engine', 'html');
   server.set('views', browserDistFolder);
 
-  // Serve static files from browserDistFolder with base path
-  server.use(`${basePath}`, express.static(browserDistFolder, {
+  // Example Express Rest API endpoints
+  // server.get('/api/**', (req, res) => { });
+  // Serve static files from /browser
+  const routePath = basePath === '/' ? '*.*' : `${basePath}/**`;
+  console.log(`routePath static: ${routePath}`);
+
+  
+  server.get('/a/**', express.static(browserDistFolder, {
     maxAge: '1y'
   }));
 
-  // Use Angular engine for routes starting with the base path
-  server.get(`${basePath}*`, (req, res, next) => {
-    const { protocol, originalUrl, headers } = req;
+  // const allRoutePath = basePath === '/' ? '*' : `${basePath}*`;
+  // // All regular routes use the Angular engine
+  // server.get(allRoutePath, (req, res, next) => {
+  //   const { protocol, originalUrl, baseUrl, headers } = req;
+  //   const routePath = basePath === '/' ? baseUrl : basePath;
 
-    console.log(`${protocol}://${headers.host}${originalUrl}`);
+  //   console.log(`allRoutePath: ${allRoutePath}`)
 
-    commonEngine
-      .render({
-        bootstrap: AppServerModule,
-        documentFilePath: indexHtml,
-        url: `${protocol}://${headers.host}${originalUrl}`,
-        publicPath: browserDistFolder,
-        providers: [
-          { provide: APP_BASE_HREF, useValue: basePath },
-          { provide: RESPONSE, useValue: res }
-        ],
-      })
-      .then((html) => res.send(html))
-      .catch((err) => next(err));
-  });
-
-  // Handle any other route not starting with the base path
-  server.get('*', (req, res) => {
-    res.status(404).send('Not found');
-  });
+  //   commonEngine
+  //     .render({
+  //       bootstrap: AppServerModule,
+  //       documentFilePath: indexHtml,
+  //       url: `${protocol}://${headers.host}${originalUrl}`,
+  //       publicPath: browserDistFolder,
+  //       providers: [{ provide: APP_BASE_HREF, useValue: routePath }, { provide: RESPONSE, useValue: res }],
+  //     })
+  //     .then((html) => res.send(html))
+  //     .catch((err) => next(err));
+  // });
 
   return server;
 }
