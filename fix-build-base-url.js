@@ -9,15 +9,15 @@ const migrationStatusFile = 'dist/personal/.migration_applied';
 
 // Verificar si la migración ya fue aplicada
 if (fs.existsSync(migrationStatusFile)) {
-    console.log('La migración ya ha sido aplicada anteriormente.');
+    console.log('Migration has already been applied.');
 } else if (APP_BASE_PATH) {
-    console.log(`APP_BASE_PATH tiene el valor: ${APP_BASE_PATH}`);
+    console.log(`APP_BASE_PATH has the value: ${APP_BASE_PATH}`);
 
     // Crear carpetas /dist/personal/temp, /dist/personal/temp/browser y /dist/personal/temp/server si no existen
     const createDirectory = (dirPath) => {
         if (!fs.existsSync(dirPath)) {
             fs.mkdirSync(dirPath, { recursive: true });
-            console.log(`Directorio creado: ${dirPath}`);
+            console.log(`Directory created: ${dirPath}`);
         }
     };
 
@@ -31,9 +31,9 @@ if (fs.existsSync(migrationStatusFile)) {
 
     if (fs.existsSync(sourcePath)) {
         fs.renameSync(sourcePath, tempDestinationPath);
-        console.log(`Carpeta movida de ${sourcePath} a ${tempDestinationPath}`);
+        console.log(`Folder moved from ${sourcePath} to ${tempDestinationPath}`);
     } else {
-        console.error(`La carpeta de origen ${sourcePath} no existe`);
+        console.error(`The source folder ${sourcePath} does not exist`);
     }
 
     // Crear el directorio final si no existe
@@ -45,21 +45,25 @@ if (fs.existsSync(migrationStatusFile)) {
 
     if (fs.existsSync(tempDestinationPath)) {
         fs.renameSync(tempDestinationPath, finalDestinationPath);
-        console.log(`Carpeta movida de ${tempDestinationPath} a ${finalDestinationPath}`);
+        console.log(`Folder moved from ${tempDestinationPath} to ${finalDestinationPath}`);
     } else {
-        console.error(`La carpeta temporal ${tempDestinationPath} no existe`);
+        console.error(`The temporary folder ${tempDestinationPath} does not exist`);
     }
 
     // Eliminar la carpeta dist/personal/temp
     const tempPath = 'dist/personal/temp';
     if (fs.existsSync(tempPath)) {
         fs.rmSync(tempPath, { recursive: true });
-        console.log(`Carpeta temporal eliminada: ${tempPath}`);
+        console.log(`Temporary folder deleted: ${tempPath}`);
     }
 
     // Crear el archivo de estado para indicar que la migración fue aplicada
-    fs.writeFileSync(migrationStatusFile, 'Migración aplicada.');
-    console.log(`Archivo de estado creado: ${migrationStatusFile}`);
+    const migrationInfo = {
+        status: "Migration completed successfully",
+        timestamp: new Date().toISOString()
+    };
+    fs.writeFileSync(migrationStatusFile, JSON.stringify(migrationInfo, null, 2));
+    console.log(`Status file created: ${migrationStatusFile}`);
 } else {
-    console.log('APP_BASE_PATH no tiene un valor asignado');
+    console.log('APP_BASE_PATH is not set');
 }
