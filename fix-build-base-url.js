@@ -4,11 +4,16 @@ const path = require('path');
 // Variable que contiene el valor de APP_BASE_PATH
 const APP_BASE_PATH = process.env.APP_BASE_PATH;
 
-// Verificar si APP_BASE_PATH tiene algún valor
-if (APP_BASE_PATH) {
+// Ruta del archivo de estado
+const migrationStatusFile = 'dist/personal/.migration_applied';
+
+// Verificar si la migración ya fue aplicada
+if (fs.existsSync(migrationStatusFile)) {
+    console.log('La migración ya ha sido aplicada anteriormente.');
+} else if (APP_BASE_PATH) {
     console.log(`APP_BASE_PATH tiene el valor: ${APP_BASE_PATH}`);
 
-    // Crear carpetas /app/temp, /app/temp/browser y /app/temp/server si no existen
+    // Crear carpetas /dist/personal/temp, /dist/personal/temp/browser y /dist/personal/temp/server si no existen
     const createDirectory = (dirPath) => {
         if (!fs.existsSync(dirPath)) {
             fs.mkdirSync(dirPath, { recursive: true });
@@ -20,7 +25,7 @@ if (APP_BASE_PATH) {
     createDirectory('dist/personal/temp/browser');
     createDirectory('dist/personal/temp/server');
 
-    // Mover la carpeta /app/browser a /app/temp/browser/${APP_BASE_PATH}
+    // Mover la carpeta /dist/personal/browser a /dist/personal/temp/browser/${APP_BASE_PATH}
     const sourcePath = 'dist/personal/browser';
     const tempDestinationPath = path.join('dist/personal/temp/browser', APP_BASE_PATH);
 
@@ -51,6 +56,10 @@ if (APP_BASE_PATH) {
         fs.rmSync(tempPath, { recursive: true });
         console.log(`Carpeta temporal eliminada: ${tempPath}`);
     }
+
+    // Crear el archivo de estado para indicar que la migración fue aplicada
+    fs.writeFileSync(migrationStatusFile, 'Migración aplicada.');
+    console.log(`Archivo de estado creado: ${migrationStatusFile}`);
 } else {
     console.log('APP_BASE_PATH no tiene un valor asignado');
 }
