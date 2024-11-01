@@ -22,22 +22,34 @@ if (APP_BASE_PATH) {
 
     // Mover la carpeta /app/browser a /app/temp/browser/${APP_BASE_PATH}
     const sourcePath = 'dist/personal/browser';
-    const destinationPath = path.join('dist/personal/temp/browser', APP_BASE_PATH);
+    const tempDestinationPath = path.join('dist/personal/temp/browser', APP_BASE_PATH);
 
     if (fs.existsSync(sourcePath)) {
-        fs.renameSync(sourcePath, destinationPath);
-        console.log(`Carpeta movida de ${sourcePath} a ${destinationPath}`);
+        fs.renameSync(sourcePath, tempDestinationPath);
+        console.log(`Carpeta movida de ${sourcePath} a ${tempDestinationPath}`);
     } else {
         console.error(`La carpeta de origen ${sourcePath} no existe`);
     }
 
-    // Mover /app/temp/browser de regreso a /app/browser
-    const finalDestinationPath = '/app/browser';
-    if (fs.existsSync(destinationPath)) {
-        fs.renameSync(destinationPath, finalDestinationPath);
-        console.log(`Carpeta movida de ${destinationPath} a ${finalDestinationPath}`);
+    // Crear el directorio final si no existe
+    const finalDestinationBasePath = 'dist/personal/browser';
+    createDirectory(finalDestinationBasePath);
+
+    // Mover la carpeta temporal completa de regreso a dist/personal/browser/${APP_BASE_PATH}
+    const finalDestinationPath = path.join(finalDestinationBasePath, APP_BASE_PATH);
+
+    if (fs.existsSync(tempDestinationPath)) {
+        fs.renameSync(tempDestinationPath, finalDestinationPath);
+        console.log(`Carpeta movida de ${tempDestinationPath} a ${finalDestinationPath}`);
     } else {
-        console.error(`La carpeta de destino ${destinationPath} no existe`);
+        console.error(`La carpeta temporal ${tempDestinationPath} no existe`);
+    }
+
+    // Eliminar la carpeta dist/personal/temp
+    const tempPath = 'dist/personal/temp';
+    if (fs.existsSync(tempPath)) {
+        fs.rmSync(tempPath, { recursive: true });
+        console.log(`Carpeta temporal eliminada: ${tempPath}`);
     }
 } else {
     console.log('APP_BASE_PATH no tiene un valor asignado');
