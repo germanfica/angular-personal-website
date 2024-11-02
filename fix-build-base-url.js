@@ -8,7 +8,8 @@ const APP_BASE_PATH = process.env.APP_BASE_PATH;
 const migrationStatusFile = 'dist/personal/.migration_applied';
 
 // Función para realizar la sustitución de APP_BASE_PATH en un archivo
-const substituteEnvVariable = (filePath) => {
+const substituteEnvVariable = (dir, fileName) => {
+    const filePath = path.join(dir, fileName);
     if (fs.existsSync(filePath)) {
         const content = fs.readFileSync(filePath, 'utf-8');
         const updatedContent = content.replace(/\${APP_BASE_PATH}/g, APP_BASE_PATH);
@@ -48,8 +49,8 @@ if (fs.existsSync(migrationStatusFile)) {
     console.log(`APP_BASE_PATH has the value: ${APP_BASE_PATH}`);
 
     // Realizar la sustitución de la variable en archivos HTML
-    //substituteEnvVariable('dist/personal/server/index.server.html');
-    //substituteEnvVariable('dist/personal/browser/index.html');
+    //substituteEnvVariable('dist/personal/server', 'index.server.html');
+    //substituteEnvVariable('dist/personal/browser', 'index.html');
     // Realizar la sustitución de la variable en todos los archivos index.html de los directorios especificados
     substituteEnvVariableInDirectory('dist/personal/server', 'index.server.html');
     substituteEnvVariableInDirectory('dist/personal/browser', 'index.html');
