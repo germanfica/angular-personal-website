@@ -4,11 +4,12 @@
   "scripts": {
     "ng": "ng",
     "start": "npm run generate-sitemap && ng serve",
-    "build": "npm run generate-sitemap && ng build",
+    "build": "npm run generate-sitemap && ng build && npm run replace-base-path",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "serve:ssr:personal": "node dist/personal/server/server.mjs",
     "generate-sitemap": "node generate-sitemap.js",
+    "replace-base-path": "node fix-build-base-url.js",
     "build-and-sitemap": "ng build && npm run generate-sitemap"
   },
   "private": true,

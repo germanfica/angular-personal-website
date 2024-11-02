@@ -19,6 +19,28 @@ const substituteEnvVariable = (filePath) => {
     }
 };
 
+const substituteEnvVariableInDirectory = (dir, fileName) => {
+    if (fs.existsSync(dir)) {
+        fs.readdirSync(dir).forEach((file) => {
+            const filePath = path.join(dir, file);
+            const stat = fs.statSync(filePath);
+
+            if (stat.isDirectory()) {
+                // Llamada recursiva para buscar en subdirectorios
+                substituteEnvVariableInDirectory(filePath, fileName);
+            } else if (stat.isFile() && file === fileName) {
+                // Realizar la sustitución en el archivo especificado
+                const content = fs.readFileSync(filePath, 'utf-8');
+                const updatedContent = content.replace(/\${APP_BASE_PATH}/g, APP_BASE_PATH);
+                fs.writeFileSync(filePath, updatedContent);
+                console.log(`Environment variable substituted in ${filePath}`);
+            }
+        });
+    } else {
+        console.error(`Directory not found: ${dir}`);
+    }
+};
+
 // Verificar si la migración ya fue aplicada
 if (fs.existsSync(migrationStatusFile)) {
     console.log('Migration has already been applied.');
@@ -26,8 +48,11 @@ if (fs.existsSync(migrationStatusFile)) {
     console.log(`APP_BASE_PATH has the value: ${APP_BASE_PATH}`);
 
     // Realizar la sustitución de la variable en archivos HTML
-    substituteEnvVariable('dist/personal/server/index.server.html');
-    substituteEnvVariable('dist/personal/browser/index.html');
+    //substituteEnvVariable('dist/personal/server/index.server.html');
+    //substituteEnvVariable('dist/personal/browser/index.html');
+    // Realizar la sustitución de la variable en todos los archivos index.html de los directorios especificados
+    substituteEnvVariableInDirectory('dist/personal/server', 'index.server.html');
+    substituteEnvVariableInDirectory('dist/personal/browser', 'index.html');
 
     // Crear carpetas /dist/personal/temp, /dist/personal/temp/browser y /dist/personal/temp/server si no existen
     const createDirectory = (dirPath) => {
