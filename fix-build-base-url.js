@@ -55,21 +55,20 @@ const moveDir = (src, dest) => {
     fs.rmSync(src, { recursive: true, force: true });
 };
 
-// Verificar si la migración ya fue aplicada
-if (fs.existsSync(migrationStatusFile)) {
-    logMessage('Migration has already been applied.');
-} else if (APP_BASE_PATH) {
+// Función para crear un directorio si no existe
+const createDirectory = (dirPath) => {
+    if (!fs.existsSync(dirPath)) {
+        fs.mkdirSync(dirPath, { recursive: true });
+        logMessage(`Directory created: ${dirPath}`);
+    }
+};
+
+// Función principal de migración
+const applyMigration = () => {
     logMessage(`APP_BASE_PATH has the value: ${APP_BASE_PATH}`);
 
     substituteEnvVariableInDirectory(path.join(APP_OUTPUT_PATH, 'server'), 'index.server.html');
     substituteEnvVariableInDirectory(path.join(APP_OUTPUT_PATH, 'browser'), 'index.html');
-
-    const createDirectory = (dirPath) => {
-        if (!fs.existsSync(dirPath)) {
-            fs.mkdirSync(dirPath, { recursive: true });
-            logMessage(`Directory created: ${dirPath}`);
-        }
-    };
 
     createDirectory(path.join(APP_OUTPUT_PATH, 'temp'));
     createDirectory(path.join(APP_OUTPUT_PATH, 'temp/browser'));
@@ -109,9 +108,19 @@ if (fs.existsSync(migrationStatusFile)) {
     };
     fs.writeFileSync(migrationStatusFile, JSON.stringify(migrationInfo, null, 2));
     logMessage(`Status file created: ${migrationStatusFile}`);
-
     logMessage("Migration process completed successfully.");
-} else {
-    logMessage('APP_BASE_PATH is not set');
-    logMessage("Migration process failed due to missing APP_BASE_PATH.");
+};
+
+const main = () => {
+    // Ejecución de la migración si no ha sido aplicada o falta APP_BASE_PATH
+    if (fs.existsSync(migrationStatusFile)) {
+        logMessage('Migration has already been applied.');
+    } else if (APP_BASE_PATH) {
+        applyMigration();
+    } else {
+        logMessage('APP_BASE_PATH is not set');
+        logMessage("Migration process failed due to missing APP_BASE_PATH.");
+    }
 }
+
+main();
