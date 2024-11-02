@@ -1,3 +1,7 @@
+//TODO: crear un sistema de logs y guardarlo en un archivo a la misma altura que .migration_applied
+// que registre todo el proceso con horario de qué fue lo que se estuvo haciendo
+// cada cosa, y al final del log hay que saber si fue un éxito o no
+
 const fs = require('fs');
 const path = require('path');
 
@@ -8,6 +12,9 @@ const APP_OUTPUT_PATH = process.env.APP_OUTPUT_PATH || 'dist/personal';
 const migrationStatusFile = path.join(APP_OUTPUT_PATH, '.migration_applied');
 
 // Función para realizar la sustitución de APP_BASE_PATH en un archivo
+// Example of use:
+// substituteEnvVariable('dist/personal/server', 'index.server.html');
+// substituteEnvVariable('dist/personal/browser', 'index.html');
 const substituteEnvVariable = (dir, fileName) => {
     const filePath = path.join(dir, fileName);
     if (fs.existsSync(filePath)) {
@@ -42,16 +49,18 @@ const substituteEnvVariableInDirectory = (dir, fileName) => {
     }
 };
 
+// Función para mover un directorio mediante copiado y eliminación
+const moveDir = (src, dest) => {
+    fs.cpSync(src, dest, { recursive: true });
+    fs.rmSync(src, { recursive: true, force: true });
+};
+
 // Verificar si la migración ya fue aplicada
 if (fs.existsSync(migrationStatusFile)) {
     console.log('Migration has already been applied.');
 } else if (APP_BASE_PATH) {
     console.log(`APP_BASE_PATH has the value: ${APP_BASE_PATH}`);
 
-    //substituteEnvVariable('dist/personal/server', 'index.server.html');
-    //substituteEnvVariable('dist/personal/browser', 'index.html');
-    // Realizar la sustitución de la variable en todos los archivos index.html de los directorios especificados
-    // Realizar la sustitución de la variable en archivos HTML
     substituteEnvVariableInDirectory(path.join(APP_OUTPUT_PATH, 'server'), 'index.server.html');
     substituteEnvVariableInDirectory(path.join(APP_OUTPUT_PATH, 'browser'), 'index.html');
 
@@ -72,7 +81,7 @@ if (fs.existsSync(migrationStatusFile)) {
     const tempDestinationPath = path.join(APP_OUTPUT_PATH, 'temp/browser', APP_BASE_PATH);
 
     if (fs.existsSync(sourcePath)) {
-        fs.renameSync(sourcePath, tempDestinationPath);
+        moveDir(sourcePath, tempDestinationPath);
         console.log(`Folder moved from ${sourcePath} to ${tempDestinationPath}`);
     } else {
         console.error(`The source folder ${sourcePath} does not exist`);
@@ -85,7 +94,7 @@ if (fs.existsSync(migrationStatusFile)) {
     const finalDestinationPath = path.join(finalDestinationBasePath, APP_BASE_PATH);
 
     if (fs.existsSync(tempDestinationPath)) {
-        fs.renameSync(tempDestinationPath, finalDestinationPath);
+        moveDir(tempDestinationPath, finalDestinationPath);
         console.log(`Folder moved from ${tempDestinationPath} to ${finalDestinationPath}`);
     } else {
         console.error(`The temporary folder ${tempDestinationPath} does not exist`);
