@@ -1,11 +1,11 @@
 const fs = require('fs');
 const path = require('path');
 
-// Variable que contiene el valor de APP_BASE_PATH
 const APP_BASE_PATH = process.env.APP_BASE_PATH;
+const APP_OUTPUT_PATH = process.env.APP_OUTPUT_PATH || 'dist/personal';
 
 // Ruta del archivo de estado
-const migrationStatusFile = 'dist/personal/.migration_applied';
+const migrationStatusFile = path.join(APP_OUTPUT_PATH, '.migration_applied');
 
 // Función para realizar la sustitución de APP_BASE_PATH en un archivo
 const substituteEnvVariable = (dir, fileName) => {
@@ -48,14 +48,14 @@ if (fs.existsSync(migrationStatusFile)) {
 } else if (APP_BASE_PATH) {
     console.log(`APP_BASE_PATH has the value: ${APP_BASE_PATH}`);
 
-    // Realizar la sustitución de la variable en archivos HTML
     //substituteEnvVariable('dist/personal/server', 'index.server.html');
     //substituteEnvVariable('dist/personal/browser', 'index.html');
     // Realizar la sustitución de la variable en todos los archivos index.html de los directorios especificados
-    substituteEnvVariableInDirectory('dist/personal/server', 'index.server.html');
-    substituteEnvVariableInDirectory('dist/personal/browser', 'index.html');
+    // Realizar la sustitución de la variable en archivos HTML
+    substituteEnvVariableInDirectory(path.join(APP_OUTPUT_PATH, 'server'), 'index.server.html');
+    substituteEnvVariableInDirectory(path.join(APP_OUTPUT_PATH, 'browser'), 'index.html');
 
-    // Crear carpetas /dist/personal/temp, /dist/personal/temp/browser y /dist/personal/temp/server si no existen
+    // Crear carpetas en la estructura temporal
     const createDirectory = (dirPath) => {
         if (!fs.existsSync(dirPath)) {
             fs.mkdirSync(dirPath, { recursive: true });
@@ -63,13 +63,13 @@ if (fs.existsSync(migrationStatusFile)) {
         }
     };
 
-    createDirectory('dist/personal/temp');
-    createDirectory('dist/personal/temp/browser');
-    createDirectory('dist/personal/temp/server');
+    createDirectory(path.join(APP_OUTPUT_PATH, 'temp'));
+    createDirectory(path.join(APP_OUTPUT_PATH, 'temp/browser'));
+    createDirectory(path.join(APP_OUTPUT_PATH, 'temp/server'));
 
-    // Mover la carpeta /dist/personal/browser a /dist/personal/temp/browser/${APP_BASE_PATH}
-    const sourcePath = 'dist/personal/browser';
-    const tempDestinationPath = path.join('dist/personal/temp/browser', APP_BASE_PATH);
+    // Mover la carpeta /browser a la estructura temporal
+    const sourcePath = path.join(APP_OUTPUT_PATH, 'browser');
+    const tempDestinationPath = path.join(APP_OUTPUT_PATH, 'temp/browser', APP_BASE_PATH);
 
     if (fs.existsSync(sourcePath)) {
         fs.renameSync(sourcePath, tempDestinationPath);
@@ -78,11 +78,10 @@ if (fs.existsSync(migrationStatusFile)) {
         console.error(`The source folder ${sourcePath} does not exist`);
     }
 
-    // Crear el directorio final si no existe
-    const finalDestinationBasePath = 'dist/personal/browser';
+    // Crear el directorio final y mover la carpeta de vuelta
+    const finalDestinationBasePath = path.join(APP_OUTPUT_PATH, 'browser');
     createDirectory(finalDestinationBasePath);
 
-    // Mover la carpeta temporal completa de regreso a dist/personal/browser/${APP_BASE_PATH}
     const finalDestinationPath = path.join(finalDestinationBasePath, APP_BASE_PATH);
 
     if (fs.existsSync(tempDestinationPath)) {
@@ -92,8 +91,8 @@ if (fs.existsSync(migrationStatusFile)) {
         console.error(`The temporary folder ${tempDestinationPath} does not exist`);
     }
 
-    // Eliminar la carpeta dist/personal/temp
-    const tempPath = 'dist/personal/temp';
+    // Eliminar la carpeta temporal
+    const tempPath = path.join(APP_OUTPUT_PATH, 'temp');
     if (fs.existsSync(tempPath)) {
         fs.rmSync(tempPath, { recursive: true });
         console.log(`Temporary folder deleted: ${tempPath}`);
