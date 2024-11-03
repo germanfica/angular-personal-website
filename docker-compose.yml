@@ -19,7 +19,6 @@ services:
       - "4000:4000"
     networks:
       - net
-      - shared-net
 
   app_v2:
     build:
@@ -38,7 +37,6 @@ services:
       - "3000:3000"
     networks:
       - net
-      - shared-net
 
   nginx:
     build:
@@ -51,10 +49,7 @@ services:
       - "443:443" # Para HTTPS
     networks:
       - net
-      - shared-net
 
 networks:
   net:
     driver: bridge
-  shared-net:
-    external: true
