@@ -25,33 +25,33 @@ export function app(): express.Express {
   // Example Express Rest API endpoints
   // server.get('/api/**', (req, res) => { });
   // Serve static files from /browser
-  const routePath = basePath === '/' ? '*.*' : `${basePath}/**`;
+  const cleanBasePath = basePath.replace(/\/+$/, ''); // Elimina todas las barras '/' al final
+  const routePath = cleanBasePath === '/' ? '*.*' : `${cleanBasePath}/**`;
   console.log(`routePath static: ${routePath}`);
 
-  
-  server.get('/a/**', express.static(browserDistFolder, {
+  server.get(routePath, express.static(browserDistFolder, {
     maxAge: '1y'
   }));
 
-  // const allRoutePath = basePath === '/' ? '*' : `${basePath}*`;
-  // // All regular routes use the Angular engine
-  // server.get(allRoutePath, (req, res, next) => {
-  //   const { protocol, originalUrl, baseUrl, headers } = req;
-  //   const routePath = basePath === '/' ? baseUrl : basePath;
+  const allRoutePath = basePath === '/' ? '*' : `${basePath}*`;
+  // All regular routes use the Angular engine
+  server.get(allRoutePath, (req, res, next) => {
+    const { protocol, originalUrl, baseUrl, headers } = req;
+    const routePath = basePath === '/' ? baseUrl : basePath;
 
-  //   console.log(`allRoutePath: ${allRoutePath}`)
+    console.log(`allRoutePath: ${allRoutePath}`)
 
-  //   commonEngine
-  //     .render({
-  //       bootstrap: AppServerModule,
-  //       documentFilePath: indexHtml,
-  //       url: `${protocol}://${headers.host}${originalUrl}`,
-  //       publicPath: browserDistFolder,
-  //       providers: [{ provide: APP_BASE_HREF, useValue: routePath }, { provide: RESPONSE, useValue: res }],
-  //     })
-  //     .then((html) => res.send(html))
-  //     .catch((err) => next(err));
-  // });
+    commonEngine
+      .render({
+        bootstrap: AppServerModule,
+        documentFilePath: indexHtml,
+        url: `${protocol}://${headers.host}${originalUrl}`,
+        publicPath: browserDistFolder,
+        providers: [{ provide: APP_BASE_HREF, useValue: routePath }, { provide: RESPONSE, useValue: res }],
+      })
+      .then((html) => res.send(html))
+      .catch((err) => next(err));
+  });
 
   return server;
 }
