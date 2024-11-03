@@ -4,8 +4,10 @@ services:
       context: ./
       dockerfile: app.Dockerfile
       args:
-        APP_BASE_PATH: ${APP_BASE_PATH:-/} # Aquí puedes referenciar la variable desde .env
-        APP_OUTPUT_PATH: ${APP_OUTPUT_PATH:-dist/personal}
+        # APP_BASE_PATH: ${APP_BASE_PATH:-/} # Aquí puedes referenciar la variable desde .env
+        # APP_OUTPUT_PATH: ${APP_OUTPUT_PATH:-dist/personal}
+        APP_BASE_PATH: /
+        APP_OUTPUT_PATH: dist/personal
     container_name: app
     # image: personal-website-app:latest
     environment:
