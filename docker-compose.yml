@@ -8,7 +8,7 @@ services:
         # APP_OUTPUT_PATH: ${APP_OUTPUT_PATH:-dist/personal}
         APP_BASE_PATH: /
         APP_OUTPUT_PATH: dist/personal
-    container_name: app
+    container_name: app-personal-website
     # image: personal-website-app:latest
     environment:
     #   SSR_PORT: ${SSR_PORT:-4000}
@@ -19,20 +19,43 @@ services:
       - "4000:4000"
     networks:
       - net
+    restart: unless-stopped
 
-  app_v2:
+  # app_v2:
+  #   build:
+  #     context: ./
+  #     dockerfile: app_v2.Dockerfile
+  #     args:
+  #       APP_BASE_PATH: ${APP_BASE_PATH:-/} # Aquí puedes referenciar la variable desde .env
+  #       APP_OUTPUT_PATH: ${APP_OUTPUT_PATH:-dist/personal}
+  #   container_name: app_v2
+  #   # image: personal-website-app:latest
+  #   environment:
+  #     SSR_PORT: ${SSR_PORT:-4000}
+  #     APP_BASE_PATH: ${APP_BASE_PATH:-/}
+  #     APP_OUTPUT_PATH: ${APP_OUTPUT_PATH:-dist/personal}
+  #   ports:
+  #     - "3000:3000"
+  #   networks:
+  #     - net
+
+  api:
     build:
-      context: ./
-      dockerfile: app_v2.Dockerfile
+      context: ../my-login-app-api
+      dockerfile: Dockerfile
       args:
         APP_BASE_PATH: ${APP_BASE_PATH:-/} # Aquí puedes referenciar la variable desde .env
         APP_OUTPUT_PATH: ${APP_OUTPUT_PATH:-dist/personal}
-    container_name: app_v2
-    # image: personal-website-app:latest
+    container_name: api-personal-website
+    # image: personal-website-api:latest
     environment:
-      SSR_PORT: ${SSR_PORT:-4000}
-      APP_BASE_PATH: ${APP_BASE_PATH:-/}
-      APP_OUTPUT_PATH: ${APP_OUTPUT_PATH:-dist/personal}
+      NODE_ENV: ${NODE_ENV}
+      JWT_SECRET: ${JWT_SECRET}
+      DB_HOST: ${DB_HOST}
+      DB_PORT: ${DB_PORT}
+      DB_USERNAME: ${DB_USERNAME}
+      DB_PASSWORD: ${DB_PASSWORD}
+      DB_NAME: ${DB_NAME}
     ports:
       - "3000:3000"
     networks:
@@ -42,13 +65,16 @@ services:
     build:
       context: ./
       dockerfile: nginx.Dockerfile
-    container_name: nginx
+    container_name: nginx-personal-website
     image: personal-website-nginx:latest
     ports:
       - "80:80"   # Para HTTP
       - "443:443" # Para HTTPS
     networks:
       - net
+    restart: unless-stopped
+    volumes:
+      - "./nginx-custom.conf:/etc/nginx/conf.d/default.conf:ro" # read only, container cannot make changes
 
 networks:
   net:
