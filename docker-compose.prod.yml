@@ -67,9 +67,9 @@ services:
     networks:
       - net
     restart: unless-stopped
-    volumes:
+    # volumes:
       # - "./nginx-custom-no-ssl-localhost.conf:/etc/nginx/conf.d/default.conf:ro" # read only, container cannot make changes
-      - "./nginx-custom-with-ssl-localhost.conf:/etc/nginx/conf.d/default.conf:ro" # read only, container cannot make changes
+      # - "./nginx-custom-with-ssl-localhost.conf:/etc/nginx/conf.d/default.conf:ro" # read only, container cannot make changes
 
 volumes:
   db-data:
