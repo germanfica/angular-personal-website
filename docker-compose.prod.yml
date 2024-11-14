@@ -25,11 +25,11 @@ services:
       - api_db_net
     restart: unless-stopped
 
-  api:
+  auth:
     build:
       context: ../my-login-app-api
       dockerfile: Dockerfile
-    container_name: api-personal-website
+    container_name: auth-personal-website
     # image: personal-website-api:latest
     environment:
       NODE_ENV: ${NODE_ENV}
