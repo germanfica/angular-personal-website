@@ -8,6 +8,11 @@
 
 # Etapa de ejecución
 FROM nginx:latest
+
+# ENV ABORT_ENV_VARIABLE=false
+
+# RUN if [ "$ABORT_ENV_VARIABLE" = "true" ]; then echo "Abortando la construcción porque ABORT_ENV_VARIABLE es true"; exit 1; fi
+
 #COPY --from=build-step /app/dist/personal/* /usr/share/nginx/html
 COPY ./nginx-custom.conf /etc/nginx/conf.d/default.conf
 COPY app.germanfica.com.crt /etc/nginx/ssl/

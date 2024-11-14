@@ -24,7 +24,7 @@ services:
     volumes:
       - db-data:/var/lib/mysql
     networks:
-      - api_db_net
+      - db_net
     restart: unless-stopped
 
   api:
@@ -36,16 +36,18 @@ services:
     environment:
       NODE_ENV: ${NODE_ENV}
       JWT_SECRET: ${JWT_SECRET}
-      DB_HOST: ${DB_HOST}
-      DB_PORT: ${DB_PORT}
+      # DB_HOST: ${DB_HOST}
+      # DB_PORT: ${DB_PORT}
+      DB_HOST: db
+      DB_PORT: 3306
       DB_USERNAME: ${DB_USERNAME}
       DB_PASSWORD: ${DB_PASSWORD}
       DB_NAME: ${DB_NAME}
     ports:
-      - "3000:3000"
+      - "3035:3000"
     networks:
       - net
-      - api_db_net
+      - db_net
     restart: unless-stopped
 
 volumes:
@@ -54,5 +56,5 @@ volumes:
 networks:
   net:
     driver: bridge
-  api_db_net:
+  db_net:
     driver: bridge
