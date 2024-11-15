@@ -2,7 +2,8 @@
     <div class="form-item">
         <label for="username" class="form-label">Username</label>
         <div class="form-control">
-            <input id="username" type="text" formControlName="username" placeholder="Enter your username..." class="input" />
+            <input id="username" type="text" formControlName="username" placeholder="Enter your username..."
+                class="input" />
         </div>
         <div class="form-description">This is your public display name.</div>
         <div *ngIf="username?.invalid && username?.touched" class="form-message">
@@ -12,5 +13,24 @@
             </small>
         </div>
     </div>
+
+    <div class="form-item">
+        <label for="password" class="form-label">Password</label>
+        <div class="form-control">
+            <input id="password" type="password" formControlName="password" placeholder="Enter your password..."
+                class="input" />
+        </div>
+        <div class="form-description">Use 8 or more characters with a mix of letters and numbers.</div>
+        <div *ngIf="password?.invalid && password?.touched" class="form-message">
+            <small *ngIf="password?.errors?.['required']">Password is required.</small>
+            <small *ngIf="password?.errors?.['minlength']">
+                Password must be at least 8 characters.
+            </small>
+            <small *ngIf="password?.errors?.['pattern']">
+                Password must include at least one letter and one number.
+            </small>
+        </div>
+    </div>
+
     <button type="submit" class="button" [disabled]="form.invalid">Submit</button>
 </form>
