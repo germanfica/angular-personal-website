@@ -90,9 +90,8 @@ pipeline {
             agent { label 'my-pc' }
             steps {
                 withCredentials([
-                    file(credentialsId: 'app.germanfica.com.crt', variable: 'APP_GERMANFICA_COM_CRT'),
-                    file(credentialsId: 'app.germanfica.csr', variable: 'APP_GERMANFICA_CSR'),
-                    file(credentialsId: 'app.germanfica.key', variable: 'APP_GERMANFICA_KEY'),
+                    file(credentialsId: 'app_germanfica_com.crt', variable: 'APP_GERMANFICA_COM_CRT'),
+                    file(credentialsId: 'app_germanfica_com.key', variable: 'APP_GERMANFICA_KEY'),
                     file(credentialsId: 'localhost.crt', variable: 'LOCALHOST_CRT'),
                     file(credentialsId: 'localhost.key', variable: 'LOCALHOST_KEY'),
                     file(credentialsId: 'environment.api.prod.ts', variable: 'ENV_API_PROD'),
@@ -104,9 +103,8 @@ pipeline {
                     copy /Y %ENV_API_PROD% src\\environments\\environment.api.prod.ts
                     copy /Y %ENV_API% src\\environments\\environment.api.ts
                     copy /Y %PROJECTS% src\\assets\\json\\projects.json
-                    copy /Y %APP_GERMANFICA_COM_CRT% app.germanfica.com.crt
-                    copy /Y %APP_GERMANFICA_CSR% app.germanfica.csr
-                    copy /Y %APP_GERMANFICA_KEY% app.germanfica.key
+                    copy /Y %APP_GERMANFICA_COM_CRT% app_germanfica_com.crt
+                    copy /Y %APP_GERMANFICA_KEY% app_germanfica_com.key
                     copy /Y %LOCALHOST_CRT% localhost.crt
                     copy /Y %LOCALHOST_KEY% localhost.key
                     '''
@@ -119,9 +117,8 @@ pipeline {
         //     // agent { label 'my-pc' } // Especifica el agente 'Built-In Node' para este stage
         //     steps {
         //         withCredentials([
-        //             file(credentialsId: 'app.germanfica.com.crt', variable: 'APP_GERMANFICA_COM_CRT'),
-        //             file(credentialsId: 'app.germanfica.csr', variable: 'APP_GERMANFICA_CSR'),
-        //             file(credentialsId: 'app.germanfica.key', variable: 'APP_GERMANFICA_KEY'),
+        //             file(credentialsId: 'app_germanfica_com.crt', variable: 'APP_GERMANFICA_COM_CRT'),
+        //             file(credentialsId: 'app_germanfica_com.key', variable: 'APP_GERMANFICA_KEY'),
         //             file(credentialsId: 'localhost.crt', variable: 'LOCALHOST_CRT'),
         //             file(credentialsId: 'localhost.key', variable: 'LOCALHOST_KEY'),
         //             file(credentialsId: 'environment.api.prod.ts', variable: 'ENV_API_PROD'),
@@ -133,9 +130,8 @@ pipeline {
         //             cp -f $ENV_API_PROD src/environments/environment.api.prod.ts
         //             cp -f $ENV_API src/environments/environment.api.ts
         //             cp -f $PROJECTS src/assets/json/projects.json
-        //             cp -f $APP_GERMANFICA_COM_CRT app.germanfica.com.crt
-        //             cp -f $APP_GERMANFICA_CSR app.germanfica.csr
-        //             cp -f $APP_GERMANFICA_KEY app.germanfica.key
+        //             cp -f $APP_GERMANFICA_COM_CRT app_germanfica_com.crt
+        //             cp -f $APP_GERMANFICA_KEY app_germanfica_com.key
         //             cp -f $LOCALHOST_CRT localhost.crt
         //             cp -f $LOCALHOST_KEY localhost.key
         //             '''

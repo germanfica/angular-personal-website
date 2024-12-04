@@ -7,9 +7,8 @@
 src/environments/environment.api.ts
 src/environments/environment.api.prod.ts
 projects.json
-app.germanfica.com.crt
-app.germanfica.csr
-app.germanfica.key
+app_germanfica_com.crt
+app_germanfica_com.key
 localhost.crt
 localhost.key
 .env
