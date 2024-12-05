@@ -96,7 +96,8 @@ pipeline {
                     file(credentialsId: 'localhost.key', variable: 'LOCALHOST_KEY'),
                     file(credentialsId: 'environment.api.prod.ts', variable: 'ENV_API_PROD'),
                     file(credentialsId: 'environment.api.ts', variable: 'ENV_API'),
-                    file(credentialsId: 'projects.json', variable: 'PROJECTS')
+                    file(credentialsId: 'projects.json', variable: 'PROJECTS'),
+                    file(credentialsId: 'app_german_fica_com.env', variable: 'ENV_FILE')
                 ]) {
                     bat '''
                     if not exist src\\assets\\json mkdir src\\assets\\json
@@ -107,6 +108,7 @@ pipeline {
                     copy /Y %APP_GERMANFICA_KEY% app_germanfica_com.key
                     copy /Y %LOCALHOST_CRT% localhost.crt
                     copy /Y %LOCALHOST_KEY% localhost.key
+                    copy /Y %ENV_FILE% .env
                     '''
                 }
             }
@@ -194,7 +196,8 @@ pipeline {
                 script {
                     // Construye la imagen Docker localmente con el número de build como etiqueta
                     //bat "docker-compose build --no-cache"
-                    bat "docker-compose build"
+                    //bat "docker-compose build"
+                    bat "docker-compose -f docker-compose.prod.yml build"
                     echo "Docker image created successfully"
                 }
             }
