@@ -339,6 +339,7 @@ pipeline {
                         ssh -o StrictHostKeyChecking=no -p %SSH_PORT% %SSH_USERNAME%@%SSH_HOST% "docker load -i ${env.APP_IMAGE_NAME}-v${buildTag}.tar"
                         ssh -o StrictHostKeyChecking=no -p %SSH_PORT% %SSH_USERNAME%@%SSH_HOST% "docker load -i ${env.NGINX_IMAGE_NAME}-v${buildTag}.tar"
                         ssh -o StrictHostKeyChecking=no -p %SSH_PORT% %SSH_USERNAME%@%SSH_HOST% "docker images"
+                        ssh -o StrictHostKeyChecking=no -p %SSH_PORT% %SSH_USERNAME%@%SSH_HOST% "rm -f ${env.APP_IMAGE_NAME}-v${buildTag}.tar ${env.NGINX_IMAGE_NAME}-v${buildTag}.tar"
                     """
                 }
             }
