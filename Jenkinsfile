@@ -10,6 +10,7 @@ pipeline {
         GITHUB_SSH_CREDENTIALS_ID = 'github-ssh-key' // Reemplaza con el ID de tus credenciales SSH de tipo Username with private key
         GIT_REPO_URL = 'git@github.com:germanfica/angular-personal-website.git'
         REPO_DIR = 'angular-personal-website' // Directorio del repositorio clonado
+        PROJECT_NAME = 'personal-website'
         APP_IMAGE_NAME = 'personal-website-app'
         APP_IMAGE_TAG = 'latest'
         NGINX_IMAGE_NAME = 'personal-website-nginx'
@@ -197,7 +198,8 @@ pipeline {
                     // Construye la imagen Docker localmente con el número de build como etiqueta
                     //bat "docker-compose build --no-cache"
                     //bat "docker-compose build"
-                    bat "docker-compose -f docker-compose.prod.yml build"
+                    //bat "docker-compose -f docker-compose.prod.yml build"
+                    bat "docker-compose -p ${env.PROJECT_NAME} -f docker-compose.prod.yml --env-file .env up -d"
                     echo "Docker image created successfully"
                 }
             }
