@@ -388,7 +388,7 @@ pipeline {
         // stage('Clone or Pull Repository') {
         //     agent { label 'built-in' } // Especifica el agente 'Built-In Node' para este stage
         //     steps {
-        //         withCredentials([sshUserPrivateKey(credentialsId: 'github-ssh-key', keyFileVariable: 'SSH_KEY', passphraseVariable: 'SSH_PASSPHRASE')]) {
+        //         withCredentials([sshUserPrivateKey(credentialsId: env.GITHUB_SSH_CREDENTIALS_ID, keyFileVariable: 'SSH_KEY', passphraseVariable: 'SSH_PASSPHRASE')]) {
         //             sh '''
         //             [ -d ~/.ssh ] || mkdir ~/.ssh && chmod 0700 ~/.ssh
         //             ssh-keyscan -t rsa,dsa github.com >> ~/.ssh/known_hosts
