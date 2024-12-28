@@ -80,7 +80,7 @@ pipeline {
                           doGenerateSubmoduleConfigurations: false,
                           extensions: [],
                           gitTool: 'Default',
-                          userRemoteConfigs: [[url: env.GIT_REPO_URL, credentialsId: 'github-ssh-key']]])
+                          userRemoteConfigs: [[url: env.GIT_REPO_URL, credentialsId: env.GITHUB_SSH_CREDENTIALS_ID]]])
                 // bat 'git status'
                 // bat 'git branch --show-current'
                 echo 'Checkout completed. Proceeding to the next stage.'
