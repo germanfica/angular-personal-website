@@ -27,28 +27,28 @@ services:
       - db_net
     restart: unless-stopped
 
-  auth:
-    build:
-      context: ../my-login-app-api
-      dockerfile: Dockerfile
-    container_name: auth-personal-website
-    # image: personal-website-api:latest
-    environment:
-      NODE_ENV: ${NODE_ENV}
-      JWT_SECRET: ${JWT_SECRET}
-      # DB_HOST: ${DB_HOST}
-      # DB_PORT: ${DB_PORT}
-      DB_HOST: db
-      DB_PORT: 3306
-      DB_USERNAME: ${DB_USERNAME}
-      DB_PASSWORD: ${DB_PASSWORD}
-      DB_NAME: ${DB_NAME}
-    ports:
-      - "3035:3000"
-    networks:
-      - net
-      - db_net
-    restart: unless-stopped
+  # auth:
+  #   build:
+  #     context: ../my-login-app-api
+  #     dockerfile: Dockerfile
+  #   container_name: auth-personal-website
+  #   # image: personal-website-api:latest
+  #   environment:
+  #     NODE_ENV: ${NODE_ENV}
+  #     JWT_SECRET: ${JWT_SECRET}
+  #     # DB_HOST: ${DB_HOST}
+  #     # DB_PORT: ${DB_PORT}
+  #     DB_HOST: db
+  #     DB_PORT: 3306
+  #     DB_USERNAME: ${DB_USERNAME}
+  #     DB_PASSWORD: ${DB_PASSWORD}
+  #     DB_NAME: ${DB_NAME}
+  #   ports:
+  #     - "3035:3000"
+  #   networks:
+  #     - net
+  #     - db_net
+  #   restart: unless-stopped
 
 volumes:
   db-data:
