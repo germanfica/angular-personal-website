@@ -3,11 +3,12 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "npm run generate-sitemap && ng serve",
-    "build": "npm run generate-sitemap && ng build",
+    "start": "npm run generate-env && npm run generate-sitemap && ng serve",
+    "build": "npm run generate-env && npm run generate-sitemap && ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "serve:ssr:personal": "node dist/personal/server/server.mjs",
+    "generate-env": "node generate-env.js",
     "generate-sitemap": "node generate-sitemap.js",
     "build-and-sitemap": "ng build && npm run generate-sitemap"
   },
