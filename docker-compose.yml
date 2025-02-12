@@ -3,6 +3,11 @@ services:
     build:
       context: ./
       dockerfile: app.Dockerfile
+      args:
+        API_DEV_BASE_URL: ${API_DEV_BASE_URL}
+        API_PROD_BASE_URL: ${API_PROD_BASE_URL}
+        API_CONTACT: ${API_CONTACT}
+        API_RECAPTCHA_SITE_KEY: ${API_RECAPTCHA_SITE_KEY}
     container_name: app-personal-website
     # image: personal-website-app:latest
     ports:
