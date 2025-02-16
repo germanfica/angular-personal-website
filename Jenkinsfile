@@ -212,7 +212,13 @@ pipeline {
             agent { label 'app.germanfica.com' }
             steps {
                 unstash "docker-compose"
-                sh 'mv docker-compose-image-template.yml docker-compose.yml'
+                //sh 'mv docker-compose-image-template.yml /opt/$PROJECT_NAME/docker-compose.yml'
+                sh '''
+                    if [ ! -d "/opt/$PROJECT_NAME" ]; then
+                        mkdir -p "/opt/$PROJECT_NAME"
+                    fi
+                    mv docker-compose-image-template.yml /opt/$PROJECT_NAME/docker-compose.yml
+                '''
             }
         }
     }
