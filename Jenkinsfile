@@ -225,6 +225,8 @@ pipeline {
     // esto genera un worskpace extra
     post {
         success {
+            sh "docker rmi -f ${env.APP_IMAGE_NAME}:${env.APP_IMAGE_TAG} || true"
+            sh "docker rmi -f ${env.APP_IMAGE_NAME}:${buildTag} || true"
             echo "Current workspace: ${env.WORKSPACE}"
             echo '✅ Build completed successfully.'
         }
@@ -239,6 +241,8 @@ pipeline {
 
                 sh "rm -f ${file1}"
                 sh "rm -f ${file2}"
+                sh "docker rmi -f ${env.APP_IMAGE_NAME}:${env.APP_IMAGE_TAG} || true"
+                sh "docker rmi -f ${env.APP_IMAGE_NAME}:${buildTag} || true"
 
                 sh "ls -la"
 
