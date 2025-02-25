@@ -1,0 +1,13 @@
+services:
+  {{ APP_NAME }}:
+    image: {{ APP_IMAGE_NAME }}:{{ APP_VERSION }}
+    environment:
+      NODE_ENV: production
+    networks:
+      - net
+    restart: unless-stopped
+
+networks:
+  net:
+    driver: bridge
+    external: true
