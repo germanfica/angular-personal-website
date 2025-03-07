@@ -8,8 +8,8 @@ services:
       - '81:81' # Panel de administración
       - '443:443'
     volumes:
-      - '/opt/nginx-proxy/data:/data'
-      - '/opt/nginx-proxy/letsencrypt:/etc/letsencrypt'
+      - './data:/data'
+      - './letsencrypt:/etc/letsencrypt'
     networks:
       - net
 
