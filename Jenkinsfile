@@ -134,7 +134,7 @@ pipeline {
                     // Guardar la imagen Docker 'app'
                     sh "docker save ${env.APP_IMAGE_NAME}:${APP_IMAGE_TAG} -o ${env.APP_IMAGE_NAME}-${APP_IMAGE_TAG}.tar"
                     // Guarda el archivo en Jenkins para transferirlo al otro agente
-                    stash name: 'app-tag-latest', includes: "${env.APP_IMAGE_NAME}-${APP_IMAGE_TAG}.tar"
+                    // stash name: 'app-tag-latest', includes: "${env.APP_IMAGE_NAME}-${APP_IMAGE_TAG}.tar"
                     echo "Docker image ${env.APP_IMAGE_NAME}:${APP_IMAGE_TAG} saved as ${env.APP_IMAGE_NAME}-${APP_IMAGE_TAG}.tar"
                 }
             }
@@ -156,7 +156,7 @@ pipeline {
                     // Guardar la imagen Docker 'app'
                     sh "docker save ${env.APP_IMAGE_NAME}:${buildTag} -o ${env.APP_IMAGE_NAME}-v${buildTag}.tar"
                     // Guarda el archivo en Jenkins para transferirlo al otro agente
-                    stash name: 'app-tag-number', includes: "${env.APP_IMAGE_NAME}-v${buildTag}.tar"
+                    // stash name: 'app-tag-number', includes: "${env.APP_IMAGE_NAME}-v${buildTag}.tar"
                     echo "Docker image ${env.APP_IMAGE_NAME}:${buildTag} saved as ${env.APP_IMAGE_NAME}-v${buildTag}.tar"
                 }
             }
