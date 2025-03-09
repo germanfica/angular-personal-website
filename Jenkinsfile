@@ -17,11 +17,16 @@ pipeline {
 
     environment {
         GITHUB_SSH_CREDENTIALS_ID = 'ssh-angular-personal-website' // Reemplaza con el ID de tus credenciales SSH de tipo Username with private key
+        SSH_KEY=credentials('0f35a115-c0eb-428d-9a43-4222baa005a5') // Secret kind: SSH Username with private key
         REPO_URL = 'https://github.com/germanfica/angular-personal-website.git'
         REPO_DIR = 'angular-personal-website' // Directorio del repositorio clonado
         PROJECT_NAME = 'personal-website'
         APP_IMAGE_NAME = 'personal-website-app'
         APP_IMAGE_TAG = 'latest'
+        INVENTORY_PATH = '/opt/ansible-infra/inventories/production/applications/personal-website/inventory.yml'
+        PLAYBOOK_PATH = '/opt/ansible-infra/playbooks/deploy-docker-app.yml'
+        // Nota: WORKSPACE es una variable de Jenkins, no una variable de Groovy. No usar comillas simples en NPM_TEMPLATE_SRC porque Groovy no hace interpolación en ellas.
+        NPM_TEMPLATE_SRC = "${WORKSPACE}/templates/docker-compose.npm.yml.j2" // Usar ruta absoluta!! Para evitar que Ansible no encuentre el archivo
     }
 
     options {
@@ -157,68 +162,23 @@ pipeline {
             }
         }
 
-        // * Deploy to server * //
-
-        stage('Upload docker images to the server') {
-            agent { label 'app.germanfica.com' }  // Agente que recibe el archivo
-            steps {
-                // Recupera el archivo guardado en Jenkins
-                //unstash "app-tag-lastet"
-                unstash "app-tag-number"
-                // echo "THIS IS THE server agent!!"
-                // sh 'pwd'
-                // sh 'ls -la'
-                // echo "THIS IS THE server agent!!"
-                // Mueve el archivo al directorio final
-                //sh "mv ${env.APP_IMAGE_NAME}-${APP_IMAGE_TAG}.tar /agent-dir/" // estas variables no son secretas, usá comillas dobles
-                //sh "mv ${env.APP_IMAGE_NAME}-v${buildTag}.tar /agent-dir/" // estas variables no son secretas, usá comillas dobles
-            }
-        }
-
-        stage('Load docker images to the server') {
-            agent { label 'app.germanfica.com' }
-            steps {
-                sh """
-                    docker load -i ${env.APP_IMAGE_NAME}-v${buildTag}.tar
-                    docker images
-                    rm -f ${env.APP_IMAGE_NAME}-v${buildTag}.tar
-                """
-            }
-        }
-
-        stage('Modify docker-compose-image-template.yml') {
+        stage('Deploy npm App') {
             steps {
                 script {
-                    // Lee el contenido del archivo docker-compose-image-template.yml
-                    def dockerComposeTemplate = readFile 'docker-compose-image-template.yml'
-
-                    // Reemplaza 'tu-imagen-hash' con '${env.APP_IMAGE_NAME}:${buildTag}'
-                    def dockerComposeContent = dockerComposeTemplate.replaceAll('app-image-name', "${env.APP_IMAGE_NAME}:${buildTag}")
-
-                    // Reemplaza 'nginx-image-name' con '${env.NGINX_IMAGE_NAME}:${buildTag}'
-                    //dockerComposeContent = dockerComposeContent.replaceAll('nginx-image-name', "${env.NGINX_IMAGE_NAME}:${buildTag}")
-
-                    // Escribe el contenido modificado en un nuevo archivo
-                    writeFile file: 'docker-compose-image-template.yml', text: dockerComposeContent
-
-                    stash name: 'docker-compose', includes: 'docker-compose-image-template.yml'
-
-                    echo "Content successfully modified:\n${dockerComposeContent}"
+                    sh 'ls -la'
+                    sh 'ansible-playbook -i $INVENTORY_PATH --private-key=$SSH_KEY $PLAYBOOK_PATH --extra-vars "APP_NAME=npm APP_VERSION=latest WORKSPACE=$WORKSPACE TEMPLATE_SRC=$NPM_TEMPLATE_SRC USE_TAR=false"'
                 }
             }
         }
 
-        stage('Upload docker-compose.yml to the server') {
-            agent { label 'app.germanfica.com' }
+        stage('Deploy personal-website App') {
             steps {
-                unstash "docker-compose"
-                //sh 'mv docker-compose-image-template.yml /opt/$PROJECT_NAME/docker-compose.yml'
-                sh '''
-                    if [ ! -d "/opt/$PROJECT_NAME" ]; then
-                        mkdir -p "/opt/$PROJECT_NAME"
-                    fi
-                    mv docker-compose-image-template.yml /opt/$PROJECT_NAME/docker-compose.yml
-                '''
+                script {
+                    sh 'ls -la'
+                    withEnv(["BUILD_TAG=${buildTag}"]) {
+                        sh 'ansible-playbook -i $INVENTORY_PATH --private-key=$SSH_KEY $PLAYBOOK_PATH --extra-vars "APP_VERSION=$BUILD_TAG APP_IMAGE_NAME=$APP_IMAGE_NAME APP_NAME=$PROJECT_NAME WORKSPACE=$WORKSPACE"'
+                    }
+                }
             }
         }
     }
