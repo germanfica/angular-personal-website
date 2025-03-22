@@ -27,6 +27,7 @@ pipeline {
         PLAYBOOK_PATH = '/opt/ansible-infra/playbooks/deploy-docker-app.yml'
         // Nota: WORKSPACE es una variable de Jenkins, no una variable de Groovy. No usar comillas simples en NPM_TEMPLATE_SRC porque Groovy no hace interpolación en ellas.
         NPM_TEMPLATE_SRC = "${WORKSPACE}/templates/docker-compose.npm.yml.j2" // Usar ruta absoluta!! Para evitar que Ansible no encuentre el archivo
+        HOSTS = 'myserver'
     }
 
     options {
@@ -166,7 +167,7 @@ pipeline {
             steps {
                 script {
                     sh 'ls -la'
-                    sh 'ansible-playbook -i $INVENTORY_PATH --private-key=$SSH_KEY $PLAYBOOK_PATH --extra-vars "APP_NAME=npm APP_VERSION=latest WORKSPACE=$WORKSPACE TEMPLATE_SRC=$NPM_TEMPLATE_SRC USE_TAR=false"'
+                    sh 'ansible-playbook -i $INVENTORY_PATH --private-key=$SSH_KEY $PLAYBOOK_PATH --limit $HOSTS --extra-vars "APP_NAME=npm APP_VERSION=latest WORKSPACE=$WORKSPACE TEMPLATE_SRC=$NPM_TEMPLATE_SRC USE_TAR=false"'
                 }
             }
         }
@@ -176,7 +177,7 @@ pipeline {
                 script {
                     sh 'ls -la'
                     withEnv(["BUILD_TAG=${buildTag}"]) {
-                        sh 'ansible-playbook -i $INVENTORY_PATH --private-key=$SSH_KEY $PLAYBOOK_PATH --extra-vars "APP_VERSION=$BUILD_TAG APP_IMAGE_NAME=$APP_IMAGE_NAME APP_NAME=$PROJECT_NAME WORKSPACE=$WORKSPACE"'
+                        sh 'ansible-playbook -i $INVENTORY_PATH --private-key=$SSH_KEY $PLAYBOOK_PATH --limit $HOSTS --extra-vars "APP_VERSION=$BUILD_TAG APP_IMAGE_NAME=$APP_IMAGE_NAME APP_NAME=$PROJECT_NAME WORKSPACE=$WORKSPACE"'
                     }
                 }
             }
