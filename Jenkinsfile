@@ -29,6 +29,7 @@ pipeline {
         NPM_TEMPLATE_SRC = "${WORKSPACE}/templates/docker-compose.npm.yml.j2" // Usar ruta absoluta!! Para evitar que Ansible no encuentre el archivo
         TARGET_HOSTS = 'myserver'
         LIMIT_HOSTS = 'myserver'
+        USE_BECOME = 'true'
     }
 
     options {
@@ -168,7 +169,7 @@ pipeline {
             steps {
                 script {
                     sh 'ls -la'
-                    sh 'ansible-playbook -i $INVENTORY_PATH --private-key=$SSH_KEY $PLAYBOOK_PATH --limit $LIMIT_HOSTS --extra-vars "APP_NAME=npm APP_VERSION=latest WORKSPACE=$WORKSPACE TEMPLATE_SRC=$NPM_TEMPLATE_SRC USE_TAR=false TARGET_HOSTS=$TARGET_HOSTS"'
+                    sh 'ansible-playbook -i $INVENTORY_PATH --private-key=$SSH_KEY $PLAYBOOK_PATH --limit $LIMIT_HOSTS --extra-vars "APP_NAME=npm APP_VERSION=latest WORKSPACE=$WORKSPACE TEMPLATE_SRC=$NPM_TEMPLATE_SRC USE_TAR=false TARGET_HOSTS=$TARGET_HOSTS USE_BECOME=$USE_BECOME"'
                 }
             }
         }
@@ -178,7 +179,7 @@ pipeline {
                 script {
                     sh 'ls -la'
                     withEnv(["BUILD_TAG=${buildTag}"]) {
-                        sh 'ansible-playbook -i $INVENTORY_PATH --private-key=$SSH_KEY $PLAYBOOK_PATH --limit $LIMIT_HOSTS --extra-vars "APP_VERSION=$BUILD_TAG APP_IMAGE_NAME=$APP_IMAGE_NAME APP_NAME=$PROJECT_NAME WORKSPACE=$WORKSPACE TARGET_HOSTS=$TARGET_HOSTS"'
+                        sh 'ansible-playbook -i $INVENTORY_PATH --private-key=$SSH_KEY $PLAYBOOK_PATH --limit $LIMIT_HOSTS --extra-vars "APP_VERSION=$BUILD_TAG APP_IMAGE_NAME=$APP_IMAGE_NAME APP_NAME=$PROJECT_NAME WORKSPACE=$WORKSPACE TARGET_HOSTS=$TARGET_HOSTS USE_BECOME=$USE_BECOME"'
                     }
                 }
             }
