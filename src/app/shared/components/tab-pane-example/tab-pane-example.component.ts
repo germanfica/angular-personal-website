@@ -1,6 +1,6 @@
 import { Component, ContentChildren, Directive, ElementRef, HostListener, Input, OnInit, QueryList } from '@angular/core';
 
-@Directive({ selector: 'pane' })
+@Directive({ selector: 'pane', standalone: false })
 export class Pane implements OnInit {
   @Input() id!: string;
   textContent: string = '';

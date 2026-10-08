@@ -1,7 +1,8 @@
 import { Directive, ElementRef, OnInit } from '@angular/core';
 
 @Directive({
-  selector: '[appError]'
+  selector: '[appError]',
+  standalone: false
 })
 export class ErrorDirective implements OnInit {
   textContent: string = '';

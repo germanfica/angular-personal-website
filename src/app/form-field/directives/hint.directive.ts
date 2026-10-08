@@ -1,7 +1,8 @@
 import { Directive, ElementRef, OnInit } from '@angular/core';
 
 @Directive({
-  selector: '[appHint]'
+  selector: '[appHint]',
+  standalone: false
 })
 export class HintDirective implements OnInit {
   textContent: string = '';
