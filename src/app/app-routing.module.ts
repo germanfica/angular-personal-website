@@ -13,6 +13,7 @@ const routes: Routes = [
         pathMatch: 'full'
       },
       { path: 'projects', loadChildren: () => import('./projects/projects.module').then(m => m.ProjectsModule) },
+      { path: 'contact', loadChildren: () => import('./contact/contact.module').then(m => m.ContactModule) },
     ]
   },
   { path: '**', loadChildren: () => import('./page-not-found/page-not-found.module').then(m => m.PageNotFoundModule) }
