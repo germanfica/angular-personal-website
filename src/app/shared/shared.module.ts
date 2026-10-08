@@ -1,21 +1,14 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SocialMediaComponent } from './components/social-media/social-media.component';
-import { NgxBootstrapIconsModule } from 'ngx-bootstrap-icons';
-import { github, linkedin, youtube } from 'ngx-bootstrap-icons';
-import { PreviewCardComponent } from './components/preview-card/preview-card.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { FormFieldModule } from '@app/form-field/form-field.module';
+
+import { SocialIconsModule } from '@shared/social-icons.module';
+import { SocialMediaComponent } from './components/social-media/social-media.component';
+import { PreviewCardComponent } from './components/preview-card/preview-card.component';
 import { ContentChildrenComp, Pane, Tab } from './components/tab-pane-example/tab-pane-example.component';
+
+import { FormFieldModule } from '@app/form-field/form-field.module';
 import { ButtonModule } from '@app/button/button.module';
-// Select some icons (use an object, not an array)
-const icons = {
-  github,
-  linkedin,
-  youtube
-};
-
-
 
 @NgModule({
   declarations: [
@@ -34,7 +27,7 @@ const icons = {
   ],
   imports: [
     CommonModule,
-    NgxBootstrapIconsModule.pick(icons),
+    SocialIconsModule,
     ReactiveFormsModule,
     FormsModule,
     FormFieldModule,
