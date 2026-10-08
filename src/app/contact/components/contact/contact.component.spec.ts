@@ -1,4 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { provideRouter } from '@angular/router';
 
 import { ContactComponent } from './contact.component';
 
@@ -8,7 +10,9 @@ describe('ContactComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ContactComponent]
+      declarations: [ContactComponent],
+      providers: [provideRouter([])],
+      schemas: [NO_ERRORS_SCHEMA]
     })
     .compileComponents();
     

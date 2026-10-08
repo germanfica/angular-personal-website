@@ -138,3 +138,15 @@
 
     @media (min-width: 1500px) {}
 }
+
+// Cuando el mismo formulario se usa dentro de /contact, no debe cubrir
+// toda la pantalla en dispositivos moviles.
+@media (max-width: 768px) {
+    :host .center.inline {
+        position: static;
+        z-index: auto;
+        width: 100%;
+        height: auto;
+        overflow: visible;
+    }
+}

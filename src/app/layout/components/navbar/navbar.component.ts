@@ -2,7 +2,6 @@
 import { ViewportScroller } from '@angular/common';
 import { Component, OnInit, OnDestroy, HostListener } from '@angular/core';
 import { ContactCardDialogManagerService } from '@app/contact-card/services/contact-card-dialog-manager.service';
-import { ContactCardDialogService } from '@app/contact-card/services/contact-card-dialog.service';
 import { NavbarService } from '@app/layout/services/navbar.service';
 import { Subscription } from 'rxjs';
 

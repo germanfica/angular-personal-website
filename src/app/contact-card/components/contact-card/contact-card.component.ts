@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ContactCardDialogManagerService } from '@app/contact-card/services/contact-card-dialog-manager.service';
 import { ContactService } from '@core/services/contact.service';
@@ -11,6 +11,7 @@ import { Subscription, catchError } from 'rxjs';
   styleUrls: ['./contact-card.component.scss']
 })
 export class ContactCardComponent implements OnInit, OnDestroy {
+  @Input() inline = false;
   private subscription: Subscription = new Subscription(); // Mantener un registro de las suscripciones
   form: FormGroup = {} as FormGroup;
   loading: boolean = false;
