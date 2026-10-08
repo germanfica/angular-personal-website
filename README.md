@@ -62,12 +62,13 @@ Open `tsconfig.json`
 ```JSON
 {
    "compilerOptions":{
-      "baseUrl":"./",
-      "paths":{
-         "@shared/*":["src/app/shared/*"],
-         "@core/*":["src/app/core/*"],
-         "@util/*":["src/app/util/*"],
-         "@app/*":["src/app/*"]
+      "paths": {
+         "@shared/*": ["./src/app/shared/*"],
+         "@core/*": ["./src/app/core/*"],
+         "@util/*": ["./src/app/util/*"],
+         "@app/*": ["./src/app/*"],
+         "@styles/*": ["./src/styles/*"],
+         "src/*": ["./src/*"]
       }
    }
 }
