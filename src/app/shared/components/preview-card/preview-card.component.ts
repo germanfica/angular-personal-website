@@ -2,6 +2,7 @@ import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-preview-card',
+  standalone: false,
   templateUrl: './preview-card.component.html',
   styleUrls: ['./preview-card.component.scss']
 })

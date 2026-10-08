@@ -11,6 +11,7 @@ const BASE_URL: string = `${api.baseUrl}`;
 
 @Component({
   selector: 'app-projects',
+  standalone: false,
   templateUrl: './projects.component.html',
   styleUrls: ['./projects.component.scss']
 })

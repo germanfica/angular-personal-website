@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-social-media',
+  standalone: false,
   templateUrl: './social-media.component.html',
   styleUrls: ['./social-media.component.scss']
 })

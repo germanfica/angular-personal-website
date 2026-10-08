@@ -3,6 +3,7 @@ import { ConfirmationDialogService } from '@app/contact-card/services/confirmati
 
 @Component({
   selector: 'app-confirmation-dialog',
+  standalone: false,
   template: `
     <h1 mat-dialog-title>¿Estás seguro?</h1>
     <div mat-dialog-content>Tienes cambios sin guardar. ¿Seguro que quieres salir?</div>

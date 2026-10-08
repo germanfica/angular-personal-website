@@ -6,6 +6,7 @@ import { Subscription, catchError } from 'rxjs';
 
 @Component({
   selector: 'app-contact-card',
+  standalone: false,
   templateUrl: './contact-card.component.html',
   styleUrls: ['./contact-card.component.scss']
 })

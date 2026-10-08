@@ -8,6 +8,7 @@ export declare type InputFieldType = 'input' | 'textarea';
 
 @Component({
   selector: 'app-input-field',
+  standalone: false,
   templateUrl: './input-field.component.html',
   styleUrls: ['./input-field.component.scss'],
   providers: [

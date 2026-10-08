@@ -23,6 +23,7 @@ export class Pane implements OnInit {
 
 @Component({
   selector: 'tab',
+  standalone: false,
   template: `
     <div class="top-level">Top level panes: {{serializedPanes}}</div>
     <div class="nested">Arbitrary nested panes: {{serializedNestedPanes}}</div>
@@ -46,6 +47,7 @@ export class Tab {
 
 @Component({
   selector: 'example-app',
+  standalone: false,
   template: `
   <pane id="16565">asd que onda jugares</pane>
     <tab>

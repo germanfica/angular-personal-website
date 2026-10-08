@@ -4,6 +4,7 @@ import { Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
 
 @Component({
   selector: 'app-hero-header',
+  standalone: false,
   templateUrl: './hero-header.component.html',
   styleUrls: ['./hero-header.component.scss']
 })

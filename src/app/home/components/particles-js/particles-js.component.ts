@@ -4,6 +4,7 @@ import { Component, Inject, PLATFORM_ID, afterNextRender } from '@angular/core';
 
 @Component({
   selector: 'app-particles-js',
+  standalone: false,
   templateUrl: './particles-js.component.html',
   styleUrl: './particles-js.component.scss',
   host: { ngSkipHydration: 'true' }

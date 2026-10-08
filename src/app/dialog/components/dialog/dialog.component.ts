@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-dialog',
+  standalone: false,
   templateUrl: './dialog.component.html',
   styleUrls: ['./dialog.component.scss']
 })

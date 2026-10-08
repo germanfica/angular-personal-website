@@ -6,6 +6,7 @@ import { PageNotFoundService } from './page-not-found.service';
 
 @Component({
   selector: 'app-page-not-found',
+  standalone: false,
   templateUrl: './page-not-found.component.html',
   styleUrls: ['./page-not-found.component.scss']
 })

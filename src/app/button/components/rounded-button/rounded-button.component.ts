@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-rounded-button',
+  standalone: false,
   templateUrl: './rounded-button.component.html',
   styleUrls: ['./rounded-button.component.scss']
 })

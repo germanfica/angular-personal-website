@@ -5,6 +5,7 @@ import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-latest-projects',
+  standalone: false,
   templateUrl: './latest-projects.component.html',
   styleUrls: ['./latest-projects.component.scss']
 })
