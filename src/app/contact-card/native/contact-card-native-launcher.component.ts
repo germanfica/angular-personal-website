@@ -12,7 +12,26 @@ import { ContactCardNativeDialogService } from './contact-card-native-dialog.ser
       </section>
     </div>
   `,
-  styleUrls: ['./contact-card-native-launcher.component.scss']
+  styles: [`
+    :host {
+      .contact-backdrop {
+        position: fixed;
+        inset: 0;
+        z-index: 1100;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: rgba(0, 0, 0, 0.6);
+        overflow-y: auto;
+      }
+
+      .contact-panel {
+        width: min(654px, 100vw);
+        max-height: 100dvh;
+        overflow-y: auto;
+      }
+    }
+  `]
 })
 export class ContactCardNativeLauncherComponent {
   constructor(public dialog: ContactCardNativeDialogService) {}
