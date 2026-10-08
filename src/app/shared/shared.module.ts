@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NgxBootstrapIconsModule } from 'ngx-bootstrap-icons';
 
-import { SocialIconsModule } from '@shared/social-icons.module';
 import { SocialMediaComponent } from './components/social-media/social-media.component';
 import { PreviewCardComponent } from './components/preview-card/preview-card.component';
 import { ContentChildrenComp, Pane, Tab } from './components/tab-pane-example/tab-pane-example.component';
@@ -16,22 +16,22 @@ import { ButtonModule } from '@app/button/button.module';
     PreviewCardComponent,
     Pane,
     Tab,
-    ContentChildrenComp,
+    ContentChildrenComp
   ],
   exports: [
     SocialMediaComponent,
     PreviewCardComponent,
     Pane,
     Tab,
-    ContentChildrenComp,
+    ContentChildrenComp
   ],
   imports: [
     CommonModule,
-    SocialIconsModule,
+    NgxBootstrapIconsModule,
     ReactiveFormsModule,
     FormsModule,
     FormFieldModule,
     ButtonModule
   ]
 })
-export class SharedModule { }
+export class SharedModule {}

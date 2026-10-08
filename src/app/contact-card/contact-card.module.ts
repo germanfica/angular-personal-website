@@ -4,7 +4,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { FormFieldModule } from '@app/form-field/form-field.module';
 import { ContactCardComponent } from './components/contact-card/contact-card.component';
 import { ButtonModule } from '@app/button/button.module';
-import { RecaptchaFormsModule, RecaptchaModule, RecaptchaSettings, RECAPTCHA_SETTINGS } from 'ng-recaptcha';
+import { RecaptchaFormsModule, RecaptchaModule, RecaptchaSettings, RECAPTCHA_SETTINGS } from 'ng-recaptcha-2';
 import { api } from 'src/environments/environment.api';
 import { MatDialogModule } from '@angular/material/dialog';
 import { SuccessMessageComponent } from './components/success-message/success-message.component';
