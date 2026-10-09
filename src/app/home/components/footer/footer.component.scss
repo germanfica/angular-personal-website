@@ -1,17 +1,16 @@
-@import 'headings';
-@import 'variables';
-
+@use 'headings';
+@use 'variables';
 :host {
     .box {
-        background-color: $blue-purple-color;
-        color: $white;
+        background-color: variables.$blue-purple-color;
+        color: variables.$white;
         padding-bottom: 60px;
     }
 
     h2 {
         padding-top: 40px;
         font-weight: bold;
-        color: $white;
+        color: variables.$white;
         text-align: center !important;
         padding-bottom: 40px;
     }

@@ -1,6 +1,5 @@
-@import 'variables';
-@import 'margins';
-
+@use 'variables';
+@use 'margins';
 :host {
 
     /* Full-screen background with gradient */
@@ -33,7 +32,7 @@
         top: 10vh;
         width: 10px 100%;
         padding: 10px 10%;
-        color: $white;
+        color: variables.$white;
     }
 
     .header {

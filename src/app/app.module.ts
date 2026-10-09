@@ -1,3 +1,4 @@
+import { ContactCardModule } from './contact-card/contact-card.module';
 import { HttpClientModule, provideHttpClient, withFetch } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule, provideClientHydration, withHttpTransferCacheOptions } from '@angular/platform-browser';
@@ -12,6 +13,7 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
     AppComponent
   ],
   imports: [
+    ContactCardModule,
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,

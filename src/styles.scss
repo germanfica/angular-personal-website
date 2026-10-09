@@ -1,5 +1,6 @@
+@use 'variables';
 @import url("https://fonts.googleapis.com/css?family=Raleway:400,100,200,300,500,600,700,800");
-@import 'variables';
+
 
 html,
 body,
@@ -213,11 +214,11 @@ img {
 
 mat-dialog-container {
     //background-color: rgba(255, 255, 255, 0) !important;
-    background-color: $dialog-color !important;
+    background-color: variables.$dialog-color !important;
     box-shadow: none !important;
 }
 
 .mat-progress-spinner circle,
 .mat-spinner circle {
-    stroke: $loading-color !important;
+    stroke: variables.$loading-color !important;
 }

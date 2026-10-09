@@ -1,10 +1,10 @@
-<div class="center">
+<div class="center" [class.inline]="inline">
 
     <div class="box">
 
         <div class="top-bg"></div>
         <div class="inner-box">
-            <div class="close-container"><span class="close" (click)="close()">&times;</span></div>
+            <div class="close-container" *ngIf="!inline"><span class="close" (click)="close()">&times;</span></div>
 
             <!-- Error message -->
             <ng-container *ngIf="!success && error">

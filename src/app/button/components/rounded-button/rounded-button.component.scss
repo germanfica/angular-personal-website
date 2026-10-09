@@ -1,19 +1,18 @@
-@import 'variables';
-
+@use 'variables';
 :host {
     // == primary-color ==
     .btn-solid,
     .btn-solid-dark {
         letter-spacing: 1px;
         display: inline-block;
-        background: $primary-color;
-        color: $white;
+        background: variables.$primary-color;
+        color: variables.$white;
         -webkit-transition: 0.2s;
         -ms-transition: 0.2s;
         -moz-transition: 0.2s;
         -o-transition: 0.2s;
         transition: 0.2s;
-        border: 1px solid $primary-color;
+        border: 1px solid variables.$primary-color;
         font-weight: 600;
         font-size: 0.75em;
         text-align: center;
@@ -22,12 +21,12 @@
 
     .btn-solid:focus,
     .btn-solid-dark:focus {
-        background: $primary-color;
+        background: variables.$primary-color;
     }
 
     .btn-solid:hover,
     .btn-solid-dark:hover {
-        background: $primary-dark-color;
+        background: variables.$primary-dark-color;
     }
 
     // == secondary-color ==
@@ -35,14 +34,14 @@
     .btn-solid-secondary-dark {
         letter-spacing: 1px;
         display: inline-block;
-        background: $secondary-color;
-        color: $white;
+        background: variables.$secondary-color;
+        color: variables.$white;
         -webkit-transition: 0.2s;
         -ms-transition: 0.2s;
         -moz-transition: 0.2s;
         -o-transition: 0.2s;
         transition: 0.2s;
-        border: 1px solid $secondary-color;
+        border: 1px solid variables.$secondary-color;
         font-weight: 600;
         font-size: 0.75em;
         text-align: center;
@@ -51,12 +50,12 @@
 
     .btn-solid-secondary:focus,
     .btn-solid-secondary-dark:focus {
-        background: $secondary-color;
+        background: variables.$secondary-color;
     }
 
     .btn-solid-secondary:hover,
     .btn-solid-secondary-dark:hover {
-        background: $secondary-dark-color;
+        background: variables.$secondary-dark-color;
     }
 
     // == disabled-color ==
@@ -64,14 +63,14 @@
     .btn-disabled-dark {
         letter-spacing: 1px;
         display: inline-block;
-        background: $disabled-color;
-        color: $white;
+        background: variables.$disabled-color;
+        color: variables.$white;
         -webkit-transition: 0.2s;
         -ms-transition: 0.2s;
         -moz-transition: 0.2s;
         -o-transition: 0.2s;
         transition: 0.2s;
-        border: 1px solid $disabled-color;
+        border: 1px solid variables.$disabled-color;
         font-weight: 600;
         font-size: 0.75em;
         text-align: center;
@@ -81,12 +80,12 @@
 
     .btn-disabled:focus,
     .btn-disabled-dark:focus {
-        background: $disabled-color;
+        background: variables.$disabled-color;
     }
 
     .btn-disabled:hover,
     .btn-disabled-dark:hover {
-        background: $disabled-color;
+        background: variables.$disabled-color;
     }
 
     // == extras ==

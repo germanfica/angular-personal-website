@@ -11,7 +11,6 @@ import { AboutComponent } from './components/about/about.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { DialogModule } from '@app/dialog/dialog.module';
 import { ButtonModule } from '@app/button/button.module';
-import { MatDialogModule } from '@angular/material/dialog';
 import { ParticlesJsComponent } from './components/particles-js/particles-js.component';
 
 
@@ -30,8 +29,7 @@ import { ParticlesJsComponent } from './components/particles-js/particles-js.com
     HomeRoutingModule,
     SharedModule,
     DialogModule,
-    ButtonModule,
-    MatDialogModule
+    ButtonModule
   ]
 })
 export class HomeModule { }

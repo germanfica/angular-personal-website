@@ -1,5 +1,4 @@
-@import 'variables';
-
+@use 'variables';
 :host {
     img {
         border-radius: 15px;
@@ -23,7 +22,7 @@
         flex-direction: row;
         min-width: 0;
         word-wrap: break-word;
-        background-color: $white;
+        background-color: variables.$white;
         //background-color: aquamarine;
         border-radius: .95rem;
     }
@@ -61,7 +60,7 @@
             flex-direction: column;
             min-width: 0;
             word-wrap: break-word;
-            background-color: $white;
+            background-color: variables.$white;
             border-radius: .95rem;
             flex-direction: column-reverse;
         }

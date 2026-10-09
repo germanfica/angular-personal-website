@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ContactCardDialogManagerService } from '@app/contact-card/services/contact-card-dialog-manager.service';
+import { ContactCardDialogService } from '@app/contact-card/services/contact-card-dialog.service';
 
 @Component({
   selector: 'app-footer',
@@ -9,7 +9,7 @@ import { ContactCardDialogManagerService } from '@app/contact-card/services/cont
 })
 export class FooterComponent implements OnInit {
 
-  constructor(private contactCardDialog: ContactCardDialogManagerService) { }
+  constructor(private contactCardDialog: ContactCardDialogService) { }
 
   ngOnInit(): void {
   }
