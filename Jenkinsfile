@@ -102,8 +102,8 @@ pipeline {
                     file(credentialsId: 'app_german_fica_com.env', variable: 'ENV_FILE')
                 ]) {
                     sh '''
-                    [ -d "src/assets/json" ] || mkdir -p src/assets/json
-                    cp -f "$PROJECTS" src/assets/json/projects.json
+                    [ -d "public/json" ] || mkdir -p public/json
+                    cp -f "$PROJECTS" public/json/projects.json
                     cp -f "$ENV_FILE" .env
                     '''
                 }

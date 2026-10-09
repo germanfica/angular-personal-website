@@ -2,7 +2,7 @@
 
 ![localhost_4200_preview](https://user-images.githubusercontent.com/15948693/169944540-30507173-b1ea-4db5-8d07-6662de9ad962.png)
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.3.2.
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 22.2.2.
 
 ## Prerequisites
 
@@ -186,7 +186,7 @@ Open `angular.json`
 
 ## projects.json
 
-The `projects.json` file is crucial for displaying projects on your application. If this file is not present or is improperly configured, no projects will appear. Make sure to place this JSON file in the `assets/json/` directory.
+The `projects.json` file is crucial for displaying projects on your application. If this file is not present or is improperly configured, no projects will appear. Make sure to place this JSON file in the `public/json/` directory.
 
 #### Important note
 

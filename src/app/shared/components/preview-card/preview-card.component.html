@@ -1,9 +1,9 @@
 <div class="card project-card">
-    <img *ngIf="isAlignImageLeft()" class="card-img-left" src="assets/svg/example2.svg" alt="" width="200px" height="200px">
+    <img *ngIf="isAlignImageLeft()" class="card-img-left" src="/svg/example2.svg" alt="" width="200px" height="200px">
     <div>
         <h2>{{title}}</h2>
         <p>{{content}}</p>
         <app-rounded-button (click)="onButtonClick()" text="View project" color="secondary"></app-rounded-button>
     </div>
-    <img *ngIf="isAlignImageRight()" class="card-img-right" src="assets/svg/example2.svg" alt="" width="200px" height="200px">
+    <img *ngIf="isAlignImageRight()" class="card-img-right" src="/svg/example2.svg" alt="" width="200px" height="200px">
 </div>

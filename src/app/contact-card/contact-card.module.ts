@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormFieldModule } from '@app/form-field/form-field.module';
 import { ButtonModule } from '@app/button/button.module';
-import { RecaptchaFormsModule, RecaptchaModule, RecaptchaSettings, RECAPTCHA_SETTINGS } from 'ng-recaptcha';
+import { RecaptchaFormsModule, RecaptchaModule, RecaptchaSettings, RECAPTCHA_SETTINGS } from 'ng-recaptcha-2';
 import { api } from 'src/environments/environment.api';
 
 import { ContactCardComponent } from './components/contact-card/contact-card.component';
