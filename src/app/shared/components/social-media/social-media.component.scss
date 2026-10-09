@@ -1,5 +1,4 @@
-@import 'variables';
-
+@use 'variables';
 :host {
 
     /* DOTs */
@@ -11,7 +10,7 @@
 
     .youtube {
         background: #dd4b39;
-        color: $white;
+        color: variables.$white;
         padding-top: 6px;
     }
 
@@ -22,13 +21,13 @@
 
     .linkedin {
         background: #007bb6;
-        color: $white;
+        color: variables.$white;
         padding-top: 6px;
     }
 
     .github {
         background: #444444;
-        color: $white;
+        color: variables.$white;
         padding-top: 6px;
     }
 

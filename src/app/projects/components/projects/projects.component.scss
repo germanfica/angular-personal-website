@@ -1,7 +1,6 @@
-@import 'variables';
-@import 'margins';
-@import 'headings';
-
+@use 'variables';
+@use 'margins';
+@use 'headings';
 :host {
 
     h1 {

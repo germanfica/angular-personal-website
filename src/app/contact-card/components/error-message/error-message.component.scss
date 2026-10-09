@@ -1,5 +1,4 @@
-@import 'variables';
-
+@use 'variables';
 :host {
     .box {
         display: flex;
@@ -13,6 +12,6 @@
     }
 
     .error {
-        color: $danger-color;
+        color: variables.$danger-color;
     }
 }
