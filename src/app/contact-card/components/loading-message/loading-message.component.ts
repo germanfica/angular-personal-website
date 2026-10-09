@@ -10,6 +10,42 @@ import { Component } from '@angular/core';
       <p>Almost there. This may take a few seconds.</p>
     </div>
   `,
-  styleUrls: ['./loading-message.component.scss']
+  styles: [`
+    :host {
+      .box {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+      }
+
+      .mb25 {
+        margin-bottom: 25px;
+      }
+    }
+
+    /* Indicador sin Angular Material (se usa en las dos variantes). */
+    /* Conserva los estilos anteriores del contenedor y el espaciado. */
+    .contact-loading-spinner {
+      display: block;
+      box-sizing: border-box;
+      width: 80px;
+      height: 80px;
+      border: 3px solid currentColor;
+      border-right-color: transparent;
+      border-radius: 50%;
+      animation: contact-spin 0.8s linear infinite;
+    }
+
+    @keyframes contact-spin {
+      to { transform: rotate(360deg); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .contact-loading-spinner {
+        animation: none;
+      }
+    }
+  `]
 })
 export class LoadingMessageComponent {}
