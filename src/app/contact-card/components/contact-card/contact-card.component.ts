@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { ContactCardDialogManagerService } from '@app/contact-card/services/contact-card-dialog-manager.service';
+import { ContactCardDialogService } from '@app/contact-card/services/contact-card-dialog.service';
 import { ContactService } from '@core/services/contact.service';
 import { Subscription, catchError } from 'rxjs';
 
@@ -19,7 +19,7 @@ export class ContactCardComponent implements OnInit, OnDestroy {
   error: boolean = false;
   showRecaptcha: boolean = false;
 
-  constructor(private formBuilder: FormBuilder, private contactService: ContactService, private contactCardDialog: ContactCardDialogManagerService) { }
+  constructor(private formBuilder: FormBuilder, private contactService: ContactService, private contactCardDialog: ContactCardDialogService) { }
 
   ngOnInit(): void {
     this.buildForm();

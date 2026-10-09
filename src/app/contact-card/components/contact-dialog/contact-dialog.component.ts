@@ -1,5 +1,5 @@
 import { Component, HostListener } from '@angular/core';
-import { ContactCardNativeDialogService } from './contact-card-native-dialog.service';
+import { ContactCardDialogService } from '../../services/contact-card-dialog.service';
 
 @Component({
   selector: 'app-contact-dialog',
@@ -33,8 +33,8 @@ import { ContactCardNativeDialogService } from './contact-card-native-dialog.ser
     }
   `]
 })
-export class ContactCardNativeLauncherComponent {
-  constructor(public dialog: ContactCardNativeDialogService) {}
+export class ContactCardDialogComponent {
+  constructor(public dialog: ContactCardDialogService) {}
 
   @HostListener('document:keydown.escape')
   onEscape(): void {
