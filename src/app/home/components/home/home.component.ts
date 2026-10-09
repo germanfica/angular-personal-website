@@ -9,8 +9,13 @@ const BASE_URL: string = `${api.baseUrl}`;
 @Component({
   selector: 'app-home',
   standalone: false,
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss']
+  template: `
+    <app-hero-header />
+    <app-latest-projects id="latest-works"></app-latest-projects>
+    <app-projects></app-projects>
+    <app-about></app-about>
+    <app-footer></app-footer>
+  `
 })
 export class HomeComponent implements OnInit {
 
