@@ -33,8 +33,8 @@
                         <label appHint *ngIf="this.name?.errors?.['required']">Name is required</label>
                     </app-input-field>
                     <app-input-field formControlName="email" [type]="'input'"
-                        [label]="(this.email?.errors?.['email'] && !this.email?.errors?.['required']) || this.email?.errors?.['required'] ? 'Email*' : 'Email'">
-                        <label appError *ngIf="this.email?.errors?.['email'] && !this.email?.errors?.['required']">
+                        [label]="(this.email?.errors?.['email'] && !this.email.errors['required']) || this.email?.errors?.['required'] ? 'Email*' : 'Email'">
+                        <label appError *ngIf="this.email?.errors?.['email'] && !this.email.errors['required']">
                             Please enter a valid email address
                         </label>
                         <label appHint *ngIf="this.email?.errors?.['required']">Email is required</label>
