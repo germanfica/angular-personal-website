@@ -127,11 +127,6 @@ Use it like:
 
 ## Basic project dependencies
 
-- [@angular/material](https://material.angular.io/guide/getting-started)
-  - [docs](https://material.angular.io/components/categories)
-```bash
-ng add @angular/material
-```
 
 - [ngx-bootstrap-icons](https://www.npmjs.com/package/ngx-bootstrap-icons)
   - [docs](https://avmaisak.github.io/ngx-bootstrap-icons/icons)
@@ -163,7 +158,6 @@ Open `angular.json`
             "build":{
                "options":{
                   "styles":[
-                     "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
                      "src/styles.scss"
                   ],
                   "scripts":[
@@ -189,7 +183,6 @@ Open `angular.json`
 }
 ```
 
-Note: Keep in mind that this project uses the `Angular Material Dialog`, so you need to add the *Angular material prebuilt-themes* `"./node_modules/@angular/material/prebuilt-themes/indigo-pink.css"` line. If you are not going to use Angular material you can remove it and easily replace it with your own custom `Dialog`.
 
 ## projects.json
 
