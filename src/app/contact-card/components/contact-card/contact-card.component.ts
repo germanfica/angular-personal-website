@@ -12,6 +12,7 @@ import { Subscription, catchError } from 'rxjs';
 })
 export class ContactCardComponent implements OnInit, OnDestroy {
   @Input() inline = false;
+  @Input() inDialog = false;
   private subscription: Subscription = new Subscription(); // Mantener un registro de las suscripciones
   form: FormGroup = {} as FormGroup;
   loading: boolean = false;

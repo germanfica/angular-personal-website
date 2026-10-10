@@ -7,6 +7,7 @@ const OPENING_CLASS = 'contact-dialog--opening';
 const CLOSING_CLASS = 'contact-dialog--closing';
 const OPEN_ANIMATION_DURATION = 150;
 const CLOSE_ANIMATION_DURATION = 75;
+const BACKDROP_ANIMATION_DURATION = 400;
 const TRANSITION_DURATION_PROPERTY = '--contact-dialog-transition-duration';
 
 @Component({
@@ -15,10 +16,11 @@ const TRANSITION_DURATION_PROPERTY = '--contact-dialog-transition-duration';
   template: `
     <div *ngIf="renderDialog" #dialogContainer class="contact-backdrop contact-dialog"
       (click)="dialog.close()">
+      <div class="contact-dialog-backdrop" aria-hidden="true"></div>
       <div class="contact-dialog-inner-container">
         <section class="contact-panel contact-dialog-surface" role="dialog" aria-modal="true"
           aria-label="Formulario de contacto" (click)="$event.stopPropagation()">
-          <app-contact-card></app-contact-card>
+          <app-contact-card [inDialog]="true"></app-contact-card>
         </section>
       </div>
     </div>
@@ -31,12 +33,28 @@ const TRANSITION_DURATION_PROPERTY = '--contact-dialog-transition-duration';
       display: flex;
       align-items: center;
       justify-content: center;
-      background: rgba(0, 0, 0, 0.6);
       overflow-y: auto;
+    }
+
+    /* Independent backdrop fade, matching the overlay timing. */
+    :host .contact-dialog-backdrop {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      background: rgba(0, 0, 0, 0.32);
+      opacity: 0;
+      transition: opacity 400ms cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+
+    :host .contact-dialog--open .contact-dialog-backdrop {
+      opacity: 1;
     }
 
     /* Opacity transition */
     :host .contact-dialog-inner-container {
+      position: relative;
+      z-index: 1;
       display: flex;
       flex-direction: row;
       align-items: center;
@@ -73,6 +91,7 @@ const TRANSITION_DURATION_PROPERTY = '--contact-dialog-transition-duration';
     }
 
     @media (prefers-reduced-motion: reduce) {
+      :host .contact-dialog-backdrop,
       :host .contact-dialog-inner-container,
       :host .contact-dialog-surface {
         transition: none;
@@ -160,7 +179,9 @@ export class ContactCardDialogComponent implements OnInit, OnDestroy {
       this.animationFrame = null;
       element.classList.add(CLOSING_CLASS);
     });
-    this.waitForAnimationToComplete(CLOSE_ANIMATION_DURATION, () => {
+    // The surface exits in 75ms, but the backdrop fades for 400ms.
+    // Keep the overlay mounted until both transitions have finished.
+    this.waitForAnimationToComplete(BACKDROP_ANIMATION_DURATION, () => {
       if (!this.dialog.isOpen) this.renderDialog = false;
     });
   }
