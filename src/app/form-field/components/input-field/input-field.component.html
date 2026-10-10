@@ -1,6 +1,6 @@
 <div class="input">
-    <input [disabled]="disable" *ngIf="type=='input'" [(ngModel)]="value" (input)="change(value)" type="text" class="input-field" name="name" required />
-    <textarea *ngIf="type=='textarea'" [(ngModel)]="value" (input)="change(value)" type="text" class="input-field" name="message" required></textarea>
+    <input [disabled]="disable" *ngIf="type=='input'" [(ngModel)]="value" [ngModelOptions]="{ standalone: true }" (input)="change(value)" type="text" class="input-field" name="name" required />
+    <textarea *ngIf="type=='textarea'" [(ngModel)]="value" [ngModelOptions]="{ standalone: true }" (input)="change(value)" type="text" class="input-field" name="message" required></textarea>
     <label class="input-label">{{label}}</label>
 </div>
 <div class="message-section">
