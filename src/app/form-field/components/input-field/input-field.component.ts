@@ -66,7 +66,8 @@ export class InputFieldComponent implements OnInit, ControlValueAccessor {
   }
 
   change(value: any): void {
-    this.onChange(value);
+      this.value = value;
+      this.onChange(value);
   }
 
   get serializedNestedHintTextContent(): string {
