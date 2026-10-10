@@ -95,6 +95,25 @@ const TRANSITION_DURATION_PROPERTY = '--contact-dialog-transition-duration';
       transform: none;
     }
 
+    /* Full-screen dialogs must fill the viewport throughout the mobile fade. */
+    @media (max-width: 768px) {
+      :host .contact-dialog-inner-container {
+        align-items: stretch;
+      }
+
+      :host .contact-panel {
+        box-sizing: border-box;
+        width: 100%;
+        height: 100dvh;
+        max-height: 100dvh;
+        overflow-x: hidden;
+        overflow-y: auto;
+        background: #fff;
+        transform: none;
+        transition: none;
+      }
+    }
+
     @media (prefers-reduced-motion: reduce) {
       :host .contact-dialog-backdrop,
       :host .contact-dialog-inner-container,

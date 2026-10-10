@@ -97,11 +97,10 @@
     @media (min-width: 1500px) {}
 }
 
-// En /contact y dentro del dialog, evitar que el formulario se posicione
-// como una capa fija sobre el dialog animado.
+// Cuando el mismo formulario se usa dentro de /contact, no debe cubrir
+// toda la pantalla en dispositivos moviles.
 @media (max-width: 768px) {
-    :host .center.inline,
-    :host .center.in-dialog {
+    :host .center.inline {
         position: static;
         z-index: auto;
         width: 100%;
