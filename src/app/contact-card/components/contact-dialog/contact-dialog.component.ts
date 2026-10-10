@@ -36,7 +36,12 @@ const TRANSITION_DURATION_PROPERTY = '--contact-dialog-transition-duration';
       overflow-y: auto;
     }
 
-    /* Independent backdrop fade, matching the overlay timing. */
+    /* Allow clicks through the overlay while its backdrop fades out. */
+    :host .contact-dialog--closing {
+      pointer-events: none;
+    }
+
+    /* Independent backdrop fade, matching the CDK overlay timing. */
     :host .contact-dialog-backdrop {
       position: absolute;
       inset: 0;
@@ -175,10 +180,7 @@ export class ContactCardDialogComponent implements OnInit, OnDestroy {
 
     element.classList.remove(OPEN_CLASS);
     element.style.setProperty(TRANSITION_DURATION_PROPERTY, `${CLOSE_ANIMATION_DURATION}ms`);
-    this.animationFrame = requestAnimationFrame(() => {
-      this.animationFrame = null;
-      element.classList.add(CLOSING_CLASS);
-    });
+    element.classList.add(CLOSING_CLASS);
     // The surface exits in 75ms, but the backdrop fades for 400ms.
     // Keep the overlay mounted until both transitions have finished.
     this.waitForAnimationToComplete(BACKDROP_ANIMATION_DURATION, () => {
