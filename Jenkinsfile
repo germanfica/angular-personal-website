@@ -95,29 +95,49 @@ pipeline {
             }
         }
 
-        stage('Generate legacy environment files') {
+        stage('Legacy Compatibility') {
             when {
                 expression {
                     return params.GIT_BRANCH == 'tag' && buildTag in ['1.0.24', '1.0.25']
                 }
             }
-            steps {
-                withCredentials([
-                    string(credentialsId: 'af0ea8aa-56ab-4c5a-802b-0d2cf3370c2e', variable: 'API_DEV_BASE_URL'),
-                    string(credentialsId: '24ba145b-8362-441d-a47c-fbe55cc98f1d', variable: 'API_PROD_BASE_URL'),
-                    string(credentialsId: '892b8335-4628-4340-b151-0215892fee41', variable: 'API_CONTACT'),
-                    string(credentialsId: '8cb6a022-1e31-4d62-9bd5-6364e50e43df', variable: 'API_RECAPTCHA_SITE_KEY')
-                ]) {
-                    sh '''
-                        set -eu
+            stages {
+                stage('Generate legacy environment files') {
+                    steps {
+                        withCredentials([
+                            string(credentialsId: 'af0ea8aa-56ab-4c5a-802b-0d2cf3370c2e', variable: 'API_DEV_BASE_URL'),
+                            string(credentialsId: '24ba145b-8362-441d-a47c-fbe55cc98f1d', variable: 'API_PROD_BASE_URL'),
+                            string(credentialsId: '892b8335-4628-4340-b151-0215892fee41', variable: 'API_CONTACT'),
+                            string(credentialsId: '8cb6a022-1e31-4d62-9bd5-6364e50e43df', variable: 'API_RECAPTCHA_SITE_KEY')
+                        ]) {
+                            sh '''
+                                set -eu
 
-                        git show origin/main:generate-env.js > /tmp/generate-env-legacy.js
+                                git show origin/main:generate-env.js > /tmp/generate-env-legacy.js
 
-                        node /tmp/generate-env-legacy.js
+                                node /tmp/generate-env-legacy.js
 
-                        test -s src/environments/environment.api.ts
-                        test -s src/environments/environment.api.prod.ts
-                    '''
+                                test -s src/environments/environment.api.ts
+                                test -s src/environments/environment.api.prod.ts
+                            '''
+                        }
+                    }
+                }
+
+                stage('Prepare legacy deployment templates') {
+                    steps {
+                        sh '''
+                            set -eu
+
+                            mkdir -p templates
+
+                            git show origin/main:templates/docker-compose.npm.yml.j2 > templates/docker-compose.npm.yml.j2
+
+                            test -s templates/docker-compose.npm.yml.j2
+
+                            echo "Legacy deployment template ready"
+                        '''
+                    }
                 }
             }
         }
