@@ -131,11 +131,12 @@ pipeline {
 
                             mkdir -p templates
 
-                            git show origin/main:templates/docker-compose.npm.yml.j2 > templates/docker-compose.npm.yml.j2
+                            for name in docker-compose.npm.yml.j2 docker-compose.app.yml.j2; do
+                                git show "origin/main:templates/$name" > "templates/$name"
+                                test -s "templates/$name"
+                            done
 
-                            test -s templates/docker-compose.npm.yml.j2
-
-                            echo "Legacy deployment template ready"
+                            echo "Legacy deployment templates ready"
                         '''
                     }
                 }
