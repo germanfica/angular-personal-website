@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { ProjectsService } from '@core/services/projects.service';
 import { Project } from '@core/models/project';
 import { Subscription } from 'rxjs';
@@ -13,7 +13,7 @@ export class LatestProjectsComponent implements OnInit, OnDestroy {
   private subscription: Subscription = new Subscription(); // Mantener un registro de las suscripciones para evitar efectos secundarios
   latestProjects: Project[] = [];
 
-  constructor(private projectsService: ProjectsService) { }
+  constructor(private projectsService: ProjectsService, private cdr: ChangeDetectorRef) { }
 
   ngOnInit(): void {
     this.fetchAndSetLatestProjects();
@@ -29,6 +29,8 @@ export class LatestProjectsComponent implements OnInit, OnDestroy {
   private fetchAndSetLatestProjects(): void {
     const projectsServiceSubscription = this.projectsService.getAllProjects().subscribe(projects => {
       this.latestProjects = this.getLatestProjects(projects);
+
+      this.cdr.markForCheck();
     });
 
     this.subscription.add(projectsServiceSubscription);  // Agrega esta suscripción para desuscribirse luego
