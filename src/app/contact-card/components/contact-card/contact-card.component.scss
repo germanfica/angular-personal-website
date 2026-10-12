@@ -1,5 +1,4 @@
-@use 'top-bg';
-@use 'bottom-bg';
+@use 'sass:meta';
 
 :host {
     .ptb10 {
@@ -45,7 +44,7 @@
 
         .inner-box {
             color: black;
-            padding: 30px 30px 0px 30px;
+            padding: 30px 30px 30px 30px;
         }
 
         h1 {
@@ -56,6 +55,9 @@
 
     /*For desktop*/
     @media (min-width: 769px) {
+        @include meta.load-css('top-bg');
+        @include meta.load-css('bottom-bg');
+
         .center {
             display: flex;
             justify-content: center;
