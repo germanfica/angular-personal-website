@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { NgxBootstrapIconsModule } from 'ngx-bootstrap-icons';
+import { SocialIconsModule } from './social-icons.module';
 
 import { SocialMediaComponent } from './components/social-media/social-media.component';
 import { PreviewCardComponent } from './components/preview-card/preview-card.component';
@@ -27,7 +27,7 @@ import { ButtonModule } from '@app/button/button.module';
   ],
   imports: [
     CommonModule,
-    NgxBootstrapIconsModule,
+    SocialIconsModule,
     ReactiveFormsModule,
     FormsModule,
     FormFieldModule,
