@@ -21,10 +21,7 @@ const icons = {
     CommonModule,
     RouterModule,
     NgxBootstrapIconsModule.pick(icons),
-    ContactCardModule
-  ],
-  exports: [
-    LayoutComponent
+    ContactCardModule,
   ]
 })
 export class LayoutModule { }
