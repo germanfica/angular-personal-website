@@ -6,9 +6,6 @@ import { HintDirective } from '@app/form-field/directives/hint.directive';
 /** Possible types for the input field. */
 export declare type InputFieldType = 'input' | 'textarea';
 
-/** Possible values for the input field. */
-export type InputFieldValue = string | null | undefined;
-
 @Component({
   selector: 'app-input-field',
   standalone: false,
@@ -23,7 +20,7 @@ export type InputFieldValue = string | null | undefined;
   ]
 })
 export class InputFieldComponent implements OnInit, ControlValueAccessor {
-  value: InputFieldValue = ''; // value for
+  value: string = ''; // value for
   onChange: any = () => { };
   onTouched: any = () => { };
   onDisabled: any = () => { };
@@ -37,7 +34,7 @@ export class InputFieldComponent implements OnInit, ControlValueAccessor {
     private _elementRef: ElementRef,
     private _renderer: Renderer2
   ) { }
-  writeValue(value: InputFieldValue): void {
+  writeValue(value: any): void {
     switch (this.type) {
       case 'input': {
         this.value = value;
