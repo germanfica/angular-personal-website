@@ -3,7 +3,13 @@ import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormFieldModule } from '@app/form-field/form-field.module';
 import { ButtonModule } from '@app/button/button.module';
-import { RecaptchaFormsModule, RecaptchaModule, RecaptchaSettings, RECAPTCHA_SETTINGS } from 'ng-recaptcha';
+import {
+  RecaptchaFormsModule,
+  RecaptchaLoaderService,
+  RecaptchaModule,
+  RecaptchaSettings,
+  RECAPTCHA_SETTINGS
+} from 'ng-recaptcha';
 import { api } from 'src/environments/environment.api';
 
 import { ContactCardComponent } from './components/contact-card/contact-card.component';
@@ -31,6 +37,7 @@ import { ContactCardDialogComponent } from './components/contact-dialog/contact-
   ],
   exports: [ContactCardDialogComponent, ContactCardComponent],
   providers: [
+    RecaptchaLoaderService,
     {
       provide: RECAPTCHA_SETTINGS,
       useValue: { siteKey: api.recaptcha.siteKey } as RecaptchaSettings
