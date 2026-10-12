@@ -16,14 +16,14 @@ import { ButtonModule } from '@app/button/button.module';
     PreviewCardComponent,
     Pane,
     Tab,
-    ContentChildrenComp
+    ContentChildrenComp,
   ],
   exports: [
     SocialMediaComponent,
     PreviewCardComponent,
     Pane,
     Tab,
-    ContentChildrenComp
+    ContentChildrenComp,
   ],
   imports: [
     CommonModule,
