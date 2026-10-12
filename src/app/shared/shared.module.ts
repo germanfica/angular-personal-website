@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { SocialIconsModule } from './social-icons.module';
 
-import { SocialIconsModule } from '@shared/social-icons.module';
 import { SocialMediaComponent } from './components/social-media/social-media.component';
 import { PreviewCardComponent } from './components/preview-card/preview-card.component';
 import { ContentChildrenComp, Pane, Tab } from './components/tab-pane-example/tab-pane-example.component';
