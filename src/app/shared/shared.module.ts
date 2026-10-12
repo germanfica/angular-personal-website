@@ -34,4 +34,4 @@ import { ButtonModule } from '@app/button/button.module';
     ButtonModule
   ]
 })
-export class SharedModule {}
+export class SharedModule { }
