@@ -3,10 +3,11 @@ import {
   NgxBootstrapIconsModule,
   github,
   linkedin,
-  youtube
+  youtube,
+  list
 } from 'ngx-bootstrap-icons';
 
-const icons = { github, linkedin, youtube };
+const icons = { github, linkedin, youtube, list };
 
 @NgModule({
   imports: [NgxBootstrapIconsModule.pick(icons)],

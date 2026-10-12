@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Project } from '@core/models/project';
 import { map, Observable, } from 'rxjs';
 
-const API_URL: string = `./assets/json/projects.json`;
+const API_URL: string = `/json/projects.json`;
 
 @Injectable({
   providedIn: 'root'

@@ -31,10 +31,10 @@ pipeline {
                     file(credentialsId: 'projects.json', variable: 'PROJECTS')
                 ]) {
                     sh '''
-                    mkdir -p src/assets/json
+                    mkdir -p public/json
                     cp -f $ENV_API_PROD src/environments/environment.api.prod.ts
                     cp -f $ENV_API src/environments/environment.api.ts
-                    cp -f $PROJECTS src/assets/json/projects.json
+                    cp -f $PROJECTS public/json/projects.json
                     cp -f $APP_GERMANFICA_COM_CRT app_germanfica_com.crt
                     cp -f $APP_GERMANFICA_KEY app_germanfica_com.key
                     cp -f $LOCALHOST_CRT localhost.crt

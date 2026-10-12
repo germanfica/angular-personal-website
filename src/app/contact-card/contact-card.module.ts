@@ -9,7 +9,7 @@ import {
   RecaptchaModule,
   RecaptchaSettings,
   RECAPTCHA_SETTINGS
-} from 'ng-recaptcha';
+} from 'ng-recaptcha-2';
 import { api } from 'src/environments/environment.api';
 
 import { ContactCardComponent } from './components/contact-card/contact-card.component';
