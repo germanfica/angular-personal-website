@@ -19,7 +19,6 @@ pipeline {
         GITHUB_SSH_CREDENTIALS_ID = 'ssh-angular-personal-website' // Reemplaza con el ID de tus credenciales SSH de tipo Username with private key
         SSH_KEY=credentials('0f35a115-c0eb-428d-9a43-4222baa005a5') // Secret kind: SSH Username with private key
         REPO_URL = 'https://github.com/germanfica/angular-personal-website.git'
-        REPO_DIR = 'angular-personal-website' // Directorio del repositorio clonado
         PROJECT_NAME = 'personal-website'
         APP_IMAGE_NAME = 'personal-website-app'
         APP_IMAGE_TAG = 'latest'
